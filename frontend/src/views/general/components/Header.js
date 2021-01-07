@@ -1,4 +1,4 @@
-function Header() {
+export default function Header() {
     return (
         <div>
             <header id="mu-header">
@@ -41,5 +41,3 @@ function Header() {
         </div>
     );
 }
-
-export default Header;

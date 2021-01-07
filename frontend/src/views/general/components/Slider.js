@@ -1,6 +1,6 @@
 import SliderSingle from './SliderSingle';
 
-function Slider() {
+export default function Slider() {
     return (
         <div>
             <section id="mu-slider">
@@ -11,5 +11,3 @@ function Slider() {
         </div>
     )
 }
-
-export default Slider;

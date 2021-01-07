@@ -1,4 +1,4 @@
-function Search() {
+export default function Search() {
     return (
         <div>
             <div id="mu-search">

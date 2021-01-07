@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-class PopularFields extends Component {
-    render() {
+export default function PopularFields(){
+    
         return (
             <div>
                 <section id="mu-features">
@@ -75,5 +75,4 @@ class PopularFields extends Component {
             </div>
         )
     }
-}
-export default PopularFields;
+

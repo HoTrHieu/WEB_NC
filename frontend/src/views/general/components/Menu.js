@@ -1,4 +1,4 @@
-function Menu() {
+export default function Menu() {
     return (
         <div>
             <section id="mu-menu">
@@ -42,5 +42,3 @@ function Menu() {
         </div>
     )
 }
-
-export default Menu;
