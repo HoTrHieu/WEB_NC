@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import CartCourse from './CartCourse';
 
-export default function LatestCourses() {
+export default function RecommendedCourse(props) {
 
   return (
     <section id="mu-latest-courses">
@@ -11,10 +11,10 @@ export default function LatestCourses() {
           <div className="col-lg-12 col-md-12">
             <div className="mu-latest-courses-area">
               <div className="mu-title">
-                <h2>Latest Courses</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio ipsa ea maxime mollitia, vitae voluptates, quod at, saepe reprehenderit totam aliquam architecto fugiat sunt animi!</p>
+                <h2>{props.RecommendedCourse}</h2>
               </div>
               <div id="mu-latest-course-slide" className="mu-latest-courses-content">
+                <CartCourse />
                 <CartCourse />
                 <CartCourse />
                 <CartCourse />

@@ -40,30 +40,6 @@ export default function PopularFields(){
                                                     <a href="#">Read More</a>
                                                 </div>
                                             </div>
-                                            <div className="col-lg-4 col-md-4 col-sm-6">
-                                                <div className="mu-single-feature">
-                                                    <span className="fa fa-microphone"></span>
-                                                    <h4>Audio Lessons</h4>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus non dolorem excepturi libero itaque sint labore similique maxime natus eum.</p>
-                                                    <a href="#">Read More</a>
-                                                </div>
-                                            </div>
-                                            <div className="col-lg-4 col-md-4 col-sm-6">
-                                                <div className="mu-single-feature">
-                                                    <span className="fa fa-film"></span>
-                                                    <h4>Video Lessons</h4>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus non dolorem excepturi libero itaque sint labore similique maxime natus eum.</p>
-                                                    <a href="#">Read More</a>
-                                                </div>
-                                            </div>
-                                            <div className="col-lg-4 col-md-4 col-sm-6">
-                                                <div className="mu-single-feature">
-                                                    <span className="fa fa-certificate"></span>
-                                                    <h4>Professional Certificate</h4>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus non dolorem excepturi libero itaque sint labore similique maxime natus eum.</p>
-                                                    <a href="#">Read More</a>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
 

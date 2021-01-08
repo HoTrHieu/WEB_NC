@@ -1,6 +1,15 @@
+import React from 'react';
+import {
+    BrowserRouter as Router,
+    Link
+} from 'react-router-dom'
+
+
+
 export default function Menu() {
     return (
-        <div>
+        <Router>
+            <div>
             <section id="mu-menu">
                 <nav className="navbar navbar-default" role="navigation">
                     <div className="container">
@@ -15,12 +24,12 @@ export default function Menu() {
                         </div>
                         <div id="navbar" className="navbar-collapse collapse">
                             <ul id="top-menu" className="nav navbar-nav navbar-right main-nav">
-                                <li className="active"><a href="index.html">Home</a></li>
+                                <li className="active"><Link to='/'>Home</Link></li>
                                 <li className="dropdown">
                                     <a href="#" className="dropdown-toggle" data-toggle="dropdown">Course <span className="fa fa-angle-down"></span></a>
                                     <ul className="dropdown-menu" role="menu">
                                         <li><a href="course.html">Course Archive</a></li>
-                                        <li><a href="course-detail.html">Course Detail</a></li>
+                                        <li><Link to='/coursedetail'>Course Detail</Link></li>
                                     </ul>
                                 </li>
                                 <li><a href="gallery.html">Gallery</a></li>
@@ -40,5 +49,7 @@ export default function Menu() {
                 </nav>
             </section>
         </div>
+        </Router>
+        
     )
 }
