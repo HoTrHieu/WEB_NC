@@ -23,11 +23,11 @@ export default function Header() {
                                         <div className="mu-header-top-right">
                                             <nav>
                                                 <ul className="mu-top-social-nav">
-                                                    <li><a href="#"><span className="fa fa-facebook"></span></a></li>
-                                                    <li><a href="#"><span className="fa fa-twitter"></span></a></li>
-                                                    <li><a href="#"><span className="fa fa-google-plus"></span></a></li>
-                                                    <li><a href="#"><span className="fa fa-linkedin"></span></a></li>
-                                                    <li><a href="#"><span className="fa fa-youtube"></span></a></li>
+                                                    <li><a href="!#"><span className="fa fa-facebook"></span></a></li>
+                                                    <li><a href="!#"><span className="fa fa-twitter"></span></a></li>
+                                                    <li><a href="!#"><span className="fa fa-google-plus"></span></a></li>
+                                                    <li><a href="!#"><span className="fa fa-linkedin"></span></a></li>
+                                                    <li><a href="!#"><span className="fa fa-youtube"></span></a></li>
                                                 </ul>
                                             </nav>
                                         </div>

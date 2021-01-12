@@ -1,19 +1,16 @@
-import { React } from "react";
-
-
+import  React  from "react";
 import PopularFields from '../components/PopularFields';
-import Dev_Member from '../components/Dev_Member';
+import DevMember from '../components/Dev_Member';
 import RecommendedCourse from '../components/RecommendedCourse';
 import SliderSingle from '../components/SliderSingle';
 export default function Home() {
     return (
         <div>
-            <section id="mu-slider">
+            <section id="mu-slider">   
                 <SliderSingle />
                 <SliderSingle />
-                <SliderSingle />
+                <SliderSingle />  
             </section>
-
             <div>
                 <section id="mu-service">
                     <div className="container">
@@ -49,7 +46,7 @@ export default function Home() {
             <PopularFields />
             <RecommendedCourse />
             
-            <Dev_Member />
+            <DevMember />
         </div>
     );
 }

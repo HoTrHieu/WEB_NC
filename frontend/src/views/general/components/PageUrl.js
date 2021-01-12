@@ -8,7 +8,7 @@ export default function PageUrl(){
                         <div className="mu-page-breadcrumb-area">
                         <h2>Course Detail</h2>
                         <ol className="breadcrumb">
-                            <li><a href="#">Home</a></li>            
+                            <li><a href="!#">Home</a></li>            
                             <li className="active">Course Detail</li>
                         </ol>
                         </div>

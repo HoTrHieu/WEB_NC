@@ -1,7 +1,7 @@
 import './App.css';
 
-import Header from './views/general/components/Header';
-import Menu from './views/general/components/Menu';
+// import {Header} from './views/general/components/Header';
+// import {Menu} from './views/general/components/Menu';
 import Footer from './views/general/components/Footer';
 import Search from './views/general/components/Search';
 import Home from './views/general/pages/Home';
@@ -15,6 +15,7 @@ import {
 
 
 function App() {
+    
   return (
     <Router>
       <div>
@@ -34,7 +35,7 @@ function App() {
                             <ul id="top-menu" className="nav navbar-nav navbar-right main-nav">
                                 <li className="active"><Link to='/'>Home</Link></li>
                                 <li className="dropdown">
-                                    <a href="#" className="dropdown-toggle" data-toggle="dropdown">Course <span className="fa fa-angle-down"></span></a>
+                                    <a href="!#" className="dropdown-toggle" data-toggle="dropdown">Course <span className="fa fa-angle-down"></span></a>
                                     <ul className="dropdown-menu" role="menu">
                                         <li><a href="course.html">Course Archive</a></li>
                                         <li><Link to='/detailcourse'>Course Detail</Link></li>
@@ -42,7 +43,7 @@ function App() {
                                 </li>
                                 <li><a href="gallery.html">Gallery</a></li>
                                 <li className="dropdown">
-                                    <a href="#" className="dropdown-toggle" data-toggle="dropdown">Blog <span className="fa fa-angle-down"></span></a>
+                                    <a href="!#" className="dropdown-toggle" data-toggle="dropdown">Blog <span className="fa fa-angle-down"></span></a>
                                     <ul className="dropdown-menu" role="menu">
                                         <li><a href="blog-archive.html">Blog Archive</a></li>
                                         <li><a href="blog-single.html">Blog Single</a></li>
@@ -50,7 +51,7 @@ function App() {
                                 </li>
                                 <li><a href="contact.html">Contact</a></li>
                                 <li><a href="404.html">404 Page</a></li>
-                                <li><a href="#" id="mu-search-icon"><i className="fa fa-search"></i></a></li>
+                                <li><a href="!#" id="mu-search-icon"><i className="fa fa-search"></i></a></li>
                             </ul>
                         </div>
                     </div>

@@ -18,14 +18,14 @@ export default function CourseDetail() {
                                                 <div className="col-md-12">
                                                     <div className="mu-latest-course-single">
                                                         <figure className="mu-latest-course-img">
-                                                            <a href="#"><img src="assets/img/courses/1.jpg" alt="img" /></a>
+                                                            <a href="!#"><img src="assets/img/courses/1.jpg" alt="img" /></a>
                                                             <figcaption className="mu-latest-course-imgcaption">
-                                                                <a href="#">Drawing</a>
+                                                                <a href="!#">Drawing</a>
                                                                 <span><i className="fa fa-clock-o"></i>90Days</span>
                                                             </figcaption>
                                                         </figure>
                                                         <div className="mu-latest-course-single-content">
-                                                            <h2><a href="#">Lorem ipsum dolor sit amet.</a></h2>
+                                                            <h2><a href="!#">Lorem ipsum dolor sit amet.</a></h2>
                                                             <h4>Course Information</h4>
                                                             <ul>
                                                                 <li> <span>Course Price</span> <span>$250</span></li>
@@ -104,12 +104,12 @@ export default function CourseDetail() {
                                             <div className="mu-single-sidebar">
                                                 <h3>Categories</h3>
                                                 <ul className="mu-sidebar-catg">
-                                                    <li><a href="#">Web Design</a></li>
-                                                    <li><a href="">Web Development</a></li>
-                                                    <li><a href="">Math</a></li>
-                                                    <li><a href="">Physics</a></li>
-                                                    <li><a href="">Camestry</a></li>
-                                                    <li><a href="">English</a></li>
+                                                    <li><a href="!#">Web Design</a></li>
+                                                    <li><a href="!#">Web Development</a></li>
+                                                    <li><a href="!#">Math</a></li>
+                                                    <li><a href="!#">Physics</a></li>
+                                                    <li><a href="!#">Camestry</a></li>
+                                                    <li><a href="!#">English</a></li>
                                                 </ul>
                                             </div>
                                             <div className="mu-single-sidebar">
@@ -117,34 +117,34 @@ export default function CourseDetail() {
                                                 <div className="mu-sidebar-popular-courses">
                                                     <div className="media">
                                                         <div className="media-left">
-                                                            <a href="#">
+                                                            <a href="!#">
                                                                 <img className="media-object" src="assets/img/courses/1.jpg/" alt="img" />
                                                             </a>
                                                         </div>
                                                         <div className="media-body">
-                                                            <h4 className="media-heading"><a href="#">Medical Science</a></h4>
+                                                            <h4 className="media-heading"><a href="!#">Medical Science</a></h4>
                                                             <span className="popular-course-price">$200.00</span>
                                                         </div>
                                                     </div>
                                                     <div className="media">
                                                         <div className="media-left">
-                                                            <a href="#">
+                                                            <a href="!#">
                                                                 <img className="media-object" src="assets/img/courses/2.jpg" alt="img" />
                                                             </a>
                                                         </div>
                                                         <div className="media-body">
-                                                            <h4 className="media-heading"><a href="#">Web Design</a></h4>
+                                                            <h4 className="media-heading"><a href="!#">Web Design</a></h4>
                                                             <span className="popular-course-price">$250.00</span>
                                                         </div>
                                                     </div>
                                                     <div className="media">
                                                         <div className="media-left">
-                                                            <a href="#">
+                                                            <a href="!#">
                                                                 <img className="media-object" src="assets/img/courses/3.jpg" alt="img" />
                                                             </a>
                                                         </div>
                                                         <div className="media-body">
-                                                            <h4 className="media-heading"><a href="#">Health  Sports</a></h4>
+                                                            <h4 className="media-heading"><a href="!#">Health  Sports</a></h4>
                                                             <span className="popular-course-price">$90.00</span>
                                                         </div>
                                                     </div>
@@ -152,7 +152,7 @@ export default function CourseDetail() {
                                             </div>
                                             <div className="mu-single-sidebar">
                                                 <h3>Teacher</h3>
-                                                <a href="#"><img alt="img" src="assets/img/testimonial-1.png" /></a>
+                                                <a href="!#"><img alt="img" src="assets/img/testimonial-1.png" /></a>
                                                 <p>JAMES HEIN</p>
                                                 <p>Physics Teacher</p>
                                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique quod pariatur recusandae odio dignissimos. Eligendi.</p>
@@ -172,18 +172,18 @@ export default function CourseDetail() {
                                         <div className="col-md-6">
                                             <div className="mu-latest-course-single">
                                                 <figure className="mu-latest-course-img">
-                                                    <a href="#"><img alt="img" src="assets/img/courses/1.jpg" /></a>
+                                                    <a href="!#"><img alt="img" src="assets/img/courses/1.jpg" /></a>
                                                     <figcaption className="mu-latest-course-imgcaption">
-                                                        <a href="#">Drawing</a>
+                                                        <a href="!#">Drawing</a>
                                                         <span><i className="fa fa-clock-o"></i>190Days</span>
                                                     </figcaption>
                                                 </figure>
                                                 <div className="mu-latest-course-single-content">
-                                                    <h4><a href="#">Lorem ipsum dolor sit amet.</a></h4>
+                                                    <h4><a href="!#">Lorem ipsum dolor sit amet.</a></h4>
                                                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet quod nisi quisquam modi dolore, dicta obcaecati architecto quidem ullam quia.</p>
                                                     <div className="mu-latest-course-single-contbottom">
-                                                        <a href="#" className="mu-course-details">Details</a>
-                                                        <span href="#" className="mu-course-price">$165.00</span>
+                                                        <a href="!#" className="mu-course-details">Details</a>
+                                                        <span href="!#" className="mu-course-price">$165.00</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -191,18 +191,18 @@ export default function CourseDetail() {
                                         <div className="col-md-6">
                                             <div className="mu-latest-course-single">
                                                 <figure className="mu-latest-course-img">
-                                                    <a href="#"><img alt="img" src="assets/img/courses/2.jpg" /></a>
+                                                    <a href="!#"><img alt="img" src="assets/img/courses/2.jpg" /></a>
                                                     <figcaption className="mu-latest-course-imgcaption">
-                                                        <a href="#">Drawing</a>
+                                                        <a href="!#">Drawing</a>
                                                         <span><i className="fa fa-clock-o"></i>920Days</span>
                                                     </figcaption>
                                                 </figure>
                                                 <div className="mu-latest-course-single-content">
-                                                    <h4><a href="#">Lorem ipsum dolor sit amet.</a></h4>
+                                                    <h4><a href="!#">Lorem ipsum dolor sit amet.</a></h4>
                                                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet quod nisi quisquam modi dolore, dicta obcaecati architecto quidem ullam quia.</p>
                                                     <div className="mu-latest-course-single-contbottom">
-                                                        <a href="#" className="mu-course-details">Details</a>
-                                                        <span href="#" className="mu-course-price">$165.00</span>
+                                                        <a href="!#" className="mu-course-details">Details</a>
+                                                        <span href="!#" className="mu-course-price">$165.00</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -210,18 +210,18 @@ export default function CourseDetail() {
                                         <div className="col-md-6">
                                             <div className="mu-latest-course-single">
                                                 <figure className="mu-latest-course-img">
-                                                    <a href="#"><img alt="img" src="assets/img/courses/3.jpg" /></a>
+                                                    <a href="!#"><img alt="img" src="assets/img/courses/3.jpg" /></a>
                                                     <figcaption className="mu-latest-course-imgcaption">
-                                                        <a href="#">Drawing</a>
+                                                        <a href="!#">Drawing</a>
                                                         <span><i className="fa fa-clock-o"></i>903Days</span>
                                                     </figcaption>
                                                 </figure>
                                                 <div className="mu-latest-course-single-content">
-                                                    <h4><a href="#">Lorem ipsum dolor sit amet.</a></h4>
+                                                    <h4><a href="!#">Lorem ipsum dolor sit amet.</a></h4>
                                                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet quod nisi quisquam modi dolore, dicta obcaecati architecto quidem ullam quia.</p>
                                                     <div className="mu-latest-course-single-contbottom">
-                                                        <a href="#" className="mu-course-details">Details</a>
-                                                        <span href="#" className="mu-course-price">$165.00</span>
+                                                        <a href="!#" className="mu-course-details">Details</a>
+                                                        <span href="!#" className="mu-course-price">$165.00</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -229,18 +229,18 @@ export default function CourseDetail() {
                                         <div className="col-md-6">
                                             <div className="mu-latest-course-single">
                                                 <figure className="mu-latest-course-img">
-                                                    <a href="#"><img alt="img" src="assets/img/courses/1.jpg" /></a>
+                                                    <a href="!#"><img alt="img" src="assets/img/courses/1.jpg" /></a>
                                                     <figcaption className="mu-latest-course-imgcaption">
-                                                        <a href="#">Drawing</a>
+                                                        <a href="!#">Drawing</a>
                                                         <span><i className="fa fa-clock-o"></i>90Days</span>
                                                     </figcaption>
                                                 </figure>
                                                 <div className="mu-latest-course-single-content">
-                                                    <h4><a href="#">Lorem ipsum dolor sit amet.</a></h4>
+                                                    <h4><a href="!#">Lorem ipsum dolor sit amet.</a></h4>
                                                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet quod nisi quisquam modi dolore, dicta obcaecati architecto quidem ullam quia.</p>
                                                     <div className="mu-latest-course-single-contbottom">
-                                                        <a href="#" className="mu-course-details">Details</a>
-                                                        <span href="#" className="mu-course-price">$165.00</span>
+                                                        <a href="!#" className="mu-course-details">Details</a>
+                                                        <span href="!#" className="mu-course-price">$165.00</span>
                                                     </div>
                                                 </div>
                                             </div>

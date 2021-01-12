@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 export default function PopularFields(){
     
@@ -21,7 +21,7 @@ export default function PopularFields(){
                                                     <span className="fa fa-book"></span>
                                                     <h4>Professional Courses</h4>
                                                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus non dolorem excepturi libero itaque sint labore similique maxime natus eum.</p>
-                                                    <a href="#">Read More</a>
+                                                    <a href="!#">Read More</a>
                                                 </div>
                                             </div>
                                             <div className="col-lg-4 col-md-4 col-sm-6">
@@ -29,7 +29,7 @@ export default function PopularFields(){
                                                     <span className="fa fa-users"></span>
                                                     <h4>Expert Teachers</h4>
                                                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus non dolorem excepturi libero itaque sint labore similique maxime natus eum.</p>
-                                                    <a href="#">Read More</a>
+                                                    <a href="!#">Read More</a>
                                                 </div>
                                             </div>
                                             <div className="col-lg-4 col-md-4 col-sm-6">
@@ -37,7 +37,7 @@ export default function PopularFields(){
                                                     <span className="fa fa-laptop"></span>
                                                     <h4>Online Learning</h4>
                                                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus non dolorem excepturi libero itaque sint labore similique maxime natus eum.</p>
-                                                    <a href="#">Read More</a>
+                                                    <a href="!#">Read More</a>
                                                 </div>
                                             </div>
                                         </div>

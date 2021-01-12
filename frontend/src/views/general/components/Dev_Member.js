@@ -1,4 +1,3 @@
-import { Component } from "react";
 
 export default function Dev_Member() {
 
@@ -20,10 +19,10 @@ export default function Dev_Member() {
                                                 <figure className="mu-our-teacher-img">
                                                     <img src="./assets/img/teachers/teacher-01.png" alt="teacher img" />
                                                     <div className="mu-our-teacher-social">
-                                                        <a href="#"><span className="fa fa-facebook"></span></a>
-                                                        <a href="#"><span className="fa fa-twitter"></span></a>
-                                                        <a href="#"><span className="fa fa-linkedin"></span></a>
-                                                        <a href="#"><span className="fa fa-google-plus"></span></a>
+                                                        <a href="!#"><span className="fa fa-facebook"></span></a>
+                                                        <a href="!#"><span className="fa fa-twitter"></span></a>
+                                                        <a href="!#"><span className="fa fa-linkedin"></span></a>
+                                                        <a href="!#"><span className="fa fa-google-plus"></span></a>
                                                     </div>
                                                 </figure>
                                                 <div className="mu-ourteacher-single-content">
@@ -38,10 +37,10 @@ export default function Dev_Member() {
                                                 <figure className="mu-our-teacher-img">
                                                     <img src="./assets/img/teachers/teacher-02.png" alt="teacher img" />
                                                     <div className="mu-our-teacher-social">
-                                                        <a href="#"><span className="fa fa-facebook"></span></a>
-                                                        <a href="#"><span className="fa fa-twitter"></span></a>
-                                                        <a href="#"><span className="fa fa-linkedin"></span></a>
-                                                        <a href="#"><span className="fa fa-google-plus"></span></a>
+                                                        <a href="!#"><span className="fa fa-facebook"></span></a>
+                                                        <a href="!#"><span className="fa fa-twitter"></span></a>
+                                                        <a href="!#"><span className="fa fa-linkedin"></span></a>
+                                                        <a href="!#"><span className="fa fa-google-plus"></span></a>
                                                     </div>
                                                 </figure>
                                                 <div className="mu-ourteacher-single-content">
@@ -56,10 +55,10 @@ export default function Dev_Member() {
                                                 <figure className="mu-our-teacher-img">
                                                     <img src="assets/img/teachers/teacher-03.png" alt="teacher img" />
                                                     <div className="mu-our-teacher-social">
-                                                        <a href="#"><span className="fa fa-facebook"></span></a>
-                                                        <a href="#"><span className="fa fa-twitter"></span></a>
-                                                        <a href="#"><span className="fa fa-linkedin"></span></a>
-                                                        <a href="#"><span className="fa fa-google-plus"></span></a>
+                                                        <a href="!#"><span className="fa fa-facebook"></span></a>
+                                                        <a href="!#"><span className="fa fa-twitter"></span></a>
+                                                        <a href="!#"><span className="fa fa-linkedin"></span></a>
+                                                        <a href="!#"><span className="fa fa-google-plus"></span></a>
                                                     </div>
                                                 </figure>
                                                 <div className="mu-ourteacher-single-content">
@@ -74,10 +73,10 @@ export default function Dev_Member() {
                                                 <figure className="mu-our-teacher-img">
                                                     <img src="assets/img/teachers/teacher-04.png" alt="teacher img" />
                                                     <div className="mu-our-teacher-social">
-                                                        <a href="#"><span className="fa fa-facebook"></span></a>
-                                                        <a href="#"><span className="fa fa-twitter"></span></a>
-                                                        <a href="#"><span className="fa fa-linkedin"></span></a>
-                                                        <a href="#"><span className="fa fa-google-plus"></span></a>
+                                                        <a href="!#"><span className="fa fa-facebook"></span></a>
+                                                        <a href="!#"><span className="fa fa-twitter"></span></a>
+                                                        <a href="!#"><span className="fa fa-linkedin"></span></a>
+                                                        <a href="!#"><span className="fa fa-google-plus"></span></a>
                                                     </div>
                                                 </figure>
                                                 <div className="mu-ourteacher-single-content">
