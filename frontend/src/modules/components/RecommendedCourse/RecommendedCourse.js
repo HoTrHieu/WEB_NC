@@ -1,6 +1,6 @@
 import React from "react";
 
-import CartCourse from './CartCourse';
+import CartCourse from '../CartCourse/CartCourse';
 
 export default function RecommendedCourse(props) {
 

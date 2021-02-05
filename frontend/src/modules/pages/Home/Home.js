@@ -1,8 +1,8 @@
 import  React  from "react";
-import PopularFields from '../components/PopularFields';
-import DevMember from '../components/Dev_Member';
-import RecommendedCourse from '../components/RecommendedCourse';
-import SliderSingle from '../components/SliderSingle';
+import PopularFields from '../../components/PopularFeilds/PopularFields';
+import DevMember from '../../components/Dev_Member/Dev_Member';
+import RecommendedCourse from '../../components/RecommendedCourse/RecommendedCourse';
+import SliderSingle from '../../components/SliderSingle/SliderSingle';
 export default function Home() {
     return (
         <div>

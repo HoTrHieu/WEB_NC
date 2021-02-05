@@ -1,8 +1,9 @@
+import React from 'react';
 
-export default function Footer() {
+const Footer = () => {
 
-    return (
-        <div>
+    const render = () => {
+        return (
             <footer id="mu-footer">
                 <div className="mu-footer-top">
                     <div className="container">
@@ -66,8 +67,10 @@ export default function Footer() {
                     </div>
                 </div>
             </footer>
-        </div>
-    )
+        )
+    }
+    
+    return render();
 }
 
-
+export default Footer;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import PageUrl from '../components/PageUrl';
+import PageUrl from '../../components/PageUrl/PageUrl';
 
 export default function CourseDetail() {
     return (
