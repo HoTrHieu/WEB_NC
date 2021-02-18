@@ -1,12 +1,9 @@
 import Home from './Home/Home';
-import CourseDetail from './CourseDetail/CourseDetail';
 
 export const page = [
-    Home,
-    CourseDetail
+    Home
 ]
 
 export {
-    Home,
-    CourseDetail
+    Home
 }
