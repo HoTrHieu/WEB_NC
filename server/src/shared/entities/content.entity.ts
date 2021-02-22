@@ -38,6 +38,10 @@ export class Content {
   duration: number;
 
   @ApiProperty()
+  @Column('int')
+  order: number;
+
+  @ApiProperty()
   @Column({
     type: 'enum',
     enum: EntityStatus,

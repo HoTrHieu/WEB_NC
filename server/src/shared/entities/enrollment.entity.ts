@@ -4,40 +4,42 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   OneToMany,
-  PrimaryGeneratedColumn,
+  PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { EntityStatus } from '../enums/entity-status';
 import { Course } from './course.entity';
 import { StudyProcess } from './study-process.entity';
 import { User } from './user.entity';
-import { Review } from './review.entity';
 
 @Entity({
   name: 'enrollments',
 })
 export class Enrollment {
   @ApiProperty()
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryColumn()
+  courseId: number;
+
+  @ApiProperty()
+  @PrimaryColumn()
+  userId: number;
 
   @ApiProperty({ type: Course })
   @ManyToOne(() => Course, course => course.enrollments)
+  @JoinColumn({ name: 'courseId' })
   course: Course;
 
   @ApiProperty({ type: User })
   @ManyToOne(() => User, user => user.enrollments)
+  @JoinColumn({ name: 'userId' })
   user: User;
 
   @ApiProperty({ type: StudyProcess, isArray: true })
   @OneToMany(() => StudyProcess, studyProcess => studyProcess.enrollment)
   studyProcesses: StudyProcess[];
-
-  @ApiProperty({ type: Review, isArray: true })
-  @OneToMany(() => Review, review => review.enrollment)
-  reviews: Review[];
 
   @ApiProperty()
   @Column('int')
@@ -59,4 +61,14 @@ export class Enrollment {
   @ApiProperty()
   @CreateDateColumn()
   createdDate: Date;
+
+  static of(courseId: number, userId: number) {
+    const enrollment = new Enrollment();
+    enrollment.courseId = courseId;
+    enrollment.userId = userId;
+    enrollment.course = { id: courseId } as any;
+    enrollment.user = { id: userId } as any;
+    enrollment.amount = 0;
+    return enrollment;
+  }
 }

@@ -1,5 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { CourseService } from 'src/course/course.service';
 import { PagingRequest } from 'src/shared/dtos/paging-request.dto';
 import { WatchList } from 'src/shared/entities/watch-list.entity';
 import { EntityStatus } from 'src/shared/enums/entity-status';
@@ -11,6 +12,7 @@ export class WatchListService {
   constructor(
     @InjectRepository(WatchList)
     private watchListRepository: Repository<WatchList>,
+    private courseService: CourseService
   ) {}
 
   paginate(userId: number, request: PagingRequest) {
@@ -20,6 +22,9 @@ export class WatchListService {
   }
 
   async updateStatus(courseId: number, userId: number, status: EntityStatus) {
+    if (!this.courseService.exists(courseId)) {
+      throw new BadRequestException("Khóa học không tồn tại");
+    }
     const qb = this.watchListRepository
       .createQueryBuilder()
       .insert()
@@ -27,6 +32,7 @@ export class WatchListService {
       .values(WatchList.of(courseId, userId))
       .setParameter('status', status)
     qb.expressionMap.onUpdate = { columns: 'status = :status' };
-    return await qb.execute();
+    await qb.execute();
+    return true;
   }
 }

@@ -4,24 +4,37 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
-  PrimaryGeneratedColumn,
+  PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { EntityStatus } from '../enums/entity-status';
-import { Enrollment } from './enrollment.entity';
+import { Course } from './course.entity';
+import { User } from './user.entity';
 
 @Entity({
   name: 'reviews',
 })
 export class Review {
-  @ApiProperty()
-  @PrimaryGeneratedColumn()
-  id: number;
 
-  @ApiProperty({ type: Enrollment })
-  @ManyToOne(() => Enrollment, enrollment => enrollment.reviews)
-  enrollment: Enrollment;
+  @ApiProperty()
+  @PrimaryColumn()
+  userId: number;
+
+  @ApiProperty()
+  @PrimaryColumn()
+  courseId: number;
+
+  @ApiProperty({ type: User })
+  @ManyToOne(() => User, user => user.reviews)
+  @JoinColumn({ name: 'userId' })
+  user: User;
+
+  @ApiProperty({ type: Course })
+  @ManyToOne(() => Course, course => course.reviews)
+  @JoinColumn({ name: 'courseId' })
+  course: Course;
 
   @ApiProperty()
   @Column('int')
@@ -47,4 +60,15 @@ export class Review {
   @ApiProperty()
   @CreateDateColumn()
   createdDate: Date;
+
+  static of(courseId: number, userId: number, star: number, feedback: string) {
+    const review = new Review();
+    review.courseId = courseId;
+    review.userId = userId;
+    review.user = { id: userId } as any;
+    review.course = { id: courseId } as any;
+    review.star = star;
+    review.feedback = feedback;
+    return review;
+  }
 }

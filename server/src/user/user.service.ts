@@ -33,6 +33,10 @@ export class UserService {
     });
   }
 
+  async exists(id: number) {
+    return (await this.userRepository.count({ id })) > 0;
+  }
+
   findOneById(id: number) {
     return this.userRepository.findOne(id);
   }

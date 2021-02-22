@@ -16,6 +16,7 @@ import { User } from './user.entity';
 import { WatchList } from './watch-list.entity';
 import { Discount } from './discount.entity';
 import { Enrollment } from './enrollment.entity';
+import { Review } from './review.entity';
 
 @Entity({
   name: 'courses',
@@ -89,4 +90,8 @@ export class Course {
   @ApiProperty({ type: Enrollment, isArray: true })
   @OneToMany(() => Enrollment, enrollment => enrollment.course)
   enrollments: Enrollment[];
+
+  @ApiProperty({ type: Review, isArray: true })
+  @OneToMany(() => Review, review => review.course)
+  reviews: Review[];
 }
