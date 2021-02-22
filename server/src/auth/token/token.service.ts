@@ -3,8 +3,8 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { Cache } from 'cache-manager';
 import { randomBytes } from 'crypto';
-import { UserRole } from 'src/common/entities/user.entity';
-import { AuthUser } from './dto/auth-user.dto';
+import { UserRole } from 'src/shared/enums/user-role';
+import { AuthUser } from '../dto/auth-user.dto';
 
 export class TokenService {
   private readonly RTK_TTL;

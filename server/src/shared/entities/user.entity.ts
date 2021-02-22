@@ -30,7 +30,7 @@ export class User {
   email: string;
 
   @ApiProperty()
-  @Column('varchar', { length: 100 })
+  @Column('varchar', { length: 255 })
   displayName: string;
 
   @Column('varchar', { length: 255 })

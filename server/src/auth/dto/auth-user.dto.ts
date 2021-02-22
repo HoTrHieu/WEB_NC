@@ -1,4 +1,4 @@
-import { UserRole } from 'src/common/entities/user.entity';
+import { UserRole } from "src/shared/enums/user-role";
 
 export class AuthUser {
   id: number;
