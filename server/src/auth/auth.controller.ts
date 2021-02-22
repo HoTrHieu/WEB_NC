@@ -17,15 +17,15 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { Public } from 'src/common/decorators/public.decorator';
-import { BooleanResponse } from 'src/common/dtos/boolean-response.dto';
-import { User } from 'src/common/entities/user.entity';
+import { Public } from 'src/shared/decorators/public.decorator';
+import { BooleanResponse } from 'src/shared/dtos/boolean-response.dto';
+import { User } from 'src/shared/entities/user.entity';
 import { AuthService } from './auth.service';
 import { ChangePasswordRequest } from './dto/change-password-request.dto';
 import { LoginRequest } from './dto/login-request.dto';
 import { LoginResponse } from './dto/login-response.dto';
 import { LocalAuthGuard } from './guard/local.guard';
-import { TokenService } from './token.service';
+import { TokenService } from './token/token.service';
 
 @ApiTags('Auth')
 @Controller('/auth')
