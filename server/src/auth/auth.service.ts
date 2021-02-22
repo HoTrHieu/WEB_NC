@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { User } from 'src/common/entities/user.entity';
+import { User } from 'src/shared/entities/user.entity';
 import { UserService } from 'src/user/user.service';
 import { LoginResponse } from './dto/login-response.dto';
-import { TokenService } from './token.service';
+import { TokenService } from './token/token.service';
 
 @Injectable()
 export class AuthService {
@@ -11,8 +11,8 @@ export class AuthService {
     private tokenService: TokenService,
   ) {}
 
-  async validateLogin(username: string, password: string) {
-    const user = await this.userService.findOneByUserName(username);
+  async validateLogin(email: string, password: string) {
+    const user = await this.userService.findOneByEmail(email);
     if (!user) {
       return null;
     }
