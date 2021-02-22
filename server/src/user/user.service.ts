@@ -1,10 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { SearchRequest } from 'src/shared/dtos/search-request.dto';
 import { User } from 'src/shared/entities/user.entity';
 import { EntityStatus } from 'src/shared/enums/entity-status';
 import { UserRole } from 'src/shared/enums/user-role';
 import { BcryptUtil } from 'src/shared/utils/bcrypt.util';
+import { ClassUtils } from 'src/shared/utils/class.util';
 import { PagingUtil } from 'src/shared/utils/paging.util';
 import { Like, Repository } from 'typeorm';
 import { AddUserRequest } from './dto/add-user-request.dto';
@@ -36,6 +37,12 @@ export class UserService {
     return this.userRepository.findOne(id);
   }
 
+  findOneByUsername(username: string) {
+    return this.userRepository.findOne({
+      where: { username },
+    });
+  }
+
   findOneByEmail(email: string) {
     return this.userRepository.findOne({
       where: { email },
@@ -43,15 +50,16 @@ export class UserService {
   }
 
   async addUser(request: AddUserRequest) {
-    let user = await this.findOneByEmail(request.email);
-    if (!user) {
-      user = this.userRepository.create({
-        email: request.email,
-      });
+    let count = await this.userRepository.count({ email: request.email });
+    if (count > 0) {
+      throw new BadRequestException("Email đã tồn tại");
     }
-    user.displayName = request.displayName;
+    count = await this.userRepository.count({ username: request.username });
+    if (count > 0) {
+      throw new BadRequestException("Tên tài khoản đã tồn tại");
+    }
+    const user = ClassUtils.copyFields(request, {});
     user.passwordHash = await this.hashPassword(request.password);
-    user.role = request.role;
     user.status = EntityStatus.ACTIVE;
     return this.userRepository.save(user);
   }
@@ -66,10 +74,23 @@ export class UserService {
     return result.affected > 0;
   }
 
-  async updateDisplayName(id: number, newDisplayName: string) {
+  async updateFirstLastName(id: number, firstName: string, lastName: string) {
     const result = await this.userRepository.update(
       { id },
-      { displayName: newDisplayName },
+      { firstName, lastName },
+    );
+    return result.affected > 0;
+  }
+
+  async updateEmail(id: number, email: string) {
+    const count = await this.userRepository.count({ email });
+    if (count > 0) {
+      throw new BadRequestException("Email đã tồn tại");
+    }
+
+    const result = await this.userRepository.update(
+      { id },
+      { email },
     );
     return result.affected > 0;
   }

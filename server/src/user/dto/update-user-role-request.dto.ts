@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum } from 'class-validator';
-import { UserRole } from 'src/common/entities/user.entity';
-import { EnumUtils } from 'src/common/utils/enum.util';
+import { UserRole } from 'src/shared/enums/user-role';
+import { EnumUtils } from 'src/shared/utils/enum.util';
 
 export class UpdateUserRoleRequest {
   @ApiProperty({ enum: EnumUtils.values(UserRole) })

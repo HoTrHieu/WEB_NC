@@ -1,14 +1,14 @@
 import { ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Category } from '../entities/category.entity';
-import { ContentTag } from '../entities/content-tag.entity';
 import { Content } from '../entities/content.entity';
-import { Tag } from '../entities/tag.entity';
-import { AppUserCategory } from '../entities/user-profiler/app-user-category.entity';
-import { AppUserContent } from '../entities/user-profiler/app-user-content.entity';
-import { AppUserTag } from '../entities/user-profiler/app-user-tag.entity';
-import { AppUser } from '../entities/user-profiler/app-user.entity';
+import { Course } from '../entities/course.entity';
+import { Discount } from '../entities/discount.entity';
+import { Enrollment } from '../entities/enrollment.entity';
+import { Review } from '../entities/review.entity';
+import { StudyProcess } from '../entities/study-process.entity';
 import { User } from '../entities/user.entity';
+import { WatchList } from '../entities/watch-list.entity';
 
 export const mysqlModule = TypeOrmModule.forRootAsync({
   useFactory: (config: ConfigService) => ({
@@ -19,15 +19,15 @@ export const mysqlModule = TypeOrmModule.forRootAsync({
     password: config.get('settings.mysql.password'),
     database: config.get('settings.mysql.dbname'),
     entities: [
-      AppUserContent,
-      AppUserTag,
-      AppUserCategory,
-      ContentTag,
-      User,
       Category,
       Content,
-      Tag,
-      AppUser
+      Course,
+      Discount,
+      Enrollment,
+      Review,
+      StudyProcess,
+      User,
+      WatchList
     ],
     synchronize: config.get('settings.mysql.sync'),
     logging: process.env.NODE_ENV === 'dev',

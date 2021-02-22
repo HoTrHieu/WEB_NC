@@ -26,12 +26,21 @@ export class User {
 
   @ApiProperty()
   @Column('varchar', { length: 255 })
+  @Index('users_username_unique_idx', { unique: true })
+  username: string;
+
+  @ApiProperty()
+  @Column('varchar', { length: 255 })
   @Index('users_email_unique_idx', { unique: true })
   email: string;
 
   @ApiProperty()
   @Column('varchar', { length: 255 })
-  displayName: string;
+  firstName: string;
+
+  @ApiProperty()
+  @Column('varchar', { length: 255 })
+  lastName: string;
 
   @Column('varchar', { length: 255 })
   @Exclude()

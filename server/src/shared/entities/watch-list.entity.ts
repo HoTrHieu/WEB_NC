@@ -1,10 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude } from 'class-transformer';
+import { watch } from 'fs';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
+  PrimaryColumn,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -17,15 +20,21 @@ import { User } from './user.entity';
 })
 export class WatchList {
   @ApiProperty()
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryColumn()
+  courseId: number;
+
+  @ApiProperty()
+  @PrimaryColumn()
+  userId: number;
 
   @ApiProperty({ type: Course })
   @ManyToOne(() => Course, course => course.watchLists)
+  @JoinColumn({ name: 'courseId' })
   course: Course;
 
   @ApiProperty({ type: User })
   @ManyToOne(() => User, user => user.watchLists)
+  @JoinColumn({ name: 'userId' })
   user: User;
 
   @ApiProperty()
@@ -44,4 +53,14 @@ export class WatchList {
   @ApiProperty()
   @CreateDateColumn()
   createdDate: Date;
+
+  static of(courseId: number, userId: number) {
+    const watchList = new WatchList();
+    watchList.courseId = courseId;
+    watchList.userId = userId;
+    watchList.course = { id: courseId } as any;
+    watchList.user = { id: userId } as any;
+    watchList.status = EntityStatus.ACTIVE;
+    return watchList;
+  }
 }

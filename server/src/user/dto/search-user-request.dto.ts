@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, Length } from 'class-validator';
-import { PagingRequest } from 'src/common/dtos/paging-request.dto';
+import { PagingRequest } from 'src/shared/dtos/paging-request.dto';
 
 export class SearchUserRequest extends PagingRequest {
   @IsString()

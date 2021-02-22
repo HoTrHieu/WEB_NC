@@ -1,7 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { User } from 'src/shared/entities/user.entity';
+import { UserRole } from 'src/shared/enums/user-role';
+import { AddUserRequest } from 'src/user/dto/add-user-request.dto';
 import { UserService } from 'src/user/user.service';
 import { LoginResponse } from './dto/login-response.dto';
+import { RegisterRequest } from './dto/register-request.dto';
 import { TokenService } from './token/token.service';
 
 @Injectable()
@@ -11,8 +14,8 @@ export class AuthService {
     private tokenService: TokenService,
   ) {}
 
-  async validateLogin(email: string, password: string) {
-    const user = await this.userService.findOneByEmail(email);
+  async validateLogin(username: string, password: string) {
+    const user = await this.userService.findOneByUsername(username);
     if (!user) {
       return null;
     }
@@ -48,5 +51,11 @@ export class AuthService {
       return false;
     }
     return this.userService.updatePassword(id, newPassword);
+  }
+
+  async register(request: RegisterRequest) {
+    const addUserRequest = AddUserRequest.of(request);
+    addUserRequest.role = UserRole.NORMAL;
+    return this.userService.addUser(addUserRequest);
   }
 }
