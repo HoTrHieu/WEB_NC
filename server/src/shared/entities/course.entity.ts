@@ -28,10 +28,6 @@ export class Course {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ApiResponseProperty()
-  @Column('int')
-  creatorId: number;
-
   @ApiProperty()
   @Column('varchar', { length: 1000 })
   @IsString()
@@ -64,6 +60,22 @@ export class Course {
   coverPath: string;
 
   @ApiResponseProperty()
+  @Column('int')
+  totalEnrollment: number;
+
+  @ApiResponseProperty()
+  @Column('float')
+  star: number;
+
+  @ApiResponseProperty()
+  @Column('int')
+  creatorId: number;
+
+  @ApiResponseProperty()
+  @Column('int')
+  categoryId: number;
+
+  @ApiResponseProperty()
   @Column({
     type: 'enum',
     enum: EntityStatus,
@@ -82,6 +94,7 @@ export class Course {
 
   @ApiResponseProperty({ type: Category })
   @ManyToOne(() => Category, category => category.courses)
+  @JoinColumn({ name: 'categoryId' })
   category: Category;
 
   @ApiResponseProperty({ type: User })
