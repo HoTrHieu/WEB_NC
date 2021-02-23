@@ -1,9 +1,10 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiResponseProperty } from '@nestjs/swagger';
 import { Exclude } from 'class-transformer';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -17,40 +18,52 @@ import { WatchList } from './watch-list.entity';
 import { Discount } from './discount.entity';
 import { Enrollment } from './enrollment.entity';
 import { Review } from './review.entity';
+import { IsNumber, IsString, Length } from 'class-validator';
 
 @Entity({
   name: 'courses',
 })
 export class Course {
-  @ApiProperty()
+  @ApiResponseProperty()
   @PrimaryGeneratedColumn()
   id: number;
 
+  @ApiResponseProperty()
+  @Column('int')
+  creatorId: number;
+
   @ApiProperty()
   @Column('varchar', { length: 1000 })
+  @IsString()
+  @Length(1, 1000)
   title: string;
 
   @ApiProperty()
   @Column('text')
+  @IsString()
   subDescription: string;
 
   @ApiProperty()
   @Column('text')
+  @IsString()
   description: string;
 
   @ApiProperty()
-  @Column('int')
+  @Column('float')
+  @IsNumber()
   price: number;
 
   @ApiProperty()
   @Column('varchar', { length: 1000 })
-  avatar: string;
+  @IsString()
+  avatarPath: string;
 
   @ApiProperty()
   @Column('varchar', { length: 1000 })
-  cover: string;
+  @IsString()
+  coverPath: string;
 
-  @ApiProperty()
+  @ApiResponseProperty()
   @Column({
     type: 'enum',
     enum: EntityStatus,
@@ -58,40 +71,41 @@ export class Course {
   })
   status: EntityStatus;
 
-  @ApiProperty()
+  @ApiResponseProperty()
   @UpdateDateColumn()
   @Exclude()
   updatedDate: Date;
 
-  @ApiProperty()
+  @ApiResponseProperty()
   @CreateDateColumn()
   createdDate: Date;
 
-  @ApiProperty({ type: Category })
+  @ApiResponseProperty({ type: Category })
   @ManyToOne(() => Category, category => category.courses)
   category: Category;
 
-  @ApiProperty({ type: User })
+  @ApiResponseProperty({ type: User })
   @ManyToOne(() => User, user => user.createdCourses)
+  @JoinColumn({ name: 'creatorId' })
   creator: User;
 
-  @ApiProperty({ type: Content, isArray: true })
+  @ApiResponseProperty({ type: Content })
   @OneToMany(() => Content, content => content.course)
   contents: Content[];
 
-  @ApiProperty({ type: WatchList, isArray: true })
+  @ApiResponseProperty({ type: WatchList })
   @OneToMany(() => WatchList, watchList => watchList.course)
   watchLists: WatchList[];
 
-  @ApiProperty({ type: Discount, isArray: true })
+  @ApiResponseProperty({ type: Discount })
   @OneToMany(() => Discount, discount => discount.course)
   discounts: Discount[];
 
-  @ApiProperty({ type: Enrollment, isArray: true })
+  @ApiResponseProperty({ type: Enrollment })
   @OneToMany(() => Enrollment, enrollment => enrollment.course)
   enrollments: Enrollment[];
 
-  @ApiProperty({ type: Review, isArray: true })
+  @ApiResponseProperty({ type: Review })
   @OneToMany(() => Review, review => review.course)
   reviews: Review[];
 }

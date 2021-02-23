@@ -1,5 +1,6 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiResponseProperty } from '@nestjs/swagger';
 import { Exclude } from 'class-transformer';
+import { IsInt, IsString, Length } from 'class-validator';
 import {
   Column,
   CreateDateColumn,
@@ -17,31 +18,36 @@ import { StudyProcess } from './study-process.entity';
   name: 'contents',
 })
 export class Content {
-  @ApiProperty()
+  @ApiResponseProperty()
   @PrimaryGeneratedColumn()
   id: number;
 
   @ApiProperty()
   @Column('varchar', { length: 1000 })
+  @IsString()
+  @Length(1, 1000)
   title: string;
 
   @ApiProperty()
   @Column('text')
+  @IsString()
   description: string;
 
   @ApiProperty()
-  @Column('varchar', { length: 1000 })
-  videoUrl: string;
-
-  @ApiProperty()
   @Column('int')
-  duration: number;
-
-  @ApiProperty()
-  @Column('int')
+  @IsInt()
   order: number;
 
   @ApiProperty()
+  @Column('varchar', { length: 1000 })
+  @IsString()
+  videoPath: string;
+
+  @ApiResponseProperty()
+  @Column('int')
+  duration: number;
+
+  @ApiResponseProperty()
   @Column({
     type: 'enum',
     enum: EntityStatus,
@@ -49,20 +55,20 @@ export class Content {
   })
   status: EntityStatus;
 
-  @ApiProperty()
+  @ApiResponseProperty()
   @UpdateDateColumn()
   @Exclude()
   updatedDate: Date;
 
-  @ApiProperty()
+  @ApiResponseProperty()
   @CreateDateColumn()
   createdDate: Date;
 
-  @ApiProperty({ type: Course })
+  @ApiResponseProperty({ type: Course })
   @ManyToOne(() => Course, course => course.contents)
   course: Course;
 
-  @ApiProperty({ type: StudyProcess, isArray: true })
+  @ApiResponseProperty({ type: StudyProcess })
   @OneToMany(() => StudyProcess, studyProcess => studyProcess.content)
   studyProcesses: StudyProcess[];
 }

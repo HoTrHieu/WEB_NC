@@ -21,7 +21,7 @@ export class EnrollmentService {
   }
 
   getDetail(courseId: number, userId: number) {
-    return this.enrollmentRepository.find({
+    return this.enrollmentRepository.findOne({
       where: { courseId, userId },
       relations: ['studyProcesses']
     });
@@ -31,6 +31,10 @@ export class EnrollmentService {
     return (await this.enrollmentRepository.count({
       where: { courseId, userId }
     })) > 0
+  }
+
+  findOne(courseId: number, userId: number) {
+    return this.enrollmentRepository.findOne({ courseId, userId });
   }
 
   async enroll(courseId: number, userId: number) {

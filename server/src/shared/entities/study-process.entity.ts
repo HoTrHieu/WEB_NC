@@ -4,8 +4,10 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   OneToMany,
+  PrimaryColumn,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -18,15 +20,25 @@ import { Enrollment } from './enrollment.entity';
 })
 export class StudyProcess {
   @ApiProperty()
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryColumn()
+  courseId: number;
+
+  @ApiProperty()
+  @PrimaryColumn()
+  userId: number;
+
+  @ApiProperty()
+  @PrimaryColumn()
+  contentId: number;
 
   @ApiProperty({ type: Enrollment })
-  @ManyToOne(() => Enrollment, enrollment => enrollment.studyProcesses)
+  @ManyToOne(() => Enrollment, (enrollment) => enrollment.studyProcesses)
+  @JoinColumn([{ name: 'courseId' }, { name: 'userId' }])
   enrollment: Enrollment;
 
   @ApiProperty({ type: Content })
-  @ManyToOne(() => Content, content => content.studyProcesses)
+  @ManyToOne(() => Content, (content) => content.studyProcesses)
+  @JoinColumn({ name: 'contentId' })
   content: Content;
 
   @ApiProperty()
@@ -53,4 +65,20 @@ export class StudyProcess {
   @ApiProperty()
   @CreateDateColumn()
   createdDate: Date;
+
+  static of(
+    courseId: number,
+    userId: number,
+    contentId: number,
+    duration: number,
+    done: boolean = false,
+  ) {
+    const studyProcess = new StudyProcess();
+    studyProcess.duration = duration;
+    studyProcess.done = done;
+    studyProcess.courseId = courseId;
+    studyProcess.userId = userId;
+    studyProcess.contentId = contentId;
+    return studyProcess;
+  }
 }

@@ -8,11 +8,9 @@ import {
   Request,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { Role } from 'src/shared/decorators/role.decorator';
 import { BooleanResponse } from 'src/shared/dtos/boolean-response.dto';
 import { PagingRequest } from 'src/shared/dtos/paging-request.dto';
 import { PagingResponse } from 'src/shared/dtos/paging-response.dto';
-import { UserRole } from 'src/shared/enums/user-role';
 import { ReviewRequest } from './dto/review-request.dto';
 import { ReviewService } from './review.service';
 
