@@ -1,6 +1,6 @@
 import { ApiProperty, ApiResponseProperty } from '@nestjs/swagger';
 import { Exclude } from 'class-transformer';
-import { IsInt, IsString, Length } from 'class-validator';
+import { IsBoolean, IsInt, IsString, Length } from 'class-validator';
 import {
   Column,
   CreateDateColumn,
@@ -37,6 +37,11 @@ export class Content {
   @Column('int')
   @IsInt()
   order: number;
+
+  @ApiProperty()
+  @Column('boolean')
+  @IsBoolean()
+  preview: boolean;
 
   @ApiProperty()
   @Column('varchar', { length: 1000 })

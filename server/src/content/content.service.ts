@@ -68,6 +68,7 @@ export class ContentService {
         description: content.description,
         videoPath: content.videoPath,
         duration: content.duration,
+        preview: content.preview
       },
     );
     return result.affected > 0;
