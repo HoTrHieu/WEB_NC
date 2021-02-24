@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 
 const SideBar = props => {
     return (
-        <div className="mdk-drawer js-mdk-drawer" id="default-drawer" data-opened>
+        <div className="mdk-drawer js-mdk-drawer" id="default-drawer" data-opened onBlur={console.log("nanan")}>
             <div className="mdk-drawer__content" onBlur={console.log('ok')}>
-            <div className="sidebar sidebar-dark-dodger-blue sidebar-left" data-perfect-scrollbar>
+            <div className="sidebar sidebar-dark-dodger-blue sidebar-left" data-perfect-scrollbar onBlur={console.log('okss')}>
             <div className="d-flex align-items-center navbar-height">
                 <form action="fixed-index.html" className="search-form search-form--black mx-16pt pr-0 pl-16pt">
                 <input type="text" className="form-control pl-0" placeholder="Search" />
