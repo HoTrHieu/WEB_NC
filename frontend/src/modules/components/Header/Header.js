@@ -63,22 +63,25 @@ const Header = props => {
                                 </div>
                             </li>
                             <li className="nav-item dropdown" data-toggle="tooltip" data-title="Community" data-placement="bottom" data-boundary="window">
-                            <a href="#" className="nav-link dropdown-toggle" data-toggle="dropdown" data-caret="false">
-                            <i className="material-icons">people_outline</i>
-                            </a>
-                            <div className="dropdown-menu">
-                            <a href="fixed-teachers.html" className="dropdown-item">Browse Teachers</a>
-                            <a href="fixed-student-profile.html" className="dropdown-item">Student Profile</a>
-                            <a href="fixed-teacher-profile.html" className="dropdown-item">Instructor Profile</a>
-                            <a href="fixed-blog.html" className="dropdown-item">Blog</a>
-                            <a href="fixed-blog-post.html" className="dropdown-item">Blog Post</a>
-                            <a href="fixed-faq.html" className="dropdown-item">FAQ</a>
-                            <a href="fixed-help-center.html" className="dropdown-item">Help Center</a>
-                            <a href="fixed-discussions.html" className="dropdown-item">Discussions</a>
-                            <a href="fixed-discussion.html" className="dropdown-item">Discussion Details</a>
-                            <a href="fixed-discussions-ask.html" className="dropdown-item">Ask Question</a>
-                            </div>
-                        </li>
+                                <a href="#" className="nav-link dropdown-toggle" data-toggle="dropdown" data-caret="false">
+                                <i className="material-icons">people_outline</i>
+                                </a>
+                                <div className="dropdown-menu">
+                                <a href="fixed-teachers.html" className="dropdown-item">Browse Teachers</a>
+                                <a href="fixed-student-profile.html" className="dropdown-item">Student Profile</a>
+                                <a href="fixed-teacher-profile.html" className="dropdown-item">Instructor Profile</a>
+                                <a href="fixed-blog.html" className="dropdown-item">Blog</a>
+                                <a href="fixed-blog-post.html" className="dropdown-item">Blog Post</a>
+                                <a href="fixed-faq.html" className="dropdown-item">FAQ</a>
+                                <a href="fixed-help-center.html" className="dropdown-item">Help Center</a>
+                                <a href="fixed-discussions.html" className="dropdown-item">Discussions</a>
+                                <a href="fixed-discussion.html" className="dropdown-item">Discussion Details</a>
+                                <a href="fixed-discussions-ask.html" className="dropdown-item">Ask Question</a>
+                                </div>
+                            </li>
+                            <li className="nav-item">
+                                <input style={{width: "300px"}} />
+                            </li>
                         </ul>
                         <ul className="nav navbar-nav ml-auto mr-0">
                             <li className="nav-item">
