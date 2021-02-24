@@ -32,6 +32,6 @@ export class CourseSearchRequest extends SearchRequest {
   }
 
   get isSearching() {
-    return this.isCategoryIdsExists;
+    return this.isCategoryIdsExists || this.isSearchTermExists;
   }
 }

@@ -1,6 +1,6 @@
 import { ApiProperty, ApiResponseProperty } from '@nestjs/swagger';
 import { Exclude } from 'class-transformer';
-import { IsBoolean, IsInt, IsString, Length } from 'class-validator';
+import { IsBoolean, IsInt, IsString, Length, Min } from 'class-validator';
 import {
   Column,
   CreateDateColumn,
@@ -36,6 +36,7 @@ export class Content {
   @ApiProperty()
   @Column('int')
   @IsInt()
+  @Min(1)
   order: number;
 
   @ApiProperty()

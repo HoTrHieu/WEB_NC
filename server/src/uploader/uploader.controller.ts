@@ -5,11 +5,13 @@ import {
   Post,
   UploadedFile,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiConsumes, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiFile } from 'src/shared/decorators/api-file.decorator';
 import { BooleanResponse } from 'src/shared/dtos/boolean-response.dto';
 import { StdResponse } from 'src/shared/dtos/std-response.dto';
 import { FileType } from 'src/shared/enums/file-type';
 import { StdResponseCode } from 'src/shared/enums/std-response-code';
+import { UploadRequest } from './dto/upload-request.dto';
 import { UploaderService } from './uploader.service';
 
 @ApiTags('Uploader')
@@ -21,12 +23,13 @@ export class UploaderController {
   @ApiResponse({
     type: StdResponse,
   })
+  @ApiConsumes('multipart/form-data')
   @ApiBearerAuth()
   async upcateStatus(
-    @Body() fileType: FileType,
+    @Body() request: UploadRequest,
     @UploadedFile() file: Express.Multer.File,
   ) {
-    const folder = UploaderService.Folder[fileType];
+    const folder = UploaderService.Folder[request.fileType];
     if (!folder) {
       throw new BadRequestException('File type is invalid');
     }

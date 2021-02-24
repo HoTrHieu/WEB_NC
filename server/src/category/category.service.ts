@@ -20,19 +20,31 @@ export class CategoryService {
     });
   }
 
+  async findParentId(categoryId: number) {
+    const { parentId } = await this.categoryRepository
+      .createQueryBuilder()
+      .where('id = :categoryId', { categoryId })
+      .select('parentId')
+      .getRawOne();
+    return parentId;
+  }
+
   async findTopOfWeek(limit: number = 10) {
     const categories = await this.categoryRepository
       .createQueryBuilder('c')
       .leftJoinAndSelect('c.categoryTotalEnrollments', 'cte')
-      .where('cte.categoryId IS NULL or (cte.year = :year AND cte.week = :week)', {
-        week: moment().week(),
-        year: moment().year(),
-      })
+      .where(
+        'cte.categoryId IS NULL or (cte.year = :year AND cte.week = :week)',
+        {
+          week: moment().week(),
+          year: moment().year(),
+        },
+      )
       .orderBy('cte.totalEnrollment', 'DESC')
       .addOrderBy('c.updatedDate', 'DESC')
       .limit(limit)
       .getMany();
-    
+
     return categories.map((category) => {
       let totalEnrollment = 0;
       const cte = category.categoryTotalEnrollments[0];

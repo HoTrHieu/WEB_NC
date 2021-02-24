@@ -8,6 +8,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { PagingResponse } from 'src/shared/dtos/paging-response.dto';
 import { Course } from 'src/shared/entities/course.entity';
 import { EntityStatus } from 'src/shared/enums/entity-status';
+import { OrderDirection } from 'src/shared/enums/order-direction';
+import { ArrayUtil } from 'src/shared/utils/array.util';
 import { In, Repository } from 'typeorm';
 import { CourseEsService } from './course-es.service';
 import { CourseSearchRequest } from './dto/course-search-request.dto';
@@ -25,7 +27,12 @@ export class CourseService {
   async search(request: CourseSearchRequest) {
     const esResult = await this.courseEsService.search(request);
     const courses = await this.findByIdIn(esResult.courseIds);
-
+    courses.sort((a, b) => {
+      return (
+        (a[request.orderBy] - b[request.orderBy]) *
+        (request.orderDirection === OrderDirection.ASC ? -1 : 1)
+      );
+    });
     return PagingResponse.of(
       request.page,
       request.pageSize,
@@ -35,7 +42,7 @@ export class CourseService {
   }
 
   async findByIdIn(ids: number[]) {
-    if (!Array.isArray(ids) || ids.length === 0) {
+    if (ArrayUtil.isEmpty(ids)) {
       return [];
     }
 
@@ -44,23 +51,42 @@ export class CourseService {
         id: In(ids),
         status: EntityStatus.ACTIVE,
       },
-      relations: ['creator', 'category'],
+      select: [
+        'id',
+        'title',
+        'subDescription',
+        'price',
+        'avatarPath',
+        'totalEnrollment',
+        'avgStar',
+        'totalView',
+        'creatorId',
+        'categoryId',
+        'createdDate',
+        'creator',
+        'category',
+      ],
+      relations: ['creator', 'category', 'category.parent'],
     });
   }
 
   async getDetail(courseId: number) {
     const course = await this.courseRepository.findOne({
       where: { id: courseId },
-      relations: ['contents', 'creator', 'category'],
+      relations: ['contents', 'creator', 'category', 'category.parent'],
     });
 
     if (!course) {
       throw new NotFoundException('This course is not exists');
     }
+
+    return course;
   }
 
   async findCategoryId(courseId: number) {
-    const { categoryId } = await this.courseRepository
+    const {
+      categoryId,
+    } = await this.courseRepository
       .createQueryBuilder()
       .where('id = :courseId', { courseId })
       .select('categoryId')
@@ -116,7 +142,7 @@ export class CourseService {
       price: course.price,
       avatarPath: course.avatarPath,
       coverPath: course.coverPath,
-      categoryId: course.categoryId
+      categoryId: course.categoryId,
     };
     const result = await this.courseRepository.update(
       {

@@ -11,7 +11,6 @@ export class EsHelperService {
   constructor(private esService: ElasticsearchService) {}
 
   async upsert(index: string, id: string, doc: any) {
-    console.log(doc);
     const result = await this.esService.update({
       index,
       id,

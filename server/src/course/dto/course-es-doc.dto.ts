@@ -12,12 +12,16 @@ export class CourseEsDoc {
   totalEnrollment: number;
   avgStar: number;
   creatorId: number;
-  categoryId: number;
+  categoryId: number[];
   createdDate: Date;
   updatedDate: Date;
 
-  static of(course: Course) {
-    const doc = new CourseEsDoc();
-    return ClassUtils.copyFields(course, doc, false);
+  static of(course: Course, parentCategoryId: number) {
+    const doc = ClassUtils.copyFields(course, new CourseEsDoc());
+    doc.categoryId = [course.categoryId];
+    if (!!parentCategoryId) {
+      doc.categoryId.push(parentCategoryId);
+    }
+    return doc;
   }
 }

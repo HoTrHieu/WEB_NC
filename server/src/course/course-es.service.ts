@@ -1,6 +1,11 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import {
+  Inject,
+  Injectable,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ElasticsearchService } from '@nestjs/elasticsearch';
+import { CategoryService } from 'src/category/category.service';
 import { EsHelperService } from 'src/es-helper/es-helper.service';
 import { Course } from 'src/shared/entities/course.entity';
 import { EntityStatus } from 'src/shared/enums/entity-status';
@@ -9,12 +14,12 @@ import { CourseSearchRequest } from './dto/course-search-request.dto';
 
 @Injectable()
 export class CourseEsService {
-
   private readonly ES_INDEX_NAME;
   constructor(
     private esService: ElasticsearchService,
     private esHelper: EsHelperService,
     private config: ConfigService,
+    private categoryService: CategoryService,
   ) {
     this.ES_INDEX_NAME = this.config.get('es.index.course');
   }
@@ -91,15 +96,27 @@ export class CourseEsService {
     };
   }
 
-  upsertCourse(course: Course) {
+  async upsertCourse(course: Course) {
+    const parentCategoryId = await this.categoryService.findParentId(
+      course.categoryId,
+    );
     return this.esHelper.upsert(
       this.ES_INDEX_NAME,
       String(course.id),
-      CourseEsDoc.of(course),
+      CourseEsDoc.of(course, parentCategoryId),
     );
   }
 
-  partialUpdate(id: number, doc: any) {
+  async partialUpdate(id: number, doc: any) {
+    if ('categoryId' in doc) {
+      const parentCategoryId = await this.categoryService.findParentId(
+        doc.categoryId,
+      );
+      doc.categoryId = [doc.categoryId];
+      if (!!parentCategoryId) {
+        doc.categoryId.push(parentCategoryId);
+      }
+    }
     return this.esHelper.upsert(this.ES_INDEX_NAME, String(id), doc);
   }
 
