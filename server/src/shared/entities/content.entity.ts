@@ -69,11 +69,11 @@ export class Content {
   @CreateDateColumn()
   createdDate: Date;
 
-  @ApiResponseProperty({ type: Course })
+  @ApiResponseProperty({ type: () => Course })
   @ManyToOne(() => Course, (course) => course.contents)
   course: Course;
 
-  @ApiResponseProperty({ type: StudyProcess })
+  @ApiResponseProperty({ type: () => StudyProcess })
   @OneToMany(() => StudyProcess, (studyProcess) => studyProcess.content)
   studyProcesses: StudyProcess[];
 }

@@ -12,6 +12,7 @@ import {
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Cache } from 'cache-manager';
+import { Public } from 'src/shared/decorators/public.decorator';
 import { Role } from 'src/shared/decorators/role.decorator';
 import { BooleanResponse } from 'src/shared/dtos/boolean-response.dto';
 import { StdResponse } from 'src/shared/dtos/std-response.dto';
@@ -30,12 +31,12 @@ export class CategoryController {
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
 
+  @Public()
   @Get('/all')
   @ApiResponse({
     type: Category,
     isArray: true,
   })
-  @ApiBearerAuth()
   @UseInterceptors(CacheInterceptor)
   findAllCategory() {
     return this.categoryService.findAll();

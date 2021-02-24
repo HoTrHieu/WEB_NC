@@ -51,12 +51,12 @@ export class UserController {
     return StdResponse.of(StdResponseCode.SUCCESS, newUser.id);
   }
 
-  @Put('/update-display-name')
+  @Put('/update-first-last-name')
   @ApiResponse({
     type: BooleanResponse,
   })
   @ApiBearerAuth()
-  async updateDisplayName(
+  async updateFirstLastName(
     @Request() req: any,
     @Body() body: UpdateUserFirstLastNameRequest,
   ) {

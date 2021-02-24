@@ -41,15 +41,15 @@ export class Category {
   @CreateDateColumn()
   createdDate: Date;
 
-  @ApiProperty({ type: Category, isArray: true })
-  @OneToMany(() => Category, (category) => category.parent)
+  @ApiProperty({ type: () => Category, isArray: true })
+  @OneToMany(() => Category, (category) => category.parent, { cascade: ['insert'] })
   children: Category[];
 
-  @ApiProperty({ type: Category })
+  @ApiProperty({ type: () => Category })
   @ManyToOne(() => Category, (category) => category.children)
   parent: Category;
 
-  @ApiProperty({ type: Course, isArray: true })
+  @ApiProperty({ type: () => Course, isArray: true })
   @OneToMany(() => Course, (course) => course.category)
   courses: Course[];
 }

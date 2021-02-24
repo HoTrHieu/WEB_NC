@@ -6,9 +6,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
-  OneToMany,
   PrimaryColumn,
-  PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { EntityStatus } from '../enums/entity-status';
@@ -31,12 +29,15 @@ export class StudyProcess {
   @PrimaryColumn()
   contentId: number;
 
-  @ApiProperty({ type: Enrollment })
+  @ApiProperty({ type: () => Enrollment })
   @ManyToOne(() => Enrollment, (enrollment) => enrollment.studyProcesses)
-  @JoinColumn([{ name: 'courseId' }, { name: 'userId' }])
+  @JoinColumn([
+    { name: 'courseId', referencedColumnName: 'courseId' },
+    { name: 'userId', referencedColumnName: 'userId' },
+  ])
   enrollment: Enrollment;
 
-  @ApiProperty({ type: Content })
+  @ApiProperty({ type: () => Content })
   @ManyToOne(() => Content, (content) => content.studyProcesses)
   @JoinColumn({ name: 'contentId' })
   content: Content;

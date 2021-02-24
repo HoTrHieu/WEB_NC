@@ -11,6 +11,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Public } from 'src/shared/decorators/public.decorator';
 import { Role } from 'src/shared/decorators/role.decorator';
 import { BooleanResponse } from 'src/shared/dtos/boolean-response.dto';
 import { PagingResponse } from 'src/shared/dtos/paging-response.dto';
@@ -27,22 +28,22 @@ import { CourseSearchRequest } from './dto/course-search-request.dto';
 export class CourseController {
   constructor(private courseService: CourseService) {}
 
-  @UseInterceptors(ClassSerializerInterceptor)
+  @Public()
   @Get('/search')
   @ApiResponse({
     type: PagingResponse,
   })
-  @ApiBearerAuth()
+  @UseInterceptors(ClassSerializerInterceptor)
   search(@Query() request: CourseSearchRequest) {
     return this.courseService.search(request);
   }
 
-  @UseInterceptors(ClassSerializerInterceptor)
+  @Public()
   @Get('/:courseId')
   @ApiResponse({
     type: Course,
   })
-  @ApiBearerAuth()
+  @UseInterceptors(ClassSerializerInterceptor)
   getDetail(@Param('courseId') courseId: number) {
     return this.courseService.getDetail(courseId);
   }

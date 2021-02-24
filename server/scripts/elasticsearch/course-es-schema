@@ -68,7 +68,7 @@ PUT web_nc_courses
       },
       "createdDate": {
         "type": "date"
-      }
+      },
       "updatedDate": {
         "type": "date"
       }

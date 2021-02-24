@@ -1,4 +1,4 @@
-import { HttpStatus, InternalServerErrorException } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ElasticsearchService } from '@nestjs/elasticsearch';
 import { EsHelperService } from 'src/es-helper/es-helper.service';
@@ -8,6 +8,7 @@ import { CourseEsDoc } from './dto/course-es-doc.dto';
 import { CourseOrderBy } from './dto/course-order-by';
 import { CourseSearchRequest } from './dto/course-search-request.dto';
 
+@Injectable()
 export class CourseEsService {
   public static OrderBy = {
     [CourseOrderBy.PRICE]: 'price',

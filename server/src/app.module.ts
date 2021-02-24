@@ -1,8 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { APP_GUARD } from '@nestjs/core';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { AuthModule } from './auth/auth.module';
+import { JwtAuthGuard } from './auth/guard/jwt.guard';
+import { RoleGuard } from './auth/guard/role.guard';
 import { CategoryModule } from './category/category.module';
 import { ContentModule } from './content/content.module';
 import { CourseModule } from './course/course.module';
@@ -35,6 +38,16 @@ import { WatchListModule } from './watch-list/watch-list.module';
     UploaderModule,
     UserModule,
     WatchListModule,
+  ],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: RoleGuard,
+    },
   ],
 })
 export class AppModule {}

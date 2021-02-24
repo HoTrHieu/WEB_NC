@@ -92,33 +92,33 @@ export class Course {
   @CreateDateColumn()
   createdDate: Date;
 
-  @ApiResponseProperty({ type: Category })
+  @ApiResponseProperty({ type: () => Category })
   @ManyToOne(() => Category, (category) => category.courses)
   @JoinColumn({ name: 'categoryId' })
   category: Category;
 
-  @ApiResponseProperty({ type: User })
+  @ApiResponseProperty({ type: () => User })
   @ManyToOne(() => User, (user) => user.createdCourses)
   @JoinColumn({ name: 'creatorId' })
   creator: User;
 
-  @ApiResponseProperty({ type: Content })
+  @ApiResponseProperty({ type: () => Content })
   @OneToMany(() => Content, (content) => content.course)
   contents: Content[];
 
-  @ApiResponseProperty({ type: WatchList })
+  @ApiResponseProperty({ type: () => WatchList })
   @OneToMany(() => WatchList, (watchList) => watchList.course)
   watchLists: WatchList[];
 
-  @ApiResponseProperty({ type: Discount })
+  @ApiResponseProperty({ type: () => Discount })
   @OneToMany(() => Discount, (discount) => discount.course)
   discounts: Discount[];
 
-  @ApiResponseProperty({ type: Enrollment })
+  @ApiResponseProperty({ type: () => Enrollment })
   @OneToMany(() => Enrollment, (enrollment) => enrollment.course)
   enrollments: Enrollment[];
 
-  @ApiResponseProperty({ type: Review })
+  @ApiResponseProperty({ type: () => Review })
   @OneToMany(() => Review, (review) => review.course)
   reviews: Review[];
 }

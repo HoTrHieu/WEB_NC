@@ -25,12 +25,12 @@ export class Review {
   @PrimaryColumn()
   courseId: number;
 
-  @ApiProperty({ type: User })
+  @ApiProperty({ type: () => User })
   @ManyToOne(() => User, (user) => user.reviews)
   @JoinColumn({ name: 'userId' })
   user: User;
 
-  @ApiProperty({ type: Course })
+  @ApiProperty({ type: () => Course })
   @ManyToOne(() => Course, (course) => course.reviews)
   @JoinColumn({ name: 'courseId' })
   course: Course;

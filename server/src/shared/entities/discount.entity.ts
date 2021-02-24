@@ -24,7 +24,7 @@ export class Discount {
   @Column('int')
   amount: number;
 
-  @ApiProperty()
+  @ApiProperty({ type: () => Course })
   @OneToMany(() => Course, (course) => course.discounts)
   course: Course;
 
