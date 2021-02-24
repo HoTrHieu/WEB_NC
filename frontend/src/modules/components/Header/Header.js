@@ -6,7 +6,7 @@ const Header = props => {
     
     return (
         <>
-            <div className="mdk-header mdk-header--bg-dark bg-dark js-mdk-header mb-0" style={{position: "fixed", zIndex: 100}} data-effects="parallax-background waterfall" data-fixed data-condenses>
+            <div className="mdk-header mdk-header--bg-dark bg-dark js-mdk-header mb-0" style={{zIndex: 100}} data-effects="parallax-background waterfall" data-fixed data-condenses>
                 <div className="mdk-header__content justify-content-center">
                     <div className="navbar navbar-expand navbar-dark-dodger-blue bg-transparent will-fade-background" id="default-navbar" data-primary>
                     
