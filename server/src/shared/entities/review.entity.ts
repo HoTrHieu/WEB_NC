@@ -17,7 +17,6 @@ import { User } from './user.entity';
   name: 'reviews',
 })
 export class Review {
-
   @ApiProperty()
   @PrimaryColumn()
   userId: number;
@@ -27,12 +26,12 @@ export class Review {
   courseId: number;
 
   @ApiProperty({ type: User })
-  @ManyToOne(() => User, user => user.reviews)
+  @ManyToOne(() => User, (user) => user.reviews)
   @JoinColumn({ name: 'userId' })
   user: User;
 
   @ApiProperty({ type: Course })
-  @ManyToOne(() => Course, course => course.reviews)
+  @ManyToOne(() => Course, (course) => course.reviews)
   @JoinColumn({ name: 'courseId' })
   course: Course;
 

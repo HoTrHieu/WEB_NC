@@ -63,7 +63,7 @@ export class UserController {
     const isSuccess = await this.userService.updateFirstLastName(
       req.user.id,
       body.firstName,
-      body.lastName
+      body.lastName,
     );
     return BooleanResponse.of(isSuccess);
   }

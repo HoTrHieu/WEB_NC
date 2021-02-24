@@ -10,7 +10,7 @@ import { ContentModule } from 'src/content/content.module';
   imports: [
     TypeOrmModule.forFeature([StudyProcess]),
     EnrollmentModule,
-    ContentModule
+    ContentModule,
   ],
   controllers: [StudyProcessController],
   providers: [StudyProcessService],

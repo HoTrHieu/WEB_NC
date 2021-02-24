@@ -1,4 +1,4 @@
-import { IsNumber, IsString, Length, Max, Min } from "class-validator";
+import { IsNumber, IsString, Length, Max, Min } from 'class-validator';
 
 export class ReviewRequest {
   @IsNumber()

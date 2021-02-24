@@ -12,17 +12,26 @@ export class StudyProcessService {
     @InjectRepository(StudyProcess)
     private studyProcessRepository: Repository<StudyProcess>,
     private enrollmentService: EnrollmentService,
-    private contentService: ContentService
+    private contentService: ContentService,
   ) {}
 
   async findOne(courseId: number, userId: number, contentId: number) {
     return this.studyProcessRepository.findOne({
-      courseId, userId, contentId
+      courseId,
+      userId,
+      contentId,
     });
   }
 
-  async update(courseId: number, userId: number, request: UpdateStudyProcessRequest) {
-    const enrollmentExists = await this.enrollmentService.exists(courseId, userId);
+  async update(
+    courseId: number,
+    userId: number,
+    request: UpdateStudyProcessRequest,
+  ) {
+    const enrollmentExists = await this.enrollmentService.exists(
+      courseId,
+      userId,
+    );
     if (!enrollmentExists) {
       throw new BadRequestException('Bạn chưa tham gia khóa học này');
     }
@@ -31,12 +40,18 @@ export class StudyProcessService {
     const done = request.duration === content.duration;
     let studyProcess = await this.findOne(courseId, userId, request.contentId);
     if (!studyProcess) {
-      studyProcess = StudyProcess.of(courseId, userId, request.contentId, request.duration, done);
+      studyProcess = StudyProcess.of(
+        courseId,
+        userId,
+        request.contentId,
+        request.duration,
+        done,
+      );
     } else {
       studyProcess.done = studyProcess.done || done;
       studyProcess.duration = Math.max(studyProcess.duration, request.duration);
     }
-    
+
     return this.studyProcessRepository.save(studyProcess);
   }
 }

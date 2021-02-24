@@ -42,14 +42,14 @@ export class Category {
   createdDate: Date;
 
   @ApiProperty({ type: Category, isArray: true })
-  @OneToMany(() => Category, category => category.parent)
+  @OneToMany(() => Category, (category) => category.parent)
   children: Category[];
 
   @ApiProperty({ type: Category })
-  @ManyToOne(() => Category, category => category.children)
+  @ManyToOne(() => Category, (category) => category.children)
   parent: Category;
 
   @ApiProperty({ type: Course, isArray: true })
-  @OneToMany(() => Course, course => course.category)
+  @OneToMany(() => Course, (course) => course.category)
   courses: Course[];
 }

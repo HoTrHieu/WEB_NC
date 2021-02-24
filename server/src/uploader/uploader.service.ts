@@ -6,11 +6,10 @@ import { uuid as uuidv4 } from 'uuidv4';
 
 @Injectable()
 export class UploaderService {
-
   private ASSETS_FOLDER_NAME = 'assets';
   public static Folder = {
     [FileType.IMAGE]: 'image',
-    [FileType.VIDEO]: 'video'
+    [FileType.VIDEO]: 'video',
   };
 
   getFullFilePath(filePath) {

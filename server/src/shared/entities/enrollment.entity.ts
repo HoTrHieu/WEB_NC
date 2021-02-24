@@ -28,17 +28,17 @@ export class Enrollment {
   userId: number;
 
   @ApiProperty({ type: Course })
-  @ManyToOne(() => Course, course => course.enrollments)
+  @ManyToOne(() => Course, (course) => course.enrollments)
   @JoinColumn({ name: 'courseId' })
   course: Course;
 
   @ApiProperty({ type: User })
-  @ManyToOne(() => User, user => user.enrollments)
+  @ManyToOne(() => User, (user) => user.enrollments)
   @JoinColumn({ name: 'userId' })
   user: User;
 
   @ApiProperty({ type: StudyProcess, isArray: true })
-  @OneToMany(() => StudyProcess, studyProcess => studyProcess.enrollment)
+  @OneToMany(() => StudyProcess, (studyProcess) => studyProcess.enrollment)
   studyProcesses: StudyProcess[];
 
   @ApiProperty()

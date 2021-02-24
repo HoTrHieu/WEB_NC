@@ -70,10 +70,10 @@ export class Content {
   createdDate: Date;
 
   @ApiResponseProperty({ type: Course })
-  @ManyToOne(() => Course, course => course.contents)
+  @ManyToOne(() => Course, (course) => course.contents)
   course: Course;
 
   @ApiResponseProperty({ type: StudyProcess })
-  @OneToMany(() => StudyProcess, studyProcess => studyProcess.content)
+  @OneToMany(() => StudyProcess, (studyProcess) => studyProcess.content)
   studyProcesses: StudyProcess[];
 }

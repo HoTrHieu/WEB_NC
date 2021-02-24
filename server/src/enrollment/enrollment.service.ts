@@ -8,7 +8,6 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class EnrollmentService {
-
   private readonly logger = new Logger(EnrollmentService.name);
 
   constructor(
@@ -62,9 +61,14 @@ export class EnrollmentService {
     );
     if (!!savedEnrollment) {
       const totalEnrollment = await this.findTotalEnrollment(courseId);
-      const success = await this.courseService.updateTotalEnrollment(courseId, totalEnrollment);
+      const success = await this.courseService.updateTotalEnrollment(
+        courseId,
+        totalEnrollment,
+      );
       if (!success) {
-        this.logger.error(`Update total enrollment failed for course: ${courseId}`);
+        this.logger.error(
+          `Update total enrollment failed for course: ${courseId}`,
+        );
       }
     }
     return savedEnrollment;

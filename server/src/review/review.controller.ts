@@ -17,19 +17,14 @@ import { ReviewService } from './review.service';
 @ApiTags('Review')
 @Controller('/review')
 export class ReviewController {
-  constructor(
-    private reviewService: ReviewService
-  ) {}
+  constructor(private reviewService: ReviewService) {}
 
   @Get('/paginate/:courseId')
   @ApiResponse({
-    type: PagingResponse
+    type: PagingResponse,
   })
   @ApiBearerAuth()
-  paginate(
-    @Query('courseId') courseId: number, 
-    request: PagingRequest
-  ) {
+  paginate(@Query('courseId') courseId: number, request: PagingRequest) {
     return this.reviewService.paginate(courseId, request);
   }
 
@@ -41,7 +36,7 @@ export class ReviewController {
   async upcateStatus(
     @Param('courseId') courseId: number,
     @Request() req: any,
-    @Body() body: ReviewRequest
+    @Body() body: ReviewRequest,
   ) {
     await this.reviewService.review(courseId, req.user.id, body);
     return BooleanResponse.of(true);

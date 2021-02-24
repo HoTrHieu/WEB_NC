@@ -19,13 +19,11 @@ import { WatchListService } from './watch-list.service';
 @ApiTags('Watch List')
 @Controller('/watch-list')
 export class WatchListController {
-  constructor(
-    private watchListService: WatchListService
-  ) {}
+  constructor(private watchListService: WatchListService) {}
 
   @Get('/paginate')
   @ApiResponse({
-    type: PagingResponse
+    type: PagingResponse,
   })
   @ApiBearerAuth()
   paginate(request: PagingRequest, @Request() req: any) {
@@ -41,7 +39,7 @@ export class WatchListController {
   async upcateStatus(
     @Param('courseId') courseId: number,
     @Body() request: UpdateStatusRequest,
-    @Request() req: any
+    @Request() req: any,
   ) {
     await this.watchListService.updateStatus(
       courseId,

@@ -6,7 +6,6 @@ import { ClassUtils } from 'src/shared/utils/class.util';
 import { EnumUtils } from 'src/shared/utils/enum.util';
 
 export class AddUserRequest extends RegisterRequest {
-
   @IsEnum(UserRole)
   @ApiProperty({ type: EnumUtils.values(UserRole) })
   role: UserRole;

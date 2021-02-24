@@ -10,7 +10,6 @@ import { ReviewRequest } from './dto/review-request.dto';
 
 @Injectable()
 export class ReviewService {
-
   private readonly logger = new Logger(ReviewService.name);
 
   constructor(

@@ -91,7 +91,9 @@ export class CourseService {
     if (!!savedCourse) {
       const success = await this.courseEsService.upsertCourse(course);
       if (!success) {
-        this.logger.error(`Upsert elasticsearch failed for course: ${savedCourse.id}`);
+        this.logger.error(
+          `Upsert elasticsearch failed for course: ${savedCourse.id}`,
+        );
       }
     }
     return savedCourse;

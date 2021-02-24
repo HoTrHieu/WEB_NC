@@ -28,12 +28,12 @@ export class WatchList {
   userId: number;
 
   @ApiProperty({ type: Course })
-  @ManyToOne(() => Course, course => course.watchLists)
+  @ManyToOne(() => Course, (course) => course.watchLists)
   @JoinColumn({ name: 'courseId' })
   course: Course;
 
   @ApiProperty({ type: User })
-  @ManyToOne(() => User, user => user.watchLists)
+  @ManyToOne(() => User, (user) => user.watchLists)
   @JoinColumn({ name: 'userId' })
   user: User;
 

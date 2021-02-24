@@ -1,5 +1,5 @@
-import { Course } from "src/shared/entities/course.entity";
-import { ClassUtils } from "src/shared/utils/class.util";
+import { Course } from 'src/shared/entities/course.entity';
+import { ClassUtils } from 'src/shared/utils/class.util';
 
 export class CourseEsDoc {
   id: number;

@@ -15,9 +15,7 @@ import { UploaderService } from './uploader.service';
 @ApiTags('Uploader')
 @Controller('/uploader')
 export class UploaderController {
-  constructor(
-    private uploaderService: UploaderService
-  ) {}
+  constructor(private uploaderService: UploaderService) {}
 
   @Post('/upload')
   @ApiResponse({
@@ -26,7 +24,7 @@ export class UploaderController {
   @ApiBearerAuth()
   async upcateStatus(
     @Body() fileType: FileType,
-    @UploadedFile() file: Express.Multer.File
+    @UploadedFile() file: Express.Multer.File,
   ) {
     const folder = UploaderService.Folder[fileType];
     if (!folder) {

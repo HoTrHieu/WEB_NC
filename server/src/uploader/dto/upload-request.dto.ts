@@ -1,7 +1,7 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { IsEnum } from "class-validator";
-import { FileType } from "src/shared/enums/file-type";
-import { EnumUtils } from "src/shared/utils/enum.util";
+import { ApiProperty } from '@nestjs/swagger';
+import { IsEnum } from 'class-validator';
+import { FileType } from 'src/shared/enums/file-type';
+import { EnumUtils } from 'src/shared/utils/enum.util';
 
 export class UploadRequest {
   @IsEnum(FileType)

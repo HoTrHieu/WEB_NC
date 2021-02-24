@@ -1,7 +1,4 @@
-import {
-  Body,
-  Controller, Param, Post, Put, Request
-} from '@nestjs/common';
+import { Body, Controller, Param, Post, Put, Request } from '@nestjs/common';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Role } from 'src/shared/decorators/role.decorator';
 import { BooleanResponse } from 'src/shared/dtos/boolean-response.dto';
@@ -15,37 +12,43 @@ import { ContentService } from './content.service';
 @ApiTags('Content')
 @Controller('/content')
 export class ContentController {
-  constructor(
-    private contentService: ContentService
-  ) {}
+  constructor(private contentService: ContentService) {}
 
   @Role(UserRole.TEACHER)
   @Post('/:courseId')
   @ApiResponse({
-    type: StdResponse
+    type: StdResponse,
   })
   @ApiBearerAuth()
   async add(
     @Param('courseId') courseId: number,
     @Body() content: Content,
-    @Request() req: any
+    @Request() req: any,
   ) {
-    const newContent = await this.contentService.add(courseId, req.user.id, content);
+    const newContent = await this.contentService.add(
+      courseId,
+      req.user.id,
+      content,
+    );
     return StdResponse.of(StdResponseCode.SUCCESS, newContent.id);
   }
 
   @Role(UserRole.TEACHER)
   @Put('/:contentId')
   @ApiResponse({
-    type: BooleanResponse
+    type: BooleanResponse,
   })
   @ApiBearerAuth()
   async update(
     @Param('contentId') contentId: number,
     @Body() content: Content,
-    @Request() req: any
+    @Request() req: any,
   ) {
-    const isSuccess = await this.contentService.update(req.user.id, contentId, content);
+    const isSuccess = await this.contentService.update(
+      req.user.id,
+      contentId,
+      content,
+    );
     return BooleanResponse.of(isSuccess);
   }
 
@@ -59,7 +62,10 @@ export class ContentController {
     @Param('id') id: number,
     @Body() request: UpdateStatusRequest,
   ) {
-    const isSuccess = await this.contentService.updateStatus(id, request.status);
+    const isSuccess = await this.contentService.updateStatus(
+      id,
+      request.status,
+    );
     return BooleanResponse.of(isSuccess);
   }
 }

@@ -1,25 +1,24 @@
-import { HttpStatus, InternalServerErrorException } from "@nestjs/common";
-import { ConfigService } from "@nestjs/config";
-import { ElasticsearchService } from "@nestjs/elasticsearch";
-import { EsHelperService } from "src/es-helper/es-helper.service";
-import { Course } from "src/shared/entities/course.entity";
-import { EntityStatus } from "src/shared/enums/entity-status";
-import { CourseEsDoc } from "./dto/course-es-doc.dto";
-import { CourseOrderBy } from "./dto/course-order-by";
-import { CourseSearchRequest } from "./dto/course-search-request.dto";
+import { HttpStatus, InternalServerErrorException } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { ElasticsearchService } from '@nestjs/elasticsearch';
+import { EsHelperService } from 'src/es-helper/es-helper.service';
+import { Course } from 'src/shared/entities/course.entity';
+import { EntityStatus } from 'src/shared/enums/entity-status';
+import { CourseEsDoc } from './dto/course-es-doc.dto';
+import { CourseOrderBy } from './dto/course-order-by';
+import { CourseSearchRequest } from './dto/course-search-request.dto';
 
 export class CourseEsService {
-
   public static OrderBy = {
     [CourseOrderBy.PRICE]: 'price',
-    [CourseOrderBy.REVIEW]: 'star'
+    [CourseOrderBy.REVIEW]: 'star',
   };
 
   private readonly ES_INDEX_NAME;
   constructor(
     private esService: ElasticsearchService,
     private esHelper: EsHelperService,
-    private config: ConfigService
+    private config: ConfigService,
   ) {
     this.ES_INDEX_NAME = this.config.get('es.index.course');
   }
@@ -36,29 +35,29 @@ export class CourseEsService {
             {
               term: {
                 status: EntityStatus.ACTIVE,
-              }
-            }
-          ]
-        }
+              },
+            },
+          ],
+        },
       },
       sort: [
         // sort options
         {
           [request.orderBy]: {
-            order: request.orderDirection
-          }
+            order: request.orderDirection,
+          },
         },
         {
           totalEnrollment: {
-            order: 'desc'
-          }
+            order: 'desc',
+          },
         },
         {
           updatedDate: {
-            order: 'desc'
-          }
-        }
-      ]
+            order: 'desc',
+          },
+        },
+      ],
     };
 
     if (request.isSearching) {
@@ -81,16 +80,18 @@ export class CourseEsService {
 
     const esResult = await this.esService.search({
       index: this.ES_INDEX_NAME,
-      body: searchBody
+      body: searchBody,
     });
 
     if (!esResult.body.hits) {
-      throw new InternalServerErrorException("Search from Elasticsearch failed!");
+      throw new InternalServerErrorException(
+        'Search from Elasticsearch failed!',
+      );
     }
 
     return {
       total: esResult.body.hits.total.value,
-      courseIds: esResult.body.hits.hits.map((hit) => Number(hit._id))
+      courseIds: esResult.body.hits.hits.map((hit) => Number(hit._id)),
     };
   }
 
@@ -98,16 +99,12 @@ export class CourseEsService {
     return this.esHelper.upsert(
       this.ES_INDEX_NAME,
       String(course.id),
-      CourseEsDoc.of(course)
+      CourseEsDoc.of(course),
     );
   }
 
   partialUpdate(id: number, doc: any) {
-    return this.esHelper.upsert(
-      this.ES_INDEX_NAME,
-      String(id),
-      doc
-    );
+    return this.esHelper.upsert(this.ES_INDEX_NAME, String(id), doc);
   }
 
   updateStatus(id: number, status: EntityStatus) {

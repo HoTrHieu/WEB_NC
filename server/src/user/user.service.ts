@@ -56,11 +56,11 @@ export class UserService {
   async addUser(request: AddUserRequest) {
     let count = await this.userRepository.count({ email: request.email });
     if (count > 0) {
-      throw new BadRequestException("Email đã tồn tại");
+      throw new BadRequestException('Email đã tồn tại');
     }
     count = await this.userRepository.count({ username: request.username });
     if (count > 0) {
-      throw new BadRequestException("Tên tài khoản đã tồn tại");
+      throw new BadRequestException('Tên tài khoản đã tồn tại');
     }
     const user = ClassUtils.copyFields(request, {});
     user.passwordHash = await this.hashPassword(request.password);
@@ -89,13 +89,10 @@ export class UserService {
   async updateEmail(id: number, email: string) {
     const count = await this.userRepository.count({ email });
     if (count > 0) {
-      throw new BadRequestException("Email đã tồn tại");
+      throw new BadRequestException('Email đã tồn tại');
     }
 
-    const result = await this.userRepository.update(
-      { id },
-      { email },
-    );
+    const result = await this.userRepository.update({ id }, { email });
     return result.affected > 0;
   }
 

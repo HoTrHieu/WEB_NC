@@ -27,7 +27,7 @@ export const mysqlModule = TypeOrmModule.forRootAsync({
       Review,
       StudyProcess,
       User,
-      WatchList
+      WatchList,
     ],
     synchronize: config.get('settings.mysql.sync'),
     logging: process.env.NODE_ENV === 'dev',

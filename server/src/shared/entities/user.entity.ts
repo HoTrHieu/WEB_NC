@@ -73,18 +73,18 @@ export class User {
   createdDate: Date;
 
   @ApiProperty({ type: Course, isArray: true })
-  @OneToMany(() => Course, course => course.creator)
+  @OneToMany(() => Course, (course) => course.creator)
   createdCourses: Course[];
 
   @ApiProperty({ type: WatchList, isArray: true })
-  @OneToMany(() => WatchList, watchList => watchList.user)
+  @OneToMany(() => WatchList, (watchList) => watchList.user)
   watchLists: WatchList[];
 
   @ApiProperty({ type: Enrollment, isArray: true })
-  @OneToMany(() => Enrollment, enrollment => enrollment.user)
+  @OneToMany(() => Enrollment, (enrollment) => enrollment.user)
   enrollments: Enrollment[];
 
   @ApiProperty({ type: Review, isArray: true })
-  @OneToMany(() => Review, review => review.user)
+  @OneToMany(() => Review, (review) => review.user)
   reviews: Review[];
 }

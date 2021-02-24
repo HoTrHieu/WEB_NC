@@ -14,7 +14,7 @@ export class CategoryService {
   findAll() {
     return this.categoryRepository.find({
       where: { status: EntityStatus.ACTIVE },
-      relations: ['children']
+      relations: ['children'],
     });
   }
 
