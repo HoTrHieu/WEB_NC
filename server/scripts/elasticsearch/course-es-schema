@@ -1,0 +1,77 @@
+PUT web_nc_courses
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "autocomplete": {
+          "tokenizer": "autocomplete",
+          "filter": [
+            "lowercase"
+          ]
+        },
+        "autocomplete_search": {
+          "tokenizer": "lowercase"
+        }
+      },
+      "tokenizer": {
+        "autocomplete": {
+          "type": "edge_ngram",
+          "min_gram": 2,
+          "max_gram": 20,
+          "token_chars": [
+            "letter"
+          ]
+        }
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "id": { 
+        "type": "integer"
+      },
+      "title": {
+        "type": "text",
+        "analyzer": "autocomplete",
+        "search_analyzer": "autocomplete_search"
+      },
+      "subDescription": {
+        "type": "text",
+        "analyzer": "autocomplete",
+        "search_analyzer": "autocomplete_search"
+      },
+      "description": {
+        "type": "text",
+        "analyzer": "autocomplete",
+        "search_analyzer": "autocomplete_search"
+      },
+      "price": {
+        "type": "float"
+      },
+      "avatarPath": {
+        "type": "keyword"
+      },
+      "coverPath": {
+        "type": "keyword"
+      },
+      "totalEnrollment": {
+        "type": "integer"
+      },
+      "avgStar": {
+        "type": "integer"
+      },
+      "creatorId": {
+        "type": "integer"
+      },
+      "categoryId": {
+        "type": "integer"
+      },
+      "createdDate": {
+        "type": "date"
+      }
+      "updatedDate": {
+        "type": "date"
+      }
+    }
+  }
+}

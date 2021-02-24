@@ -1,104 +1,36 @@
-import { BadGatewayException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { ElasticsearchService } from '@nestjs/elasticsearch';
+import {
+  BadGatewayException,
+  Injectable,
+  Logger,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PagingResponse } from 'src/shared/dtos/paging-response.dto';
 import { Course } from 'src/shared/entities/course.entity';
 import { EntityStatus } from 'src/shared/enums/entity-status';
 import { In, Repository } from 'typeorm';
-import { CourseOrderBy } from './dto/course-order-by';
+import { CourseEsService } from './course-es.service';
 import { CourseSearchRequest } from './dto/course-search-request.dto';
 
 @Injectable()
 export class CourseService {
+  private readonly logger = new Logger(CourseService.name);
 
-  public static OrderBy = {
-    [CourseOrderBy.PRICE]: 'price',
-    [CourseOrderBy.REVIEW]: 'star'
-  };
-
-  private readonly ES_INDEX_NAME = "";
   constructor(
     @InjectRepository(Course)
     private courseRepository: Repository<Course>,
-    private esService: ElasticsearchService,
-    private config: ConfigService
-  ) {
-    this.ES_INDEX_NAME = this.config.get('es.index.course');
-  }
+    private courseEsService: CourseEsService,
+  ) {}
 
   async search(request: CourseSearchRequest) {
-    const searchBody: any = {
-      from: request.offset,
-      size: request.pageSize,
-      track_total_hits: true,
-      _source: false,
-      query: {
-        bool: {
-          filter: [
-            {
-              term: {
-                status: EntityStatus.ACTIVE,
-              }
-            }
-          ]
-        }
-      },
-      sort: [
-        // sort options
-        {
-          [request.orderBy]: {
-            order: request.orderDirection
-          }
-        },
-        {
-          totalEnrollment: {
-            order: 'desc'
-          }
-        },
-        {
-          updatedDate: {
-            order: 'desc'
-          }
-        }
-      ]
-    };
-
-    if (request.isSearching) {
-      if (request.isSearchTermExists) {
-        searchBody.query.bool.filter.push({
-          match_phrase: {
-            title: request.searchTerm,
-          },
-        });
-      }
-
-      if (request.isCategoryIdsExists) {
-        searchBody.query.bool.filter.push({
-          terms: {
-            categoryId: request.getCategoryIds(),
-          },
-        });
-      }
-    }
-
-    const esResult = await this.esService.search({
-      index: this.ES_INDEX_NAME,
-      body: searchBody
-    });
-
-    if (!esResult.body.hits) {
-      throw new InternalServerErrorException("Search from Elasticsearch failed!");
-    }
-
-    const courseIds = esResult.body.hits.hits.map((hit) => Number(hit._id));
-    const courses = await this.findByIdIn(courseIds);
+    const esResult = await this.courseEsService.search(request);
+    const courses = await this.findByIdIn(esResult.courseIds);
 
     return PagingResponse.of(
       request.page,
       request.pageSize,
-      esResult.body.hits.total.value,
-      courses
+      esResult.total,
+      courses,
     );
   }
 
@@ -110,20 +42,20 @@ export class CourseService {
     return this.courseRepository.find({
       where: {
         id: In(ids),
-        status: EntityStatus.ACTIVE
+        status: EntityStatus.ACTIVE,
       },
       relations: ['creator', 'category'],
-    })
+    });
   }
 
   async getDetail(courseId: number) {
     const course = await this.courseRepository.findOne({
       where: { id: courseId },
-      relations: ['contents', 'creator', 'category']
+      relations: ['contents', 'creator', 'category'],
     });
 
     if (!course) {
-      throw new NotFoundException("Khóa học này không tồn tại");
+      throw new NotFoundException('Khóa học này không tồn tại');
     }
   }
 
@@ -153,36 +85,56 @@ export class CourseService {
   }
 
   async add(userId: number, course: Course) {
+    course.creatorId = userId;
     course.creator = { id: userId } as any;
-    return this.courseRepository.save(course);
+    const savedCourse = await this.courseRepository.save(course);
+    if (!!savedCourse) {
+      const success = await this.courseEsService.upsertCourse(course);
+      if (!success) {
+        this.logger.error(`Upsert elasticsearch failed for course: ${savedCourse.id}`);
+      }
+    }
+    return savedCourse;
   }
 
   async update(userId: number, courseId: number, course: Course) {
     await this.validateAndThrow(courseId, userId);
+    const change = {
+      title: course.title,
+      subDescription: course.subDescription,
+      description: course.description,
+      price: course.price,
+      avatarPath: course.avatarPath,
+      coverPath: course.coverPath,
+    };
     const result = await this.courseRepository.update(
       {
         id: courseId,
       },
-      {
-        title: course.title,
-        subDescription: course.subDescription,
-        description: course.description,
-        price: course.price,
-        avatarPath: course.avatarPath,
-        coverPath: course.coverPath,
-      },
+      change,
     );
+    let success = result.affected > 0;
+    if (success) {
+      return await this.partialUpdate(courseId, change);
+    }
+    return success;
+  }
+
+  private async partialUpdate(courseId: number, change: any) {
+    const result = await this.courseRepository.update({ id: courseId }, change);
     return result.affected > 0;
   }
 
   async updateStatus(userId: number, courseId: number, status: EntityStatus) {
     await this.validateAndThrow(courseId, userId);
-    const result = await this.courseRepository.update(
-      { id: courseId },
-      {
-        status,
-      },
-    );
-    return result.affected > 0;
+    return this.partialUpdate(courseId, { status });
+  }
+
+  updateAvgStar(courseId: number, avgStar: number) {
+    return this.partialUpdate(courseId, { avgStar });
+  }
+
+  updateTotalEnrollment(courseId: number, totalEnrollment: number) {
+    return this.partialUpdate(courseId, { totalEnrollment });
   }
 }

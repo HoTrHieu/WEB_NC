@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CourseModule } from 'src/course/course.module';
 import { EnrollmentModule } from 'src/enrollment/enrollment.module';
-import { Enrollment } from 'src/shared/entities/enrollment.entity';
 import { Review } from 'src/shared/entities/review.entity';
 import { ReviewController } from './review.controller';
 import { ReviewService } from './review.service';

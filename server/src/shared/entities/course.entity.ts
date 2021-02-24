@@ -65,7 +65,7 @@ export class Course {
 
   @ApiResponseProperty()
   @Column('float')
-  star: number;
+  avgStar: number;
 
   @ApiResponseProperty()
   @Column('int')

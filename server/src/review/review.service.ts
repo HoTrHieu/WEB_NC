@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CourseService } from 'src/course/course.service';
 import { EnrollmentService } from 'src/enrollment/enrollment.service';
@@ -10,6 +10,9 @@ import { ReviewRequest } from './dto/review-request.dto';
 
 @Injectable()
 export class ReviewService {
+
+  private readonly logger = new Logger(ReviewService.name);
+
   constructor(
     @InjectRepository(Review)
     private reviewRepository: Repository<Review>,
@@ -23,6 +26,14 @@ export class ReviewService {
     });
   }
 
+  findAvgStar(courseId: number) {
+    return this.reviewRepository
+      .createQueryBuilder()
+      .where('courseId = :courseId', { courseId })
+      .select('AVG(star)')
+      .getRawOne();
+  }
+
   async review(courseId: number, userId: number, body: ReviewRequest) {
     if (!this.courseService.exists(userId)) {
       throw new BadRequestException('Khóa học này không tồn tại');
@@ -30,8 +41,16 @@ export class ReviewService {
     if (!(await this.enrollmentService.exists(courseId, userId))) {
       throw new BadRequestException('Bạn chưa tham gia khóa học này');
     }
-    return this.reviewRepository.save(
+    const savedReview = await this.reviewRepository.save(
       Review.of(courseId, userId, body.star, body.feedback),
     );
+    if (!!savedReview) {
+      const avgStar = await this.findAvgStar(courseId);
+      const success = await this.courseService.updateAvgStar(courseId, avgStar);
+      if (!success) {
+        this.logger.error(`Update average star failed for course: ${courseId}`);
+      }
+    }
+    return savedReview;
   }
 }
