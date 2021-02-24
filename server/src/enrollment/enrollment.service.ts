@@ -41,20 +41,21 @@ export class EnrollmentService {
     return this.enrollmentRepository.findOne({ courseId, userId });
   }
 
-  findTotalEnrollment(courseId: number) {
-    return this.enrollmentRepository
+  async findTotalEnrollment(courseId: number) {
+    const { totalEnrollment } = await this.enrollmentRepository
       .createQueryBuilder()
       .where('courseId = :courseId', { courseId })
-      .select('COUNT(*)')
+      .select('COUNT(*)', 'totalEnrollment')
       .getRawOne();
+    return totalEnrollment || 0;
   }
 
   async enroll(courseId: number, userId: number) {
     if (this.exists(courseId, userId)) {
-      throw new BadRequestException('Bạn đã tham gia khóa học này rồi');
+      throw new BadRequestException('You have already enrolled in this course');
     }
     if (!this.courseService.exists(userId)) {
-      throw new BadRequestException('Khóa học này không tồn tại');
+      throw new BadRequestException('This course is not exists');
     }
     const savedEnrollment = await this.enrollmentRepository.save(
       Enrollment.of(courseId, userId),

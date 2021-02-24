@@ -25,20 +25,21 @@ export class ReviewService {
     });
   }
 
-  findAvgStar(courseId: number) {
-    return this.reviewRepository
+  async findAvgStar(courseId: number) {
+    const { avgStar } = await this.reviewRepository
       .createQueryBuilder()
       .where('courseId = :courseId', { courseId })
-      .select('AVG(star)')
+      .select('AVG(star)', 'avgStar')
       .getRawOne();
+    return avgStar || 0;
   }
 
   async review(courseId: number, userId: number, body: ReviewRequest) {
     if (!this.courseService.exists(userId)) {
-      throw new BadRequestException('Khóa học này không tồn tại');
+      throw new BadRequestException('This course is not exists');
     }
     if (!(await this.enrollmentService.exists(courseId, userId))) {
-      throw new BadRequestException('Bạn chưa tham gia khóa học này');
+      throw new BadRequestException('You are not yet enrolled in this course');
     }
     const savedReview = await this.reviewRepository.save(
       Review.of(courseId, userId, body.star, body.feedback),

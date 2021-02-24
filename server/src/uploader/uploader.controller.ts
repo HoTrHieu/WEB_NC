@@ -28,7 +28,7 @@ export class UploaderController {
   ) {
     const folder = UploaderService.Folder[fileType];
     if (!folder) {
-      throw new BadRequestException('fileType không hợp lệ');
+      throw new BadRequestException('File type is invalid');
     }
     const filePath = await this.uploaderService.upload(folder, file);
     return StdResponse.of(StdResponseCode.SUCCESS, filePath);

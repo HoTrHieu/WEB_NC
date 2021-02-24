@@ -69,6 +69,10 @@ export class Course {
 
   @ApiResponseProperty()
   @Column('int')
+  totalView: number;
+
+  @ApiResponseProperty()
+  @Column('int')
   creatorId: number;
 
   @ApiResponseProperty()

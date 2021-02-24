@@ -55,7 +55,7 @@ export class CourseService {
     });
 
     if (!course) {
-      throw new NotFoundException('Khóa học này không tồn tại');
+      throw new NotFoundException('This course is not exists');
     }
   }
 
@@ -124,7 +124,11 @@ export class CourseService {
 
   private async partialUpdate(courseId: number, change: any) {
     const result = await this.courseRepository.update({ id: courseId }, change);
-    return result.affected > 0;
+    const success = result.affected > 0;
+    if (success) {
+      return await this.courseEsService.partialUpdate(courseId, change);
+    }
+    return success;
   }
 
   async updateStatus(userId: number, courseId: number, status: EntityStatus) {
@@ -138,5 +142,22 @@ export class CourseService {
 
   updateTotalEnrollment(courseId: number, totalEnrollment: number) {
     return this.partialUpdate(courseId, { totalEnrollment });
+  }
+
+  async findTotalView(courseId: number) {
+    const { totalView } = await this.courseRepository
+      .createQueryBuilder()
+      .where('courseId = :courseId', { courseId })
+      .select('totalView')
+      .getRawOne();
+    return totalView;
+  }
+
+  async increaseTotalView(courseId: number) {
+    const totalView = await this.findTotalView(courseId);
+    if (!totalView) {
+      throw new NotFoundException('Course is not exists');
+    }
+    
   }
 }

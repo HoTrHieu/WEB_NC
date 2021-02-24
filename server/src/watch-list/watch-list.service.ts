@@ -23,7 +23,7 @@ export class WatchListService {
 
   async updateStatus(courseId: number, userId: number, status: EntityStatus) {
     if (!this.courseService.exists(courseId)) {
-      throw new BadRequestException('Khóa học không tồn tại');
+      throw new BadRequestException('This course is not exists');
     }
     const qb = this.watchListRepository
       .createQueryBuilder()

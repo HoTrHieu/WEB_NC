@@ -27,10 +27,10 @@ export class ContentService {
   }
 
   async findMaxOrder(courseId: number) {
-    const maxOrder = await this.contentRepository
+    const { maxOrder } = await this.contentRepository
       .createQueryBuilder()
       .where('courseId = :courseId', { courseId })
-      .select('MAX(order)')
+      .select('MAX(order)', 'maxOrder')
       .getRawOne();
     return maxOrder || 0;
   }
@@ -49,7 +49,7 @@ export class ContentService {
     await this.courseService.validateAndThrow(content.course.id, userId);
     const currContent = await this.findOne(contentId);
     if (!currContent) {
-      throw new NotFoundException('Nội dung khóa học này không tồn tại');
+      throw new NotFoundException("This content is not exists");
     }
     if (content.videoPath !== currContent.videoPath) {
       content.duration = await getVideoDurationInSeconds(

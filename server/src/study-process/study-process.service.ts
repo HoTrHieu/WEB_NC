@@ -33,7 +33,7 @@ export class StudyProcessService {
       userId,
     );
     if (!enrollmentExists) {
-      throw new BadRequestException('Bạn chưa tham gia khóa học này');
+      throw new BadRequestException('You are not yet enrolled in this course');
     }
 
     const content = await this.contentService.findOne(request.contentId);
