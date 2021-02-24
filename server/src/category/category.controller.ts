@@ -22,6 +22,7 @@ import { StdResponseCode } from 'src/shared/enums/std-response-code';
 import { UserRole } from 'src/shared/enums/user-role';
 import { CategoryService } from './category.service';
 import { AddCategoryRequest } from './dto/add-category-request.dto';
+import { TopCategoryOfWeek } from './dto/top-category-of-week.dto';
 
 @ApiTags('Category')
 @Controller('/category')
@@ -40,6 +41,16 @@ export class CategoryController {
   @UseInterceptors(CacheInterceptor)
   findAllCategory() {
     return this.categoryService.findAll();
+  }
+
+  @Public()
+  @Get('/top-of-week')
+  @ApiResponse({
+    type: TopCategoryOfWeek,
+    isArray: true,
+  })
+  findTopOfWeek() {
+    return this.categoryService.findTopOfWeek();
   }
 
   @Role(UserRole.ADMIN)

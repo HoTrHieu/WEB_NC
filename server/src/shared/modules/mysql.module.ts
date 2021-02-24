@@ -1,5 +1,6 @@
 import { ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { CategoryTotalEnrollment } from '../entities/category-total-enrollment.entity';
 import { Category } from '../entities/category.entity';
 import { Content } from '../entities/content.entity';
 import { Course } from '../entities/course.entity';
@@ -28,6 +29,7 @@ export const mysqlModule = TypeOrmModule.forRootAsync({
       StudyProcess,
       User,
       WatchList,
+      CategoryTotalEnrollment
     ],
     synchronize: config.get('settings.mysql.sync'),
     logging: process.env.NODE_ENV === 'dev',

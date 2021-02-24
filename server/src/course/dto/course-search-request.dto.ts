@@ -3,7 +3,6 @@ import { Type } from 'class-transformer';
 import { IsEnum, IsNumber, IsOptional, Min } from 'class-validator';
 import { SearchRequest } from 'src/shared/dtos/search-request.dto';
 import { OrderDirection } from 'src/shared/enums/order-direction';
-import { EnumUtils } from 'src/shared/utils/enum.util';
 import { RequestUtil } from 'src/shared/utils/request.util';
 import { CourseOrderBy } from './course-order-by';
 
@@ -16,11 +15,11 @@ export class CourseSearchRequest extends SearchRequest {
   categoryIds?: number[];
 
   @IsEnum(CourseOrderBy)
-  @ApiProperty({ enum: EnumUtils.values(CourseOrderBy) })
+  @ApiProperty({ enum: CourseOrderBy })
   orderBy: CourseOrderBy;
 
   @IsEnum(OrderDirection)
-  @ApiProperty({ enum: EnumUtils.values(OrderDirection) })
+  @ApiProperty({ enum: OrderDirection })
   orderDirection: OrderDirection;
 
   getCategoryIds() {

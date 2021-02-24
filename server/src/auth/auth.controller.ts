@@ -19,11 +19,14 @@ import {
 } from '@nestjs/swagger';
 import { Public } from 'src/shared/decorators/public.decorator';
 import { BooleanResponse } from 'src/shared/dtos/boolean-response.dto';
+import { StdResponse } from 'src/shared/dtos/std-response.dto';
 import { User } from 'src/shared/entities/user.entity';
+import { StdResponseCode } from 'src/shared/enums/std-response-code';
 import { AuthService } from './auth.service';
 import { ChangePasswordRequest } from './dto/change-password-request.dto';
 import { LoginRequest } from './dto/login-request.dto';
 import { LoginResponse } from './dto/login-response.dto';
+import { RegisterRequest } from './dto/register-request.dto';
 import { LocalAuthGuard } from './guard/local.guard';
 import { TokenService } from './token/token.service';
 
@@ -37,9 +40,12 @@ export class AuthController {
 
   @Public()
   @Post('/register')
-  @ApiExcludeEndpoint()
-  register() {
-    // TODO: implement this method
+  @ApiResponse({
+    type: StdResponse
+  })
+  async register(@Body() request: RegisterRequest) {
+    const newUser = await this.authService.register(request);
+    return StdResponse.of(StdResponseCode.SUCCESS, newUser.id);
   }
 
   @UseGuards(LocalAuthGuard)

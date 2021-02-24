@@ -5,15 +5,10 @@ import { EsHelperService } from 'src/es-helper/es-helper.service';
 import { Course } from 'src/shared/entities/course.entity';
 import { EntityStatus } from 'src/shared/enums/entity-status';
 import { CourseEsDoc } from './dto/course-es-doc.dto';
-import { CourseOrderBy } from './dto/course-order-by';
 import { CourseSearchRequest } from './dto/course-search-request.dto';
 
 @Injectable()
 export class CourseEsService {
-  public static OrderBy = {
-    [CourseOrderBy.PRICE]: 'price',
-    [CourseOrderBy.REVIEW]: 'star',
-  };
 
   private readonly ES_INDEX_NAME;
   constructor(

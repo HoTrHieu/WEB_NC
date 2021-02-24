@@ -59,6 +59,15 @@ export class CourseService {
     }
   }
 
+  async findCategoryId(courseId: number) {
+    const { categoryId } = await this.courseRepository
+      .createQueryBuilder()
+      .where('id = :courseId', { courseId })
+      .select('categoryId')
+      .getRawOne();
+    return categoryId;
+  }
+
   async exists(courseId: number) {
     return (
       (await this.courseRepository.count({
@@ -86,7 +95,6 @@ export class CourseService {
 
   async add(userId: number, course: Course) {
     course.creatorId = userId;
-    course.creator = { id: userId } as any;
     const savedCourse = await this.courseRepository.save(course);
     if (!!savedCourse) {
       const success = await this.courseEsService.upsertCourse(course);
@@ -108,6 +116,7 @@ export class CourseService {
       price: course.price,
       avatarPath: course.avatarPath,
       coverPath: course.coverPath,
+      categoryId: course.categoryId
     };
     const result = await this.courseRepository.update(
       {
@@ -145,7 +154,9 @@ export class CourseService {
   }
 
   async findTotalView(courseId: number) {
-    const { totalView } = await this.courseRepository
+    const {
+      totalView,
+    } = await this.courseRepository
       .createQueryBuilder()
       .where('courseId = :courseId', { courseId })
       .select('totalView')
@@ -155,9 +166,9 @@ export class CourseService {
 
   async increaseTotalView(courseId: number) {
     const totalView = await this.findTotalView(courseId);
-    if (!totalView) {
-      throw new NotFoundException('Course is not exists');
+    if (Number.isNaN(totalView)) {
+      throw new NotFoundException('This course is not exists');
     }
-    
+    return this.partialUpdate(courseId, { totalView: totalView + 1 });
   }
 }

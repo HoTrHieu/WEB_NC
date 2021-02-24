@@ -3,6 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Category } from 'src/shared/entities/category.entity';
 import { EntityStatus } from 'src/shared/enums/entity-status';
 import { Repository } from 'typeorm';
+import * as moment from 'moment';
+import { TopCategoryOfWeek } from './dto/top-category-of-week.dto';
 
 @Injectable()
 export class CategoryService {
@@ -15,6 +17,30 @@ export class CategoryService {
     return this.categoryRepository.find({
       where: { status: EntityStatus.ACTIVE },
       relations: ['children'],
+    });
+  }
+
+  async findTopOfWeek(limit: number = 10) {
+    const categories = await this.categoryRepository
+      .createQueryBuilder('c')
+      .leftJoinAndSelect('c.categoryTotalEnrollments', 'cte')
+      .where('cte.categoryId IS NULL or (cte.year = :year AND cte.week = :week)', {
+        week: moment().week(),
+        year: moment().year(),
+      })
+      .orderBy('cte.totalEnrollment', 'DESC')
+      .addOrderBy('c.updatedDate', 'DESC')
+      .limit(limit)
+      .getMany();
+    
+    return categories.map((category) => {
+      let totalEnrollment = 0;
+      const cte = category.categoryTotalEnrollments[0];
+      if (!!cte) {
+        totalEnrollment = cte.totalEnrollment;
+      }
+      delete category.categoryTotalEnrollments;
+      return TopCategoryOfWeek.of(totalEnrollment, category);
     });
   }
 

@@ -17,9 +17,10 @@ PUT web_nc_courses
         "autocomplete": {
           "type": "edge_ngram",
           "min_gram": 2,
-          "max_gram": 20,
+          "max_gram": 10,
           "token_chars": [
-            "letter"
+            "letter",
+            "digit"
           ]
         }
       }
@@ -58,6 +59,9 @@ PUT web_nc_courses
         "type": "integer"
       },
       "avgStar": {
+        "type": "float"
+      },
+      "totalView": {
         "type": "integer"
       },
       "creatorId": {

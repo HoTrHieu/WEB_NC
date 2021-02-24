@@ -18,7 +18,7 @@ import { WatchList } from './watch-list.entity';
 import { Discount } from './discount.entity';
 import { Enrollment } from './enrollment.entity';
 import { Review } from './review.entity';
-import { IsNumber, IsString, Length } from 'class-validator';
+import { IsNumber, IsString, Length, Min } from 'class-validator';
 
 @Entity({
   name: 'courses',
@@ -29,9 +29,9 @@ export class Course {
   id: number;
 
   @ApiProperty()
-  @Column('varchar', { length: 1000 })
+  @Column('varchar', { length: 768, unique: true })
   @IsString()
-  @Length(1, 1000)
+  @Length(1, 768)
   title: string;
 
   @ApiProperty()
@@ -45,38 +45,40 @@ export class Course {
   description: string;
 
   @ApiProperty()
-  @Column('float')
+  @Column('float', { default: 0 })
   @IsNumber()
   price: number;
 
   @ApiProperty()
-  @Column('varchar', { length: 1000 })
+  @Column('varchar', { length: 1000, default: '' })
   @IsString()
   avatarPath: string;
 
   @ApiProperty()
-  @Column('varchar', { length: 1000 })
+  @Column('varchar', { length: 1000, default: '' })
   @IsString()
   coverPath: string;
 
   @ApiResponseProperty()
-  @Column('int')
+  @Column('int', { default: 0 })
   totalEnrollment: number;
 
   @ApiResponseProperty()
-  @Column('float')
+  @Column('float', { default: 0 })
   avgStar: number;
 
   @ApiResponseProperty()
-  @Column('int')
+  @Column('int', { default: 0 })
   totalView: number;
 
   @ApiResponseProperty()
   @Column('int')
   creatorId: number;
 
-  @ApiResponseProperty()
+  @ApiProperty()
   @Column('int')
+  @IsNumber()
+  @Min(1)
   categoryId: number;
 
   @ApiResponseProperty()

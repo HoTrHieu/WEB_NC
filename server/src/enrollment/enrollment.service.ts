@@ -1,5 +1,6 @@
 import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { CategoryTotalEnrollmentService } from 'src/category-total-enrollment/category-total-enrollment.service';
 import { CourseService } from 'src/course/course.service';
 import { PagingRequest } from 'src/shared/dtos/paging-request.dto';
 import { Enrollment } from 'src/shared/entities/enrollment.entity';
@@ -14,6 +15,7 @@ export class EnrollmentService {
     @InjectRepository(Enrollment)
     private enrollmentRepository: Repository<Enrollment>,
     private courseService: CourseService,
+    private categoryTotalEnrollmentService: CategoryTotalEnrollmentService
   ) {}
 
   paginate(userId: number, request: PagingRequest) {
@@ -62,11 +64,13 @@ export class EnrollmentService {
     );
     if (!!savedEnrollment) {
       const totalEnrollment = await this.findTotalEnrollment(courseId);
-      const success = await this.courseService.updateTotalEnrollment(
+      let success = await this.courseService.updateTotalEnrollment(
         courseId,
         totalEnrollment,
       );
-      if (!success) {
+      if (success) {
+        await this.categoryTotalEnrollmentService.increaseByCourseId(courseId);
+      } else {
         this.logger.error(
           `Update total enrollment failed for course: ${courseId}`,
         );
