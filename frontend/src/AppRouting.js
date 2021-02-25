@@ -1,11 +1,13 @@
 import * as React from "react";
 import { Route, Switch, withRouter } from "react-router";
-import {
+import { 
   Home,
   Login,
   Signup,
   ListCourse,
-  DetailCourse
+  Profile,
+  DetailCourse,
+  StudentCourse
 } from "./modules/pages";
 import { Layout } from './modules/components';
 
@@ -18,7 +20,10 @@ const AppRouting = (props) => {
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/" component={Home} />
           <Route exact path="/list-course" component={ListCourse} />
+          <Route exact path="/profile" component={Profile} />
           <Route exact path="/detail-course" component={DetailCourse} />
+          <Route exact path="/student-course" component={StudentCourse} />
+
         </Switch>
       </Layout>
     );

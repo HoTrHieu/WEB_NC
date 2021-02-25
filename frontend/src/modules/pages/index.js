@@ -2,13 +2,18 @@ import Home from './Home/Home';
 import Login from './Login/Login';
 import Signup from './Signup/Signup';
 import ListCourse from './ListCourse/ListCourse';
-import DetailCourse from './DetailCourse/DetailCourse'
+import Profile from './Profile/Profile';
+import DetailCourse from './DetailCourse/DetailCourse';
+import StudentCourse from './StudentCourse/StudentCourse';
+
 export const page = [
     Home,
     Login,
     Signup,
     ListCourse,
-    DetailCourse
+    Profile,
+    DetailCourse,
+    StudentCourse
 ]
 
 export {
@@ -16,5 +21,7 @@ export {
     Login,
     Signup,
     ListCourse,
-    DetailCourse
+    Profile,
+    DetailCourse,
+    StudentCourse
 }
