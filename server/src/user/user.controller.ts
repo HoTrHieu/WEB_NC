@@ -19,7 +19,7 @@ import { StdResponse } from 'src/shared/dtos/std-response.dto';
 import { UpdateStatusRequest } from 'src/shared/dtos/update-status-request.dto';
 import { StdResponseCode } from 'src/shared/enums/std-response-code';
 import { UserRole } from 'src/shared/enums/user-role';
-import { AddUserRequest } from './dto/add-user-request.dto';
+import { AddUserWithRoleRequest } from './dto/add-user-with-role-request.dto';
 import { UpdateUserFirstLastNameRequest } from './dto/update-user-first-last-name-request.dto';
 import { UpdateUserRoleRequest } from './dto/update-user-role-request.dto';
 import { UserService } from './user.service';
@@ -46,7 +46,7 @@ export class UserController {
     type: StdResponse,
   })
   @ApiBearerAuth()
-  async addUser(@Body() request: AddUserRequest) {
+  async addUser(@Body() request: AddUserWithRoleRequest) {
     const newUser = await this.userService.addUser(request);
     return StdResponse.of(StdResponseCode.SUCCESS, newUser.id);
   }

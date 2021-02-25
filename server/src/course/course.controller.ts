@@ -96,4 +96,16 @@ export class CourseController {
     );
     return BooleanResponse.of(isSuccess);
   }
+
+  @Put('/increase-total-view/:courseId')
+  @ApiResponse({
+    type: BooleanResponse,
+  })
+  @ApiBearerAuth()
+  async increaseTotalView(
+    @Param('id') courseId: number,
+  ) {
+    const isSuccess = await this.courseService.increaseTotalView(courseId);
+    return BooleanResponse.of(isSuccess);
+  }
 }

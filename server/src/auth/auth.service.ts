@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
+import { OtpService } from 'src/otp/otp.service';
 import { User } from 'src/shared/entities/user.entity';
 import { UserRole } from 'src/shared/enums/user-role';
-import { AddUserRequest } from 'src/user/dto/add-user-request.dto';
+import { AddUserWithRoleRequest } from 'src/user/dto/add-user-with-role-request.dto';
 import { UserService } from 'src/user/user.service';
 import { LoginResponse } from './dto/login-response.dto';
 import { RegisterRequest } from './dto/register-request.dto';
@@ -12,6 +13,7 @@ export class AuthService {
   constructor(
     private userService: UserService,
     private tokenService: TokenService,
+    private otpService: OtpService
   ) {}
 
   async validateLogin(username: string, password: string) {
@@ -54,7 +56,12 @@ export class AuthService {
   }
 
   async register(request: RegisterRequest) {
-    const addUserRequest = AddUserRequest.of(request);
+    const validOtp = await this.otpService.checkOtp(request.otp, request.email);
+    if (!validOtp) {
+      throw new BadRequestException("OTP is invalid");
+    }
+    delete request.otp;
+    const addUserRequest = AddUserWithRoleRequest.of(request);
     addUserRequest.role = UserRole.NORMAL;
     return this.userService.addUser(addUserRequest);
   }

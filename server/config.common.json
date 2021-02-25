@@ -12,5 +12,9 @@
     "refreshToken": {
       "ttl": 1.21e+9
     }
+  },
+  "otp": {
+    "length": 6,
+    "ttl": 180
   }
 }

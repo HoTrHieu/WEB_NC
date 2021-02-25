@@ -2,6 +2,7 @@ import { CacheModule, Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
+import { OtpModule } from 'src/otp/otp.module';
 import { UserModule } from 'src/user/user.module';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
@@ -25,6 +26,7 @@ import { TokenService } from './token/token.service';
       }),
       inject: [ConfigService],
     }),
+    OtpModule
   ],
   controllers: [AuthController],
   providers: [AuthService, TokenService, LocalStrategy, JwtStrategy],

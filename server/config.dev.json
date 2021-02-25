@@ -10,6 +10,14 @@
       "password": "123456789",
       "dbname": "web_nc_fademy",
       "sync": true
+    },
+    "mailer": {
+      "host": "smtp.office365.com",
+      "port": 587,
+      "auth": {
+        "user": "fademy.edu",
+        "pass": "F4d3my_2021"
+      }
     }
   }
 }
