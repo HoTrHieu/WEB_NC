@@ -3,7 +3,7 @@ import {
   IsString,
   Length,
 } from 'class-validator';
-import { AddUserRequest } from 'src/user/dto/add-user-reqeust.dto';
+import { AddUserRequest } from 'src/user/dto/add-user-request.dto';
 
 export class RegisterRequest extends AddUserRequest {
   @IsString()

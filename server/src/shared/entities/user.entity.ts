@@ -26,7 +26,7 @@ export class User {
   id: number;
 
   @ApiProperty()
-  @Column('varchar', { length: 255 })
+  @Column('varchar', { length: 255, nullable: true })
   @Index('users_username_unique_idx', { unique: true })
   username: string;
 
@@ -43,7 +43,7 @@ export class User {
   @Column('varchar', { length: 255 })
   lastName: string;
 
-  @Column('varchar', { length: 255 })
+  @Column('varchar', { length: 255, nullable: true })
   @Exclude()
   passwordHash: string;
 

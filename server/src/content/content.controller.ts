@@ -1,5 +1,6 @@
 import { Body, Controller, Param, Post, Put, Request } from '@nestjs/common';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { AuthedRequest } from 'src/auth/dto/authed-request';
 import { Role } from 'src/shared/decorators/role.decorator';
 import { BooleanResponse } from 'src/shared/dtos/boolean-response.dto';
 import { StdResponse } from 'src/shared/dtos/std-response.dto';
@@ -23,7 +24,7 @@ export class ContentController {
   async add(
     @Param('courseId') courseId: number,
     @Body() content: Content,
-    @Request() req: any,
+    @Request() req: AuthedRequest,
   ) {
     const newContent = await this.contentService.add(
       courseId,
@@ -42,7 +43,7 @@ export class ContentController {
   async update(
     @Param('contentId') contentId: number,
     @Body() content: Content,
-    @Request() req: any,
+    @Request() req: AuthedRequest,
   ) {
     const isSuccess = await this.contentService.update(
       req.user.id,

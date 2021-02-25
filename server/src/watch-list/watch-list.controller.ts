@@ -8,6 +8,7 @@ import {
   Request,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { AuthedRequest } from 'src/auth/dto/authed-request';
 import { Role } from 'src/shared/decorators/role.decorator';
 import { BooleanResponse } from 'src/shared/dtos/boolean-response.dto';
 import { PagingRequest } from 'src/shared/dtos/paging-request.dto';
@@ -26,7 +27,7 @@ export class WatchListController {
     type: PagingResponse,
   })
   @ApiBearerAuth()
-  paginate(request: PagingRequest, @Request() req: any) {
+  paginate(request: PagingRequest, @Request() req: AuthedRequest) {
     return this.watchListService.paginate(req.user.id, request);
   }
 
@@ -39,7 +40,7 @@ export class WatchListController {
   async upcateStatus(
     @Param('courseId') courseId: number,
     @Body() request: UpdateStatusRequest,
-    @Request() req: any,
+    @Request() req: AuthedRequest,
   ) {
     await this.watchListService.updateStatus(
       courseId,

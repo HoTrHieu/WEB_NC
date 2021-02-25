@@ -11,6 +11,7 @@ import {
   Request,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { AuthedRequest } from 'src/auth/dto/authed-request';
 import { Role } from 'src/shared/decorators/role.decorator';
 import { BooleanResponse } from 'src/shared/dtos/boolean-response.dto';
 import { PagingResponse } from 'src/shared/dtos/paging-response.dto';
@@ -57,7 +58,7 @@ export class UserController {
   })
   @ApiBearerAuth()
   async updateFirstLastName(
-    @Request() req: any,
+    @Request() req: AuthedRequest,
     @Body() body: UpdateUserFirstLastNameRequest,
   ) {
     const isSuccess = await this.userService.updateFirstLastName(

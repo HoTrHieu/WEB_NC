@@ -53,7 +53,7 @@ export class UserService {
     });
   }
 
-  async addUser(request: AddUserWithRoleRequest) {
+  async addUser(request: AddUserWithRoleRequest, hashPassword = true) {
     let count = await this.userRepository.count({ email: request.email });
     if (count > 0) {
       throw new BadRequestException('Email has already existed');
@@ -63,7 +63,9 @@ export class UserService {
       throw new BadRequestException('Username has already existed');
     }
     const user = ClassUtils.copyFields(request, {});
-    user.passwordHash = await this.hashPassword(request.password);
+    if (hashPassword) {
+      user.passwordHash = await this.hashPassword(user.password);
+    }
     user.status = EntityStatus.ACTIVE;
     return this.userRepository.save(user);
   }

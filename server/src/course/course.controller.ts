@@ -11,6 +11,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { AuthedRequest } from 'src/auth/dto/authed-request';
 import { Public } from 'src/shared/decorators/public.decorator';
 import { Role } from 'src/shared/decorators/role.decorator';
 import { BooleanResponse } from 'src/shared/dtos/boolean-response.dto';
@@ -54,7 +55,7 @@ export class CourseController {
     type: StdResponse,
   })
   @ApiBearerAuth()
-  async add(@Body() course: Course, @Request() req: any) {
+  async add(@Body() course: Course, @Request() req: AuthedRequest) {
     const newCourse = await this.courseService.add(req.user.id, course);
     return StdResponse.of(StdResponseCode.SUCCESS, newCourse.id);
   }
@@ -68,7 +69,7 @@ export class CourseController {
   async update(
     @Param('courseId') courseId: number,
     @Body() course: Course,
-    @Request() req: any,
+    @Request() req: AuthedRequest,
   ) {
     const isSuccess = await this.courseService.update(
       req.user.id,
@@ -87,7 +88,7 @@ export class CourseController {
   async updateStatus(
     @Param('id') id: number,
     @Body() request: UpdateStatusRequest,
-    @Request() req: any,
+    @Request() req: AuthedRequest,
   ) {
     const isSuccess = await this.courseService.updateStatus(
       req.user.id,

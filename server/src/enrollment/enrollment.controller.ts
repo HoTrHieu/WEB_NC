@@ -1,5 +1,6 @@
 import { Controller, Get, Param, Post, Request } from '@nestjs/common';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { AuthedRequest } from 'src/auth/dto/authed-request';
 import { Role } from 'src/shared/decorators/role.decorator';
 import { BooleanResponse } from 'src/shared/dtos/boolean-response.dto';
 import { PagingRequest } from 'src/shared/dtos/paging-request.dto';
@@ -18,7 +19,7 @@ export class EnrollmentController {
     type: PagingResponse,
   })
   @ApiBearerAuth()
-  paginate(request: PagingRequest, @Request() req: any) {
+  paginate(request: PagingRequest, @Request() req: AuthedRequest) {
     return this.enrollmentService.paginate(req.user.id, request);
   }
 
@@ -27,7 +28,7 @@ export class EnrollmentController {
     type: Enrollment,
   })
   @ApiBearerAuth()
-  getDetail(@Param('courseId') courseId: number, @Request() req: any) {
+  getDetail(@Param('courseId') courseId: number, @Request() req: AuthedRequest) {
     return this.enrollmentService.getDetail(courseId, req.user.id);
   }
 
@@ -36,7 +37,7 @@ export class EnrollmentController {
     type: BooleanResponse,
   })
   @ApiBearerAuth()
-  async upcateStatus(@Param('courseId') courseId: number, @Request() req: any) {
+  async upcateStatus(@Param('courseId') courseId: number, @Request() req: AuthedRequest) {
     await this.enrollmentService.enroll(courseId, req.user.id);
     return BooleanResponse.of(true);
   }

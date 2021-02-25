@@ -1,5 +1,6 @@
 import { Body, Controller, Param, Put, Request } from '@nestjs/common';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { AuthedRequest } from 'src/auth/dto/authed-request';
 import { Role } from 'src/shared/decorators/role.decorator';
 import { BooleanResponse } from 'src/shared/dtos/boolean-response.dto';
 import { UserRole } from 'src/shared/enums/user-role';
@@ -20,7 +21,7 @@ export class StudyProcessController {
   async upcateStatus(
     @Param('courseId') courseId: number,
     @Body() request: UpdateStudyProcessRequest,
-    @Request() req: any,
+    @Request() req: AuthedRequest,
   ) {
     await this.studyProcessService.update(courseId, req.user.id, request);
     return BooleanResponse.of(true);

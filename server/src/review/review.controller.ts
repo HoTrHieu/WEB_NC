@@ -8,6 +8,7 @@ import {
   Request,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { AuthedRequest } from 'src/auth/dto/authed-request';
 import { BooleanResponse } from 'src/shared/dtos/boolean-response.dto';
 import { PagingRequest } from 'src/shared/dtos/paging-request.dto';
 import { PagingResponse } from 'src/shared/dtos/paging-response.dto';
@@ -35,7 +36,7 @@ export class ReviewController {
   @ApiBearerAuth()
   async upcateStatus(
     @Param('courseId') courseId: number,
-    @Request() req: any,
+    @Request() req: AuthedRequest,
     @Body() body: ReviewRequest,
   ) {
     await this.reviewService.review(courseId, req.user.id, body);

@@ -7,15 +7,12 @@ export const mailerModule = MailerModule.forRootAsync({
     transport: {
       host: config.get('settings.mailer.host'),
       port: config.get('settings.mailer.port'),
-      ignoreTLS: true,
+      requireTLS: true,
       secure: false,
       auth: {
         user: config.get('settings.mailer.auth.user'),
         pass: config.get('settings.mailer.auth.pass')
       }
-    },
-    defaults: {
-      from: 'Fademy <no-reply@fademy.com>',
     },
     template: {
       dir: __dirname + '/templates',
@@ -25,5 +22,5 @@ export const mailerModule = MailerModule.forRootAsync({
       },
     },
   }),
-  imports: [ConfigService]
+  inject: [ConfigService]
 })

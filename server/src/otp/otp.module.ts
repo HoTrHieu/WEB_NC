@@ -8,7 +8,7 @@ import { OtpService } from './otp.service';
       useFactory: (config: ConfigService) => ({
         ttl: config.get('otp.ttl')
       }),
-      imports: [ConfigService]
+      inject: [ConfigService]
     })
   ],
   providers: [OtpService],

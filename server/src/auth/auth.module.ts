@@ -6,6 +6,7 @@ import { OtpModule } from 'src/otp/otp.module';
 import { UserModule } from 'src/user/user.module';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
+import { GoogleStrategy } from './strategy/google.strategy';
 import { JwtStrategy } from './strategy/jwt.strategy';
 import { LocalStrategy } from './strategy/local.strategy';
 import { TokenService } from './token/token.service';
@@ -29,7 +30,7 @@ import { TokenService } from './token/token.service';
     OtpModule
   ],
   controllers: [AuthController],
-  providers: [AuthService, TokenService, LocalStrategy, JwtStrategy],
+  providers: [AuthService, TokenService, LocalStrategy, JwtStrategy, GoogleStrategy],
   exports: [AuthService, TokenService],
 })
 export class AuthModule {}

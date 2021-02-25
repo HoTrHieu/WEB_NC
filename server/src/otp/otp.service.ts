@@ -18,8 +18,10 @@ export class OtpService {
 
   async generateOtp(sessionId: string) {
     const otp = otpGenerator.generate(this.OTP_LENGTH, {
+      digits: true,
       alphabets: false,
-      specialChars: false
+      specialChars: false,
+      upperCase: false,
     });
     await this.cacheManager.set(otp, sessionId);
     return otp;
