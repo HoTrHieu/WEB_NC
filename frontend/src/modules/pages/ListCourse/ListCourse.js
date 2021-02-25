@@ -21,7 +21,7 @@ const ListCourse = () => {
                                 </div>
                                 <button onClick={() => setShowNav(true)} className="btn btn-sm btn-white ml-sm-16pt">
                                     <i className="material-icons icon--left">tune</i> Filters
-                        </button>
+                                </button>
                             </div>
                             <div className="page-separator">
                                 <div className="page-separator__text">Popular Courses</div>

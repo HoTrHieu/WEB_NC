@@ -40,7 +40,7 @@ export default function Home() {
             <div className="page-section border-bottom-2">
                 <div className="container page__container">
                     <div className="page-separator">
-                        <div className="page-separator__text">From the blog</div>
+                        <div className="page-separator__text">Hot Courses</div>
                     </div>
                     <div className="row card-group-row">
                         <div className="col-md-6 col-lg-4 card-group-row__col">
@@ -104,49 +104,13 @@ export default function Home() {
                             </div>
                         </div>
                     </div>
-                    <div className="posts-cards">
-                        <div className="card posts-card mb-0">
-                            <div className="posts-card__content d-flex align-items-center flex-wrap">
-                                <div className="avatar avatar-lg mr-3">
-                                    <a href="fixed-blog-post.html"><img src="assets/images/paths/invision_200x168.png" alt="avatar" className="avatar-img rounded" /></a>
-                                </div>
-                                <div className="posts-card__title flex d-flex flex-column">
-                                    <a href="fixed-blog-post.html" className="card-title mr-3">Design Systems Essentials</a>
-                                    <small className="text-50">35 views last week</small>
-                                </div>
-                                <div className="d-flex align-items-center flex-column flex-sm-row posts-card__meta">
-                                    <div className="mr-3 text-50 text-uppercase posts-card__tag d-flex align-items-center">
-                                        <i className="material-icons text-muted-light mr-1">folder_open</i> inVision
-                </div>
-                                    <div className="mr-3 text-50 posts-card__date">
-                                        <small>11 Nov, 2018 07:46 AM</small>
-                                    </div>
-                                    <div className="media ml-sm-auto align-items-center">
-                                        <div className="media-left mr-2 avatar-group">
-                                            <div className="avatar avatar-xs" data-toggle="tooltip" data-placement="top" title="Janell D.">
-                                                <img src="assets/images/256_rsz_1andy-lee-642320-unsplash.jpg" alt="Avatar" className="avatar-img rounded-circle" />
-                                            </div>
-                                            <div className="avatar avatar-xs" data-toggle="tooltip" data-placement="top" title="Janell D.">
-                                                <img src="assets/images/256_michael-dam-258165-unsplash.jpg" alt="Avatar" className="avatar-img rounded-circle" />
-                                            </div>
-                                            <div className="avatar avatar-xs" data-toggle="tooltip" data-placement="top" title="Janell D.">
-                                                <img src="assets/images/256_luke-porter-261779-unsplash.jpg" alt="Avatar" className="avatar-img rounded-circle" />
-                                            </div>
-                                        </div>
-                                        <div className="media-body">
-                                            <a href="!#">+2 more</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
+
             <div className="page-section border-bottom-2">
                 <div className="container page__container">
                     <div className="page-separator">
-                        <div className="page-separator__text">Learning Paths</div>
+                        <div className="page-separator__text">The most popular categories of the week</div>
                     </div>
                     <div className="row card-group-row">
                         <div className="col-sm-4 card-group-row__col">
@@ -550,508 +514,476 @@ export default function Home() {
                     </div>
                 </div>
             </div>
+
             <div className="page-section border-bottom-2">
-                <div className="container page__container">
+                <div className="container page_container">
                     <div className="page-separator">
-                        <div className="page-separator__text">Design Courses</div>
+                        <div className="page-separator__text">Latest Courses</div>
                     </div>
-                    <div className="row card-group-row">
-                        <div className="col-md-6 col-lg-4 col-xl-3 card-group-row__col">
-                            <div className="card card-sm card--elevated p-relative o-hidden overlay overlay--primary-dodger-blue js-overlay card-group-row__card" data-toggle="popover" data-trigger="click">
-                                <a href="fixed-student-course.html" className="card-img-top js-image" data-position data-height={140}>
-                                    <img src="assets/images/paths/sketch_430x168.png" alt="course" />
-                                    <span className="overlay__content">
-                                        <span className="overlay__action d-flex flex-column text-center">
-                                            <i className="material-icons icon-32pt">play_circle_outline</i>
-                                            <span className="card-title text-white">Preview</span>
-                                        </span>
-                                    </span>
-                                </a>
-                                <div className="card-body flex">
-                                    <div className="d-flex">
-                                        <div className="flex">
-                                            <a className="card-title" href="fixed-student-course.html">Learn Sketch</a>
-                                            <small className="text-50 font-weight-bold mb-4pt">Elijah Murray</small>
-                                        </div>
-                                        <a href="fixed-student-course.html" data-toggle="tooltip" data-title="Add Favorite" data-placement="top" data-boundary="window" className="ml-4pt material-icons text-20 card-course__icon-favorite">favorite_border</a>
-                                    </div>
-                                    <div className="d-flex">
-                                        <div className="rating flex">
-                                            <span className="rating__item"><span className="material-icons">star</span></span>
-                                            <span className="rating__item"><span className="material-icons">star</span></span>
-                                            <span className="rating__item"><span className="material-icons">star</span></span>
-                                            <span className="rating__item"><span className="material-icons">star</span></span>
-                                            <span className="rating__item"><span className="material-icons">star_border</span></span>
-                                        </div>
-                                        {/* <small class="text-50">6 hours</small> */}
-                                    </div>
-                                </div>
-                                <div className="card-footer">
-                                    <div className="row justify-content-between">
-                                        <div className="col-auto d-flex align-items-center">
-                                            <span className="material-icons icon-16pt text-black-50 mr-4pt">access_time</span>
-                                            <p className="flex text-black-50 lh-1 mb-0"><small>6 hours</small></p>
-                                        </div>
-                                        <div className="col-auto d-flex align-items-center">
-                                            <span className="material-icons icon-16pt text-black-50 mr-4pt">play_circle_outline</span>
-                                            <p className="flex text-black-50 lh-1 mb-0"><small>12 lessons</small></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="popoverContainer d-none">
-                                <div className="media">
-                                    <div className="media-left mr-12pt">
-                                        <img src="assets/images/paths/sketch_40x40@2x.png" width={40} height={40} alt="Angular" className="rounded" />
-                                    </div>
-                                    <div className="media-body">
-                                        <div className="card-title mb-0">Learn Sketch</div>
-                                        <p className="lh-1 mb-0">
-                                            <span className="text-black-50 small">with</span>
-                                            <span className="text-black-50 small font-weight-bold">Elijah Murray</span>
-                                        </p>
-                                    </div>
-                                </div>
-                                <p className="my-16pt text-black-70">Learn the fundamentals of working with Angular and how to create basic applications.</p>
-                                <div className="mb-16pt">
-                                    <div className="d-flex align-items-center">
-                                        <span className="material-icons icon-16pt text-black-50 mr-8pt">check</span>
-                                        <p className="flex text-black-50 lh-1 mb-0"><small>Fundamentals of working with Angular</small></p>
-                                    </div>
-                                    <div className="d-flex align-items-center">
-                                        <span className="material-icons icon-16pt text-black-50 mr-8pt">check</span>
-                                        <p className="flex text-black-50 lh-1 mb-0"><small>Create complete Angular applications</small></p>
-                                    </div>
-                                    <div className="d-flex align-items-center">
-                                        <span className="material-icons icon-16pt text-black-50 mr-8pt">check</span>
-                                        <p className="flex text-black-50 lh-1 mb-0"><small>Working with the Angular CLI</small></p>
-                                    </div>
-                                    <div className="d-flex align-items-center">
-                                        <span className="material-icons icon-16pt text-black-50 mr-8pt">check</span>
-                                        <p className="flex text-black-50 lh-1 mb-0"><small>Understanding Dependency Injection</small></p>
-                                    </div>
-                                    <div className="d-flex align-items-center">
-                                        <span className="material-icons icon-16pt text-black-50 mr-8pt">check</span>
-                                        <p className="flex text-black-50 lh-1 mb-0"><small>Testing with Angular</small></p>
-                                    </div>
-                                </div>
-                                <div className="row align-items-center">
-                                    <div className="col-auto">
-                                        <div className="d-flex align-items-center mb-4pt">
-                                            <span className="material-icons icon-16pt text-black-50 mr-4pt">access_time</span>
-                                            <p className="flex text-black-50 lh-1 mb-0"><small>6 hours</small></p>
-                                        </div>
-                                        <div className="d-flex align-items-center mb-4pt">
-                                            <span className="material-icons icon-16pt text-black-50 mr-4pt">play_circle_outline</span>
-                                            <p className="flex text-black-50 lh-1 mb-0"><small>12 lessons</small></p>
-                                        </div>
-                                        <div className="d-flex align-items-center">
-                                            <span className="material-icons icon-16pt text-black-50 mr-4pt">assessment</span>
-                                            <p className="flex text-black-50 lh-1 mb-0"><small>Beginner</small></p>
-                                        </div>
-                                    </div>
-                                    <div className="col text-right">
-                                        <a href="fixed-student-course.html" className="btn btn-primary">Watch trailer</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-md-6 col-lg-4 col-xl-3 card-group-row__col">
-                            <div className="card card-sm card--elevated p-relative o-hidden overlay overlay--primary-dodger-blue js-overlay card-group-row__card" data-toggle="popover" data-trigger="click">
-                                <a href="fixed-student-course.html" className="card-img-top js-image" data-position data-height={140}>
-                                    <img src="assets/images/paths/flinto_430x168.png" alt="course" />
-                                    <span className="overlay__content">
-                                        <span className="overlay__action d-flex flex-column text-center">
-                                            <i className="material-icons icon-32pt">play_circle_outline</i>
-                                            <span className="card-title text-white">Preview</span>
-                                        </span>
-                                    </span>
-                                </a>
-                                <div className="card-body flex">
-                                    <div className="d-flex">
-                                        <div className="flex">
-                                            <a className="card-title" href="fixed-student-course.html">Learn Flinto</a>
-                                            <small className="text-50 font-weight-bold mb-4pt">Elijah Murray</small>
-                                        </div>
-                                        <a href="fixed-student-course.html" data-toggle="tooltip" data-title="Add Favorite" data-placement="top" data-boundary="window" className="ml-4pt material-icons text-20 card-course__icon-favorite">favorite_border</a>
-                                    </div>
-                                    <div className="d-flex">
-                                        <div className="rating flex">
-                                            <span className="rating__item"><span className="material-icons">star</span></span>
-                                            <span className="rating__item"><span className="material-icons">star</span></span>
-                                            <span className="rating__item"><span className="material-icons">star</span></span>
-                                            <span className="rating__item"><span className="material-icons">star</span></span>
-                                            <span className="rating__item"><span className="material-icons">star_border</span></span>
-                                        </div>
-                                        {/* <small class="text-50">6 hours</small> */}
-                                    </div>
-                                </div>
-                                <div className="card-footer">
-                                    <div className="row justify-content-between">
-                                        <div className="col-auto d-flex align-items-center">
-                                            <span className="material-icons icon-16pt text-black-50 mr-4pt">access_time</span>
-                                            <p className="flex text-black-50 lh-1 mb-0"><small>6 hours</small></p>
-                                        </div>
-                                        <div className="col-auto d-flex align-items-center">
-                                            <span className="material-icons icon-16pt text-black-50 mr-4pt">play_circle_outline</span>
-                                            <p className="flex text-black-50 lh-1 mb-0"><small>12 lessons</small></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="popoverContainer d-none">
-                                <div className="media">
-                                    <div className="media-left mr-12pt">
-                                        <img src="assets/images/paths/flinto_40x40@2x.png" width={40} height={40} alt="Angular" className="rounded" />
-                                    </div>
-                                    <div className="media-body">
-                                        <div className="card-title mb-0">Learn Flinto</div>
-                                        <p className="lh-1 mb-0">
-                                            <span className="text-black-50 small">with</span>
-                                            <span className="text-black-50 small font-weight-bold">Elijah Murray</span>
-                                        </p>
-                                    </div>
-                                </div>
-                                <p className="my-16pt text-black-70">Learn the fundamentals of working with Angular and how to create basic applications.</p>
-                                <div className="mb-16pt">
-                                    <div className="d-flex align-items-center">
-                                        <span className="material-icons icon-16pt text-black-50 mr-8pt">check</span>
-                                        <p className="flex text-black-50 lh-1 mb-0"><small>Fundamentals of working with Angular</small></p>
-                                    </div>
-                                    <div className="d-flex align-items-center">
-                                        <span className="material-icons icon-16pt text-black-50 mr-8pt">check</span>
-                                        <p className="flex text-black-50 lh-1 mb-0"><small>Create complete Angular applications</small></p>
-                                    </div>
-                                    <div className="d-flex align-items-center">
-                                        <span className="material-icons icon-16pt text-black-50 mr-8pt">check</span>
-                                        <p className="flex text-black-50 lh-1 mb-0"><small>Working with the Angular CLI</small></p>
-                                    </div>
-                                    <div className="d-flex align-items-center">
-                                        <span className="material-icons icon-16pt text-black-50 mr-8pt">check</span>
-                                        <p className="flex text-black-50 lh-1 mb-0"><small>Understanding Dependency Injection</small></p>
-                                    </div>
-                                    <div className="d-flex align-items-center">
-                                        <span className="material-icons icon-16pt text-black-50 mr-8pt">check</span>
-                                        <p className="flex text-black-50 lh-1 mb-0"><small>Testing with Angular</small></p>
-                                    </div>
-                                </div>
-                                <div className="row align-items-center">
-                                    <div className="col-auto">
-                                        <div className="d-flex align-items-center mb-4pt">
-                                            <span className="material-icons icon-16pt text-black-50 mr-4pt">access_time</span>
-                                            <p className="flex text-black-50 lh-1 mb-0"><small>6 hours</small></p>
-                                        </div>
-                                        <div className="d-flex align-items-center mb-4pt">
-                                            <span className="material-icons icon-16pt text-black-50 mr-4pt">play_circle_outline</span>
-                                            <p className="flex text-black-50 lh-1 mb-0"><small>12 lessons</small></p>
-                                        </div>
-                                        <div className="d-flex align-items-center">
-                                            <span className="material-icons icon-16pt text-black-50 mr-4pt">assessment</span>
-                                            <p className="flex text-black-50 lh-1 mb-0"><small>Beginner</small></p>
-                                        </div>
-                                    </div>
-                                    <div className="col text-right">
-                                        <a href="fixed-student-course.html" className="btn btn-primary">Watch trailer</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-md-6 col-lg-4 col-xl-3 card-group-row__col">
-                            <div className="card card-sm card--elevated p-relative o-hidden overlay overlay--primary-dodger-blue js-overlay card-group-row__card" data-toggle="popover" data-trigger="click">
-                                <a href="fixed-student-course.html" className="card-img-top js-image" data-position data-height={140}>
-                                    <img src="assets/images/paths/photoshop_430x168.png" alt="course" />
-                                    <span className="overlay__content">
-                                        <span className="overlay__action d-flex flex-column text-center">
-                                            <i className="material-icons icon-32pt">play_circle_outline</i>
-                                            <span className="card-title text-white">Preview</span>
-                                        </span>
-                                    </span>
-                                </a>
-                                <div className="card-body flex">
-                                    <div className="d-flex">
-                                        <div className="flex">
-                                            <a className="card-title" href="fixed-student-course.html">Learn Photoshop</a>
-                                            <small className="text-50 font-weight-bold mb-4pt">Elijah Murray</small>
-                                        </div>
-                                        <a href="fixed-student-course.html" data-toggle="tooltip" data-title="Add Favorite" data-placement="top" data-boundary="window" className="ml-4pt material-icons text-20 card-course__icon-favorite">favorite_border</a>
-                                    </div>
-                                    <div className="d-flex">
-                                        <div className="rating flex">
-                                            <span className="rating__item"><span className="material-icons">star</span></span>
-                                            <span className="rating__item"><span className="material-icons">star</span></span>
-                                            <span className="rating__item"><span className="material-icons">star</span></span>
-                                            <span className="rating__item"><span className="material-icons">star</span></span>
-                                            <span className="rating__item"><span className="material-icons">star_border</span></span>
-                                        </div>
-                                        {/* <small class="text-50">6 hours</small> */}
-                                    </div>
-                                </div>
-                                <div className="card-footer">
-                                    <div className="row justify-content-between">
-                                        <div className="col-auto d-flex align-items-center">
-                                            <span className="material-icons icon-16pt text-black-50 mr-4pt">access_time</span>
-                                            <p className="flex text-black-50 lh-1 mb-0"><small>6 hours</small></p>
-                                        </div>
-                                        <div className="col-auto d-flex align-items-center">
-                                            <span className="material-icons icon-16pt text-black-50 mr-4pt">play_circle_outline</span>
-                                            <p className="flex text-black-50 lh-1 mb-0"><small>12 lessons</small></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="popoverContainer d-none">
-                                <div className="media">
-                                    <div className="media-left mr-12pt">
-                                        <img src="assets/images/paths/photoshop_40x40@2x.png" width={40} height={40} alt="Angular" className="rounded" />
-                                    </div>
-                                    <div className="media-body">
-                                        <div className="card-title mb-0">Learn Photoshop</div>
-                                        <p className="lh-1 mb-0">
-                                            <span className="text-black-50 small">with</span>
-                                            <span className="text-black-50 small font-weight-bold">Elijah Murray</span>
-                                        </p>
-                                    </div>
-                                </div>
-                                <p className="my-16pt text-black-70">Learn the fundamentals of working with Angular and how to create basic applications.</p>
-                                <div className="mb-16pt">
-                                    <div className="d-flex align-items-center">
-                                        <span className="material-icons icon-16pt text-black-50 mr-8pt">check</span>
-                                        <p className="flex text-black-50 lh-1 mb-0"><small>Fundamentals of working with Angular</small></p>
-                                    </div>
-                                    <div className="d-flex align-items-center">
-                                        <span className="material-icons icon-16pt text-black-50 mr-8pt">check</span>
-                                        <p className="flex text-black-50 lh-1 mb-0"><small>Create complete Angular applications</small></p>
-                                    </div>
-                                    <div className="d-flex align-items-center">
-                                        <span className="material-icons icon-16pt text-black-50 mr-8pt">check</span>
-                                        <p className="flex text-black-50 lh-1 mb-0"><small>Working with the Angular CLI</small></p>
-                                    </div>
-                                    <div className="d-flex align-items-center">
-                                        <span className="material-icons icon-16pt text-black-50 mr-8pt">check</span>
-                                        <p className="flex text-black-50 lh-1 mb-0"><small>Understanding Dependency Injection</small></p>
-                                    </div>
-                                    <div className="d-flex align-items-center">
-                                        <span className="material-icons icon-16pt text-black-50 mr-8pt">check</span>
-                                        <p className="flex text-black-50 lh-1 mb-0"><small>Testing with Angular</small></p>
-                                    </div>
-                                </div>
-                                <div className="row align-items-center">
-                                    <div className="col-auto">
-                                        <div className="d-flex align-items-center mb-4pt">
-                                            <span className="material-icons icon-16pt text-black-50 mr-4pt">access_time</span>
-                                            <p className="flex text-black-50 lh-1 mb-0"><small>6 hours</small></p>
-                                        </div>
-                                        <div className="d-flex align-items-center mb-4pt">
-                                            <span className="material-icons icon-16pt text-black-50 mr-4pt">play_circle_outline</span>
-                                            <p className="flex text-black-50 lh-1 mb-0"><small>12 lessons</small></p>
-                                        </div>
-                                        <div className="d-flex align-items-center">
-                                            <span className="material-icons icon-16pt text-black-50 mr-4pt">assessment</span>
-                                            <p className="flex text-black-50 lh-1 mb-0"><small>Beginner</small></p>
-                                        </div>
-                                    </div>
-                                    <div className="col text-right">
-                                        <a href="fixed-student-course.html" className="btn btn-primary">Watch trailer</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-md-6 col-lg-4 col-xl-3 card-group-row__col">
-                            <div className="card card-sm card--elevated p-relative o-hidden overlay overlay--primary-dodger-blue js-overlay card-group-row__card" data-toggle="popover" data-trigger="click">
-                                <a href="fixed-student-course.html" className="card-img-top js-image" data-position data-height={140}>
-                                    <img src="assets/images/paths/figma_430x168.png" alt="course" />
-                                    <span className="overlay__content">
-                                        <span className="overlay__action d-flex flex-column text-center">
-                                            <i className="material-icons icon-32pt">play_circle_outline</i>
-                                            <span className="card-title text-white">Preview</span>
-                                        </span>
-                                    </span>
-                                </a>
-                                <div className="card-body flex">
-                                    <div className="d-flex">
-                                        <div className="flex">
-                                            <a className="card-title" href="fixed-student-course.html">Learn Figma</a>
-                                            <small className="text-50 font-weight-bold mb-4pt">Elijah Murray</small>
-                                        </div>
-                                        <a href="fixed-student-course.html" data-toggle="tooltip" data-title="Add Favorite" data-placement="top" data-boundary="window" className="ml-4pt material-icons text-20 card-course__icon-favorite">favorite_border</a>
-                                    </div>
-                                    <div className="d-flex">
-                                        <div className="rating flex">
-                                            <span className="rating__item"><span className="material-icons">star</span></span>
-                                            <span className="rating__item"><span className="material-icons">star</span></span>
-                                            <span className="rating__item"><span className="material-icons">star</span></span>
-                                            <span className="rating__item"><span className="material-icons">star</span></span>
-                                            <span className="rating__item"><span className="material-icons">star_border</span></span>
-                                        </div>
-                                        {/* <small class="text-50">6 hours</small> */}
-                                    </div>
-                                </div>
-                                <div className="card-footer">
-                                    <div className="row justify-content-between">
-                                        <div className="col-auto d-flex align-items-center">
-                                            <span className="material-icons icon-16pt text-black-50 mr-4pt">access_time</span>
-                                            <p className="flex text-black-50 lh-1 mb-0"><small>6 hours</small></p>
-                                        </div>
-                                        <div className="col-auto d-flex align-items-center">
-                                            <span className="material-icons icon-16pt text-black-50 mr-4pt">play_circle_outline</span>
-                                            <p className="flex text-black-50 lh-1 mb-0"><small>12 lessons</small></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="popoverContainer d-none">
-                                <div className="media">
-                                    <div className="media-left mr-12pt">
-                                        <img src="assets/images/paths/figma_40x40@2x.png" width={40} height={40} alt="Angular" className="rounded" />
-                                    </div>
-                                    <div className="media-body">
-                                        <div className="card-title mb-0">Learn Figma</div>
-                                        <p className="lh-1 mb-0">
-                                            <span className="text-black-50 small">with</span>
-                                            <span className="text-black-50 small font-weight-bold">Elijah Murray</span>
-                                        </p>
-                                    </div>
-                                </div>
-                                <p className="my-16pt text-black-70">Learn the fundamentals of working with Angular and how to create basic applications.</p>
-                                <div className="mb-16pt">
-                                    <div className="d-flex align-items-center">
-                                        <span className="material-icons icon-16pt text-black-50 mr-8pt">check</span>
-                                        <p className="flex text-black-50 lh-1 mb-0"><small>Fundamentals of working with Angular</small></p>
-                                    </div>
-                                    <div className="d-flex align-items-center">
-                                        <span className="material-icons icon-16pt text-black-50 mr-8pt">check</span>
-                                        <p className="flex text-black-50 lh-1 mb-0"><small>Create complete Angular applications</small></p>
-                                    </div>
-                                    <div className="d-flex align-items-center">
-                                        <span className="material-icons icon-16pt text-black-50 mr-8pt">check</span>
-                                        <p className="flex text-black-50 lh-1 mb-0"><small>Working with the Angular CLI</small></p>
-                                    </div>
-                                    <div className="d-flex align-items-center">
-                                        <span className="material-icons icon-16pt text-black-50 mr-8pt">check</span>
-                                        <p className="flex text-black-50 lh-1 mb-0"><small>Understanding Dependency Injection</small></p>
-                                    </div>
-                                    <div className="d-flex align-items-center">
-                                        <span className="material-icons icon-16pt text-black-50 mr-8pt">check</span>
-                                        <p className="flex text-black-50 lh-1 mb-0"><small>Testing with Angular</small></p>
-                                    </div>
-                                </div>
-                                <div className="row align-items-center">
-                                    <div className="col-auto">
-                                        <div className="d-flex align-items-center mb-4pt">
-                                            <span className="material-icons icon-16pt text-black-50 mr-4pt">access_time</span>
-                                            <p className="flex text-black-50 lh-1 mb-0"><small>6 hours</small></p>
-                                        </div>
-                                        <div className="d-flex align-items-center mb-4pt">
-                                            <span className="material-icons icon-16pt text-black-50 mr-4pt">play_circle_outline</span>
-                                            <p className="flex text-black-50 lh-1 mb-0"><small>12 lessons</small></p>
-                                        </div>
-                                        <div className="d-flex align-items-center">
-                                            <span className="material-icons icon-16pt text-black-50 mr-4pt">assessment</span>
-                                            <p className="flex text-black-50 lh-1 mb-0"><small>Beginner</small></p>
-                                        </div>
-                                    </div>
-                                    <div className="col text-right">
-                                        <a href="fixed-student-course.html" className="btn btn-primary">Watch trailer</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className="page-section">
-                    <div className="container page__container">
-                        <div className="page-headline text-center">
-                            <h2>Feedback</h2>
-                            <p className="lead measure-lead mx-auto text-black-70">What other students turned professionals have to say about us after learning with us and reaching their goals.</p>
-                        </div>
-                        <div className="position-relative carousel-card col-lg-8 p-0 mx-auto">
-                            <div className="row d-block js-mdk-carousel" id="carousel-feedback">
-                                <a className="carousel-control-next js-mdk-carousel-control mt-n24pt" href="#carousel-feedback" role="button" data-slide="next">
+
+                    <div className="mb-lg-8pt">
+
+                        <div className="position-relative carousel-card">
+                            <div className="js-mdk-carousel row d-block" id="carousel-courses1">
+
+                                <a className="carousel-control-next js-mdk-carousel-control mt-n24pt" href="#carousel-courses1"
+                                    role="button" data-slide="next">
                                     <span className="carousel-control-icon material-icons" aria-hidden="true">keyboard_arrow_right</span>
                                     <span className="sr-only">Next</span>
                                 </a>
+                                
                                 <div className="mdk-carousel__content">
-                                    <div className="col-12 col-md-6">
-                                        <div className="card card-feedback card-body">
-                                            <blockquote className="blockquote mb-0">
-                                                <p className="text-70 small mb-0">A wonderful course on how to start. Eddie beautifully conveys all essentials of a becoming a good Angular developer. Very glad to have taken this course. Thank you Eddie Bryan.</p>
-                                            </blockquote>
-                                        </div>
-                                        <div className="media ml-12pt">
-                                            <div className="media-left mr-12pt">
-                                                <a href="fixed-student-profile.html" className="avatar avatar-sm">
-                                                    {/* <img src="assets/images/people/110/guy-.jpg" width="40" alt="avatar" class="rounded-circle"> */}
-                                                    <span className="avatar-title rounded-circle">UK</span>
-                                                </a>
+
+                                    <div className="col-md-6 col-lg-4 col-xl-3 card-group-row__col">
+                                        <div className="card card-sm card--elevated p-relative o-hidden overlay overlay--primary-dodger-blue js-overlay card-group-row__card" data-toggle="popover" data-trigger="click">
+                                            <a href="fixed-student-course.html" className="card-img-top js-image" data-position data-height={140}>
+                                                <img src="assets/images/paths/sketch_430x168.png" alt="course" />
+                                            </a>
+                                            <div className="card-body flex">
+                                                <div className="d-flex">
+                                                    <div className="flex">
+                                                        <a className="card-title" href="fixed-student-course.html">Name Course</a>
+                                                        <p className="text-50 font-weight-bold mb-4pt mt-1">Teacher</p>
+                                                        <p className="text-50 font-weight-bold mb-4pt">Category</p>
+                                                    </div>
+                                                    <a href="fixed-student-course.html" data-toggle="tooltip" data-title="Add Favorite" data-placement="top" data-boundary="window" className="ml-4pt material-icons text-20 card-course__icon-favorite">favorite_border</a>
+                                                </div>
+                                                <div className="d-flex">
+                                                    <div className="rating flex">
+                                                        <span className="rating__item"><span className="material-icons">star</span></span>
+                                                        <span className="rating__item"><span className="material-icons">star</span></span>
+                                                        <span className="rating__item"><span className="material-icons">star</span></span>
+                                                        <span className="rating__item"><span className="material-icons">star</span></span>
+                                                        <span className="rating__item"><span className="material-icons">star_border</span></span>
+                                                    </div>
+                                                    {/* <small className="text-50">6 hours</small> */}
+                                                </div>
                                             </div>
-                                            <div className="media-body media-middle">
-                                                <a href="fixed-student-profile.html" className="card-title">Umberto Kass</a>
-                                                <div className="rating mt-4pt">
-                                                    <span className="rating__item"><span className="material-icons">star</span></span>
-                                                    <span className="rating__item"><span className="material-icons">star</span></span>
-                                                    <span className="rating__item"><span className="material-icons">star</span></span>
-                                                    <span className="rating__item"><span className="material-icons">star</span></span>
-                                                    <span className="rating__item"><span className="material-icons">star_border</span></span>
+                                            <div className="card-footer">
+                                                <div className="row justify-content-between">
+                                                    <div className="col-auto d-flex align-items-center">
+                                                        <span className="material-icons icon-16pt text-black-50 mr-4pt">access_time</span>
+                                                        <p className="flex text-black-50 lh-1 mb-0"><small>96 hours</small></p>
+                                                    </div>
+                                                    <div className="col-auto d-flex align-items-center">
+                                                        <span className="material-icons icon-16pt text-black-50 mr-4pt">attach_money</span>
+                                                        <p className="flex text-black-50 lh-1 mb-0"><small>12.00</small></p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        
+                            
                                     </div>
-                                    <div className="col-12 col-md-6">
-                                        <div className="card card-feedback card-body">
-                                            <blockquote className="blockquote mb-0">
-                                                <p className="text-70 small mb-0">A wonderful course on how to start. Eddie beautifully conveys all essentials of a becoming a good Angular developer. Very glad to have taken this course. Thank you Eddie Bryan.</p>
-                                            </blockquote>
-                                        </div>
-                                        <div className="media ml-12pt">
-                                            <div className="media-left mr-12pt">
-                                                <a href="fixed-student-profile.html" className="avatar avatar-sm">
-                                                    {/* <img src="assets/images/people/110/guy-.jpg" width="40" alt="avatar" class="rounded-circle"> */}
-                                                    <span className="avatar-title rounded-circle">UK</span>
-                                                </a>
+                                    <div className="col-md-6 col-lg-4 col-xl-3 card-group-row__col">
+                                        <div className="card card-sm card--elevated p-relative o-hidden overlay overlay--primary-dodger-blue js-overlay card-group-row__card" data-toggle="popover" data-trigger="click">
+                                            <a href="fixed-student-course.html" className="card-img-top js-image" data-position data-height={140}>
+                                                <img src="assets/images/paths/sketch_430x168.png" alt="course" />
+                                            </a>
+                                            <div className="card-body flex">
+                                                <div className="d-flex">
+                                                    <div className="flex">
+                                                        <a className="card-title" href="fixed-student-course.html">Name Course</a>
+                                                        <p className="text-50 font-weight-bold mb-4pt mt-1">Teacher</p>
+                                                        <p className="text-50 font-weight-bold mb-4pt">Category</p>
+                                                    </div>
+                                                    <a href="fixed-student-course.html" data-toggle="tooltip" data-title="Add Favorite" data-placement="top" data-boundary="window" className="ml-4pt material-icons text-20 card-course__icon-favorite">favorite_border</a>
+                                                </div>
+                                                <div className="d-flex">
+                                                    <div className="rating flex">
+                                                        <span className="rating__item"><span className="material-icons">star</span></span>
+                                                        <span className="rating__item"><span className="material-icons">star</span></span>
+                                                        <span className="rating__item"><span className="material-icons">star</span></span>
+                                                        <span className="rating__item"><span className="material-icons">star</span></span>
+                                                        <span className="rating__item"><span className="material-icons">star_border</span></span>
+                                                    </div>
+                                                    {/* <small className="text-50">6 hours</small> */}
+                                                </div>
                                             </div>
-                                            <div className="media-body media-middle">
-                                                <a href="fixed-student-profile.html" className="card-title">Umberto Kass</a>
-                                                <div className="rating mt-4pt">
-                                                    <span className="rating__item"><span className="material-icons">star</span></span>
-                                                    <span className="rating__item"><span className="material-icons">star</span></span>
-                                                    <span className="rating__item"><span className="material-icons">star</span></span>
-                                                    <span className="rating__item"><span className="material-icons">star</span></span>
-                                                    <span className="rating__item"><span className="material-icons">star_border</span></span>
+                                            <div className="card-footer">
+                                                <div className="row justify-content-between">
+                                                    <div className="col-auto d-flex align-items-center">
+                                                        <span className="material-icons icon-16pt text-black-50 mr-4pt">access_time</span>
+                                                        <p className="flex text-black-50 lh-1 mb-0"><small>96 hours</small></p>
+                                                    </div>
+                                                    <div className="col-auto d-flex align-items-center">
+                                                        <span className="material-icons icon-16pt text-black-50 mr-4pt">attach_money</span>
+                                                        <p className="flex text-black-50 lh-1 mb-0"><small>12.00</small></p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        
+                            
                                     </div>
-                                    <div className="col-12 col-md-6">
-                                        <div className="card card-feedback card-body">
-                                            <blockquote className="blockquote mb-0">
-                                                <p className="text-70 small mb-0">A wonderful course on how to start. Eddie beautifully conveys all essentials of a becoming a good Angular developer. Very glad to have taken this course. Thank you Eddie Bryan.</p>
-                                            </blockquote>
-                                        </div>
-                                        <div className="media ml-12pt">
-                                            <div className="media-left mr-12pt">
-                                                <a href="fixed-student-profile.html" className="avatar avatar-sm">
-                                                    {/* <img src="assets/images/people/110/guy-.jpg" width="40" alt="avatar" class="rounded-circle"> */}
-                                                    <span className="avatar-title rounded-circle">UK</span>
-                                                </a>
+                                    <div className="col-md-6 col-lg-4 col-xl-3 card-group-row__col">
+                                        <div className="card card-sm card--elevated p-relative o-hidden overlay overlay--primary-dodger-blue js-overlay card-group-row__card" data-toggle="popover" data-trigger="click">
+                                            <a href="fixed-student-course.html" className="card-img-top js-image" data-position data-height={140}>
+                                                <img src="assets/images/paths/sketch_430x168.png" alt="course" />
+                                            </a>
+                                            <div className="card-body flex">
+                                                <div className="d-flex">
+                                                    <div className="flex">
+                                                        <a className="card-title" href="fixed-student-course.html">Name Course</a>
+                                                        <p className="text-50 font-weight-bold mb-4pt mt-1">Teacher</p>
+                                                        <p className="text-50 font-weight-bold mb-4pt">Category</p>
+                                                    </div>
+                                                    <a href="fixed-student-course.html" data-toggle="tooltip" data-title="Add Favorite" data-placement="top" data-boundary="window" className="ml-4pt material-icons text-20 card-course__icon-favorite">favorite_border</a>
+                                                </div>
+                                                <div className="d-flex">
+                                                    <div className="rating flex">
+                                                        <span className="rating__item"><span className="material-icons">star</span></span>
+                                                        <span className="rating__item"><span className="material-icons">star</span></span>
+                                                        <span className="rating__item"><span className="material-icons">star</span></span>
+                                                        <span className="rating__item"><span className="material-icons">star</span></span>
+                                                        <span className="rating__item"><span className="material-icons">star_border</span></span>
+                                                    </div>
+                                                    {/* <small className="text-50">6 hours</small> */}
+                                                </div>
                                             </div>
-                                            <div className="media-body media-middle">
-                                                <a href="fixed-student-profile.html" className="card-title">Umberto Kass</a>
-                                                <div className="rating mt-4pt">
-                                                    <span className="rating__item"><span className="material-icons">star</span></span>
-                                                    <span className="rating__item"><span className="material-icons">star</span></span>
-                                                    <span className="rating__item"><span className="material-icons">star</span></span>
-                                                    <span className="rating__item"><span className="material-icons">star</span></span>
-                                                    <span className="rating__item"><span className="material-icons">star_border</span></span>
+                                            <div className="card-footer">
+                                                <div className="row justify-content-between">
+                                                    <div className="col-auto d-flex align-items-center">
+                                                        <span className="material-icons icon-16pt text-black-50 mr-4pt">access_time</span>
+                                                        <p className="flex text-black-50 lh-1 mb-0"><small>96 hours</small></p>
+                                                    </div>
+                                                    <div className="col-auto d-flex align-items-center">
+                                                        <span className="material-icons icon-16pt text-black-50 mr-4pt">attach_money</span>
+                                                        <p className="flex text-black-50 lh-1 mb-0"><small>12.00</small></p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        
+                            
+                                    </div>
+                                    <div className="col-md-6 col-lg-4 col-xl-3 card-group-row__col">
+                                        <div className="card card-sm card--elevated p-relative o-hidden overlay overlay--primary-dodger-blue js-overlay card-group-row__card" data-toggle="popover" data-trigger="click">
+                                            <a href="fixed-student-course.html" className="card-img-top js-image" data-position data-height={140}>
+                                                <img src="assets/images/paths/sketch_430x168.png" alt="course" />
+                                            </a>
+                                            <div className="card-body flex">
+                                                <div className="d-flex">
+                                                    <div className="flex">
+                                                        <a className="card-title" href="fixed-student-course.html">Name Course</a>
+                                                        <p className="text-50 font-weight-bold mb-4pt mt-1">Teacher</p>
+                                                        <p className="text-50 font-weight-bold mb-4pt">Category</p>
+                                                    </div>
+                                                    <a href="fixed-student-course.html" data-toggle="tooltip" data-title="Add Favorite" data-placement="top" data-boundary="window" className="ml-4pt material-icons text-20 card-course__icon-favorite">favorite_border</a>
+                                                </div>
+                                                <div className="d-flex">
+                                                    <div className="rating flex">
+                                                        <span className="rating__item"><span className="material-icons">star</span></span>
+                                                        <span className="rating__item"><span className="material-icons">star</span></span>
+                                                        <span className="rating__item"><span className="material-icons">star</span></span>
+                                                        <span className="rating__item"><span className="material-icons">star</span></span>
+                                                        <span className="rating__item"><span className="material-icons">star_border</span></span>
+                                                    </div>
+                                                    {/* <small className="text-50">6 hours</small> */}
+                                                </div>
+                                            </div>
+                                            <div className="card-footer">
+                                                <div className="row justify-content-between">
+                                                    <div className="col-auto d-flex align-items-center">
+                                                        <span className="material-icons icon-16pt text-black-50 mr-4pt">access_time</span>
+                                                        <p className="flex text-black-50 lh-1 mb-0"><small>96 hours</small></p>
+                                                    </div>
+                                                    <div className="col-auto d-flex align-items-center">
+                                                        <span className="material-icons icon-16pt text-black-50 mr-4pt">attach_money</span>
+                                                        <p className="flex text-black-50 lh-1 mb-0"><small>12.00</small></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                            
+                                    </div>
+                                    <div className="col-md-6 col-lg-4 col-xl-3 card-group-row__col">
+                                        <div className="card card-sm card--elevated p-relative o-hidden overlay overlay--primary-dodger-blue js-overlay card-group-row__card" data-toggle="popover" data-trigger="click">
+                                            <a href="fixed-student-course.html" className="card-img-top js-image" data-position data-height={140}>
+                                                <img src="assets/images/paths/sketch_430x168.png" alt="course" />
+                                            </a>
+                                            <div className="card-body flex">
+                                                <div className="d-flex">
+                                                    <div className="flex">
+                                                        <a className="card-title" href="fixed-student-course.html">Name Course</a>
+                                                        <p className="text-50 font-weight-bold mb-4pt mt-1">Teacher</p>
+                                                        <p className="text-50 font-weight-bold mb-4pt">Category</p>
+                                                    </div>
+                                                    <a href="fixed-student-course.html" data-toggle="tooltip" data-title="Add Favorite" data-placement="top" data-boundary="window" className="ml-4pt material-icons text-20 card-course__icon-favorite">favorite_border</a>
+                                                </div>
+                                                <div className="d-flex">
+                                                    <div className="rating flex">
+                                                        <span className="rating__item"><span className="material-icons">star</span></span>
+                                                        <span className="rating__item"><span className="material-icons">star</span></span>
+                                                        <span className="rating__item"><span className="material-icons">star</span></span>
+                                                        <span className="rating__item"><span className="material-icons">star</span></span>
+                                                        <span className="rating__item"><span className="material-icons">star_border</span></span>
+                                                    </div>
+                                                    {/* <small className="text-50">6 hours</small> */}
+                                                </div>
+                                            </div>
+                                            <div className="card-footer">
+                                                <div className="row justify-content-between">
+                                                    <div className="col-auto d-flex align-items-center">
+                                                        <span className="material-icons icon-16pt text-black-50 mr-4pt">access_time</span>
+                                                        <p className="flex text-black-50 lh-1 mb-0"><small>96 hours</small></p>
+                                                    </div>
+                                                    <div className="col-auto d-flex align-items-center">
+                                                        <span className="material-icons icon-16pt text-black-50 mr-4pt">attach_money</span>
+                                                        <p className="flex text-black-50 lh-1 mb-0"><small>12.00</small></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                            
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+
                     </div>
                 </div>
+            </div>
+
+            <div className="page-section border-bottom-2">
+                <div className="container page_container">
+                    <div className="page-separator">
+                        <div className="page-separator__text">POPULAR COURSES</div>
+                    </div>
+
+                    <div className="mb-lg-8pt">
+
+                        <div className="position-relative carousel-card">
+                            <div className="js-mdk-carousel row d-block" id="carousel-courses2">
+
+                                <a className="carousel-control-next js-mdk-carousel-control mt-n24pt" href="#carousel-courses2"
+                                    role="button" data-slide="next">
+                                    <span className="carousel-control-icon material-icons" aria-hidden="true">keyboard_arrow_right</span>
+                                    <span className="sr-only">Next</span>
+                                </a>
+                                
+                                <div className="mdk-carousel__content">
+
+                                    <div className="col-md-6 col-lg-4 col-xl-3 card-group-row__col">
+                                        <div className="card card-sm card--elevated p-relative o-hidden overlay overlay--primary-dodger-blue js-overlay card-group-row__card" data-toggle="popover" data-trigger="click">
+                                            <a href="fixed-student-course.html" className="card-img-top js-image" data-position data-height={140}>
+                                                <img src="assets/images/paths/sketch_430x168.png" alt="course" />
+                                            </a>
+                                            <div className="card-body flex">
+                                                <div className="d-flex">
+                                                    <div className="flex">
+                                                        <a className="card-title" href="fixed-student-course.html">Name Course</a>
+                                                        <p className="text-50 font-weight-bold mb-4pt mt-1">Teacher</p>
+                                                        <p className="text-50 font-weight-bold mb-4pt">Category</p>
+                                                    </div>
+                                                    <a href="fixed-student-course.html" data-toggle="tooltip" data-title="Add Favorite" data-placement="top" data-boundary="window" className="ml-4pt material-icons text-20 card-course__icon-favorite">favorite_border</a>
+                                                </div>
+                                                <div className="d-flex">
+                                                    <div className="rating flex">
+                                                        <span className="rating__item"><span className="material-icons">star</span></span>
+                                                        <span className="rating__item"><span className="material-icons">star</span></span>
+                                                        <span className="rating__item"><span className="material-icons">star</span></span>
+                                                        <span className="rating__item"><span className="material-icons">star</span></span>
+                                                        <span className="rating__item"><span className="material-icons">star_border</span></span>
+                                                    </div>
+                                                    {/* <small className="text-50">6 hours</small> */}
+                                                </div>
+                                            </div>
+                                            <div className="card-footer">
+                                                <div className="row justify-content-between">
+                                                    <div className="col-auto d-flex align-items-center">
+                                                        <span className="material-icons icon-16pt text-black-50 mr-4pt">access_time</span>
+                                                        <p className="flex text-black-50 lh-1 mb-0"><small>96 hours</small></p>
+                                                    </div>
+                                                    <div className="col-auto d-flex align-items-center">
+                                                        <span className="material-icons icon-16pt text-black-50 mr-4pt">attach_money</span>
+                                                        <p className="flex text-black-50 lh-1 mb-0"><small>12.00</small></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                            
+                                    </div>
+                                    <div className="col-md-6 col-lg-4 col-xl-3 card-group-row__col">
+                                        <div className="card card-sm card--elevated p-relative o-hidden overlay overlay--primary-dodger-blue js-overlay card-group-row__card" data-toggle="popover" data-trigger="click">
+                                            <a href="fixed-student-course.html" className="card-img-top js-image" data-position data-height={140}>
+                                                <img src="assets/images/paths/sketch_430x168.png" alt="course" />
+                                            </a>
+                                            <div className="card-body flex">
+                                                <div className="d-flex">
+                                                    <div className="flex">
+                                                        <a className="card-title" href="fixed-student-course.html">Name Course</a>
+                                                        <p className="text-50 font-weight-bold mb-4pt mt-1">Teacher</p>
+                                                        <p className="text-50 font-weight-bold mb-4pt">Category</p>
+                                                    </div>
+                                                    <a href="fixed-student-course.html" data-toggle="tooltip" data-title="Add Favorite" data-placement="top" data-boundary="window" className="ml-4pt material-icons text-20 card-course__icon-favorite">favorite_border</a>
+                                                </div>
+                                                <div className="d-flex">
+                                                    <div className="rating flex">
+                                                        <span className="rating__item"><span className="material-icons">star</span></span>
+                                                        <span className="rating__item"><span className="material-icons">star</span></span>
+                                                        <span className="rating__item"><span className="material-icons">star</span></span>
+                                                        <span className="rating__item"><span className="material-icons">star</span></span>
+                                                        <span className="rating__item"><span className="material-icons">star_border</span></span>
+                                                    </div>
+                                                    {/* <small className="text-50">6 hours</small> */}
+                                                </div>
+                                            </div>
+                                            <div className="card-footer">
+                                                <div className="row justify-content-between">
+                                                    <div className="col-auto d-flex align-items-center">
+                                                        <span className="material-icons icon-16pt text-black-50 mr-4pt">access_time</span>
+                                                        <p className="flex text-black-50 lh-1 mb-0"><small>96 hours</small></p>
+                                                    </div>
+                                                    <div className="col-auto d-flex align-items-center">
+                                                        <span className="material-icons icon-16pt text-black-50 mr-4pt">attach_money</span>
+                                                        <p className="flex text-black-50 lh-1 mb-0"><small>12.00</small></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                            
+                                    </div>
+                                    <div className="col-md-6 col-lg-4 col-xl-3 card-group-row__col">
+                                        <div className="card card-sm card--elevated p-relative o-hidden overlay overlay--primary-dodger-blue js-overlay card-group-row__card" data-toggle="popover" data-trigger="click">
+                                            <a href="fixed-student-course.html" className="card-img-top js-image" data-position data-height={140}>
+                                                <img src="assets/images/paths/sketch_430x168.png" alt="course" />
+                                            </a>
+                                            <div className="card-body flex">
+                                                <div className="d-flex">
+                                                    <div className="flex">
+                                                        <a className="card-title" href="fixed-student-course.html">Name Course</a>
+                                                        <p className="text-50 font-weight-bold mb-4pt mt-1">Teacher</p>
+                                                        <p className="text-50 font-weight-bold mb-4pt">Category</p>
+                                                    </div>
+                                                    <a href="fixed-student-course.html" data-toggle="tooltip" data-title="Add Favorite" data-placement="top" data-boundary="window" className="ml-4pt material-icons text-20 card-course__icon-favorite">favorite_border</a>
+                                                </div>
+                                                <div className="d-flex">
+                                                    <div className="rating flex">
+                                                        <span className="rating__item"><span className="material-icons">star</span></span>
+                                                        <span className="rating__item"><span className="material-icons">star</span></span>
+                                                        <span className="rating__item"><span className="material-icons">star</span></span>
+                                                        <span className="rating__item"><span className="material-icons">star</span></span>
+                                                        <span className="rating__item"><span className="material-icons">star_border</span></span>
+                                                    </div>
+                                                    {/* <small className="text-50">6 hours</small> */}
+                                                </div>
+                                            </div>
+                                            <div className="card-footer">
+                                                <div className="row justify-content-between">
+                                                    <div className="col-auto d-flex align-items-center">
+                                                        <span className="material-icons icon-16pt text-black-50 mr-4pt">access_time</span>
+                                                        <p className="flex text-black-50 lh-1 mb-0"><small>96 hours</small></p>
+                                                    </div>
+                                                    <div className="col-auto d-flex align-items-center">
+                                                        <span className="material-icons icon-16pt text-black-50 mr-4pt">attach_money</span>
+                                                        <p className="flex text-black-50 lh-1 mb-0"><small>12.00</small></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                            
+                                    </div>
+                                    <div className="col-md-6 col-lg-4 col-xl-3 card-group-row__col">
+                                        <div className="card card-sm card--elevated p-relative o-hidden overlay overlay--primary-dodger-blue js-overlay card-group-row__card" data-toggle="popover" data-trigger="click">
+                                            <a href="fixed-student-course.html" className="card-img-top js-image" data-position data-height={140}>
+                                                <img src="assets/images/paths/sketch_430x168.png" alt="course" />
+                                            </a>
+                                            <div className="card-body flex">
+                                                <div className="d-flex">
+                                                    <div className="flex">
+                                                        <a className="card-title" href="fixed-student-course.html">Name Course</a>
+                                                        <p className="text-50 font-weight-bold mb-4pt mt-1">Teacher</p>
+                                                        <p className="text-50 font-weight-bold mb-4pt">Category</p>
+                                                    </div>
+                                                    <a href="fixed-student-course.html" data-toggle="tooltip" data-title="Add Favorite" data-placement="top" data-boundary="window" className="ml-4pt material-icons text-20 card-course__icon-favorite">favorite_border</a>
+                                                </div>
+                                                <div className="d-flex">
+                                                    <div className="rating flex">
+                                                        <span className="rating__item"><span className="material-icons">star</span></span>
+                                                        <span className="rating__item"><span className="material-icons">star</span></span>
+                                                        <span className="rating__item"><span className="material-icons">star</span></span>
+                                                        <span className="rating__item"><span className="material-icons">star</span></span>
+                                                        <span className="rating__item"><span className="material-icons">star_border</span></span>
+                                                    </div>
+                                                    {/* <small className="text-50">6 hours</small> */}
+                                                </div>
+                                            </div>
+                                            <div className="card-footer">
+                                                <div className="row justify-content-between">
+                                                    <div className="col-auto d-flex align-items-center">
+                                                        <span className="material-icons icon-16pt text-black-50 mr-4pt">access_time</span>
+                                                        <p className="flex text-black-50 lh-1 mb-0"><small>96 hours</small></p>
+                                                    </div>
+                                                    <div className="col-auto d-flex align-items-center">
+                                                        <span className="material-icons icon-16pt text-black-50 mr-4pt">attach_money</span>
+                                                        <p className="flex text-black-50 lh-1 mb-0"><small>12.00</small></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                            
+                                    </div>
+                                    <div className="col-md-6 col-lg-4 col-xl-3 card-group-row__col">
+                                        <div className="card card-sm card--elevated p-relative o-hidden overlay overlay--primary-dodger-blue js-overlay card-group-row__card" data-toggle="popover" data-trigger="click">
+                                            <a href="fixed-student-course.html" className="card-img-top js-image" data-position data-height={140}>
+                                                <img src="assets/images/paths/sketch_430x168.png" alt="course" />
+                                            </a>
+                                            <div className="card-body flex">
+                                                <div className="d-flex">
+                                                    <div className="flex">
+                                                        <a className="card-title" href="fixed-student-course.html">Name Course</a>
+                                                        <p className="text-50 font-weight-bold mb-4pt mt-1">Teacher</p>
+                                                        <p className="text-50 font-weight-bold mb-4pt">Category</p>
+                                                    </div>
+                                                    <a href="fixed-student-course.html" data-toggle="tooltip" data-title="Add Favorite" data-placement="top" data-boundary="window" className="ml-4pt material-icons text-20 card-course__icon-favorite">favorite_border</a>
+                                                </div>
+                                                <div className="d-flex">
+                                                    <div className="rating flex">
+                                                        <span className="rating__item"><span className="material-icons">star</span></span>
+                                                        <span className="rating__item"><span className="material-icons">star</span></span>
+                                                        <span className="rating__item"><span className="material-icons">star</span></span>
+                                                        <span className="rating__item"><span className="material-icons">star</span></span>
+                                                        <span className="rating__item"><span className="material-icons">star_border</span></span>
+                                                    </div>
+                                                    {/* <small className="text-50">6 hours</small> */}
+                                                </div>
+                                            </div>
+                                            <div className="card-footer">
+                                                <div className="row justify-content-between">
+                                                    <div className="col-auto d-flex align-items-center">
+                                                        <span className="material-icons icon-16pt text-black-50 mr-4pt">access_time</span>
+                                                        <p className="flex text-black-50 lh-1 mb-0"><small>96 hours</small></p>
+                                                    </div>
+                                                    <div className="col-auto d-flex align-items-center">
+                                                        <span className="material-icons icon-16pt text-black-50 mr-4pt">attach_money</span>
+                                                        <p className="flex text-black-50 lh-1 mb-0"><small>12.00</small></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                            
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
         </>
     );
 }
