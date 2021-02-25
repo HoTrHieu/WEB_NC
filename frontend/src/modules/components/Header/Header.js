@@ -79,10 +79,11 @@ const Header = props => {
                                     <a href="fixed-discussions-ask.html" className="dropdown-item">Ask Question</a>
                                 </div>
                             </li>
-                            <li className="nav-item">
-                                <input style={{ width: "300px" }} />
-                            </li>
                         </ul>
+                        <form className="search-form navbar-search d-none d-lg-flex mr-16pt" action="boxed-index.html" style={{maxWidth: "230px"}}>
+                            <button className="btn" type="submit"><i className="material-icons">search</i></button>
+                            <input type="text" className="form-control" placeholder="Search ..."/>
+                        </form>
                         <ul className="nav navbar-nav ml-auto mr-0">
                             <li className="nav-item">
                                 <a href="fixed-login.html" className="nav-link" data-toggle="tooltip" data-title="Login" data-placement="bottom" data-boundary="window"><i className="material-icons">lock_open</i></a>

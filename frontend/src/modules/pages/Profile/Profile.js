@@ -10,8 +10,8 @@ const Profile = () => {
             <div className="form-group">
             <label className="form-label">Your photo</label>
             <div className="media align-items-center">
-                <a href className="media-left mr-16pt">
-                <img src="assets/images/people/110/guy-3.jpg" alt="people" width={56} className="rounded-circle" />
+                <a href="!#" className="media-left mr-16pt">
+                    <img src="assets/images/people/110/guy-3.jpg" alt="people" width={56} className="rounded-circle" />
                 </a>
                 <div className="media-body">
                 <div className="custom-file">
@@ -47,7 +47,6 @@ const Profile = () => {
             <button type="submit" className="btn btn-primary">Save changes</button>
         </div>
         </div>
-
     );
 };
 

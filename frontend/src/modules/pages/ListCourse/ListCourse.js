@@ -9,7 +9,7 @@ const ListCourse = () => {
     const render = () => {
         return (
             <>
-                <div className="mdk-drawer-layout__content page-content" onClick={() => handleOut()}>
+                <div onClick={() => handleOut()}>
                     <div className="page-section">
                         <div className="container page__container">
                             <div className="d-flex flex-column flex-sm-row align-items-sm-center mb-24pt" style={{ whiteSpace: 'nowrap' }}>
@@ -1273,7 +1273,6 @@ const ListCourse = () => {
                         </div>
                     </div>
                 </div>
-
                 {
                     showNav &&
                     <div data-opened>
@@ -1451,12 +1450,10 @@ const ListCourse = () => {
                             </div>
                         </div>
                     </div>
-
                 }
             </>
         );
     }
-
     return render();
 };
 

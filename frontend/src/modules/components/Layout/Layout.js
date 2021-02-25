@@ -7,7 +7,9 @@ const Layout = (props) => {
         return (
             <div  className="mdk-header-layout js-mdk-header-layout">
                 <Header/>
-                {props.children}
+                <div className="mdk-header-layout__content page-content ">
+                    {props.children}
+                </div>
                 <Footer/>
             </div>
         )

@@ -32,7 +32,6 @@ const Login = (props) => {
             </div>
             </div>
       </>
-      
     );
 };
 
