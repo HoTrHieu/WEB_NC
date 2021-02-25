@@ -16,14 +16,13 @@ const AppRouting = (props) => {
     return (
       <Layout>
         <Switch>
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/signup" component={Signup} />
           <Route exact path="/" component={Home} />
-          <Route exact path="/list-course" component={ListCourse} />
-          <Route exact path="/profile" component={Profile} />
-          <Route exact path="/detail-course" component={DetailCourse} />
-          <Route exact path="/student-course" component={StudentCourse} />
-
+          <Route path="/login" component={Login} />
+          <Route path="/signup" component={Signup} />
+          <Route path="/list-course" component={ListCourse}/>
+          <Route path="/profile" component={Profile} />
+          <Route path="/detail-course" component={DetailCourse} />
+          <Route path="/student-course" component={StudentCourse} />
         </Switch>
       </Layout>
     );

@@ -1,8 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom'
-const Header = props => {
 
+
+const Header = props => {
+    const [valueInput, setValueInput] = useState("");
+
+
+    const handleSearch = () => {
+        console.log('input: ', valueInput)
+    }
 
     return (
         <>
@@ -10,13 +17,13 @@ const Header = props => {
                 <div className="mdk-header__content justify-content-center">
                     <div className="navbar navbar-expand navbar-dark-dodger-blue bg-transparent will-fade-background" id="default-navbar" data-primary>
 
-                        <a href="fixed-index.html" className="navbar-brand mr-16pt">
+                        <Link to="/" className="navbar-brand mr-16pt">
                             {/* <img class="navbar-brand-icon" src="assets/images/logo/white-100@2x.png" width="30" alt="Luma"> */}
                             <span className="avatar avatar-sm navbar-brand-icon mr-0 mr-lg-8pt">
                                 <span className="avatar-title rounded bg-primary"><img src="assets/images/illustration/student/128/white.svg" alt="logo" className="img-fluid" /></span>
                             </span>
                             <span className="d-none d-lg-block">Luma</span>
-                        </a>
+                        </Link>
                         <ul className="nav navbar-nav d-none d-sm-flex flex justify-content-start ml-8pt">
                             <li className="nav-item active">
                                 <Link to="/" className="nav-link">Home</Link>
@@ -24,43 +31,13 @@ const Header = props => {
                             <li className="nav-item dropdown">
                                 <a href="!#" className="nav-link dropdown-toggle" data-toggle="dropdown" data-caret="false">Courses</a>
                                 <div className="dropdown-menu">
-                                    <a href="fixed-courses.html" className="dropdown-item">Browse Courses</a>
-                                    <a href="fixed-student-course.html" className="dropdown-item">Preview Course</a>
-                                    <a href="fixed-student-lesson.html" className="dropdown-item">Preview Lesson</a>
-                                    <a href="fixed-student-take-course.html" className="dropdown-item"><span className="mr-16pt">Take Course</span> <span className="badge badge-notifications badge-accent text-uppercase ml-auto">Pro</span></a>
-                                    <a href="fixed-student-take-lesson.html" className="dropdown-item">Take Lesson</a>
-                                    <a href="fixed-student-take-quiz.html" className="dropdown-item">Take Quiz</a>
-                                    <a href="fixed-student-quiz-result-details.html" className="dropdown-item">Quiz Result</a>
-                                    <a href="fixed-student-dashboard.html" className="dropdown-item">Student Dashboard</a>
-                                    <a href="fixed-student-my-courses.html" className="dropdown-item">My Courses</a>
-                                    <a href="fixed-student-quiz-results.html" className="dropdown-item">My Quizzes</a>
-                                    <a href="fixed-help-center.html" className="dropdown-item">Help Center</a>
-                                </div>
-                            </li>
-                            <li className="nav-item dropdown">
-                                <a href="!#" className="nav-link dropdown-toggle" data-toggle="dropdown" data-caret="false">Paths</a>
-                                <div className="dropdown-menu">
-                                    <a href="fixed-paths.html" className="dropdown-item">Browse Paths</a>
-                                    <a href="fixed-student-path.html" className="dropdown-item">Path Details</a>
-                                    <a href="fixed-student-path-assessment.html" className="dropdown-item">Skill Assessment</a>
-                                    <a href="fixed-student-path-assessment-result.html" className="dropdown-item">Skill Result</a>
-                                    <a href="fixed-student-paths.html" className="dropdown-item">My Paths</a>
+                                    <Link to="/list-course" className="dropdown-item">Browse Courses</Link>
+                                    <Link to="/list-course?category=website" className="dropdown-item">Website</Link>
+                                    <Link to="/list-course?category=mobile" className="dropdown-item">Mobile</Link>
                                 </div>
                             </li>
                             <li className="nav-item">
                                 <a href="fixed-pricing.html" className="nav-link">Pricing</a>
-                            </li>
-                            <li className="nav-item dropdown">
-                                <a href="!#" className="nav-link dropdown-toggle" data-toggle="dropdown" data-caret="false">Teachers</a>
-                                <div className="dropdown-menu">
-                                    <a href="fixed-instructor-dashboard.html" className="dropdown-item">Instructor Dashboard</a>
-                                    <a href="fixed-instructor-courses.html" className="dropdown-item">Manage Courses</a>
-                                    <a href="fixed-instructor-quizzes.html" className="dropdown-item">Manage Quizzes</a>
-                                    <a href="fixed-instructor-earnings.html" className="dropdown-item">Earnings</a>
-                                    <a href="fixed-instructor-statement.html" className="dropdown-item">Statement</a>
-                                    <a href="fixed-instructor-edit-course.html" className="dropdown-item">Edit Course</a>
-                                    <a href="fixed-instructor-edit-quiz.html" className="dropdown-item">Edit Quiz</a>
-                                </div>
                             </li>
                             <li className="nav-item dropdown" data-toggle="tooltip" data-title="Community" data-placement="bottom" data-boundary="window">
                                 <a href="!#" className="nav-link dropdown-toggle" data-toggle="dropdown" data-caret="false">
@@ -80,16 +57,16 @@ const Header = props => {
                                 </div>
                             </li>
                         </ul>
-                        <form className="search-form navbar-search d-none d-lg-flex mr-16pt" action="boxed-index.html" style={{maxWidth: "230px"}}>
-                            <button className="btn" type="submit"><i className="material-icons">search</i></button>
-                            <input type="text" className="form-control" placeholder="Search ..."/>
-                        </form>
+                        <div className="search-form navbar-search d-none d-lg-flex mr-16pt" style={{maxWidth: "230px"}}>
+                            <button onClick={()=>handleSearch()} className="btn" type="submit"><i className="material-icons">search</i></button>
+                            <input value={valueInput} onChange={(event) => setValueInput(event.target.value)} type="text" className="form-control" placeholder="Search ..."/>
+                        </div>
                         <ul className="nav navbar-nav ml-auto mr-0">
                             <li className="nav-item">
-                                <a href="fixed-login.html" className="nav-link" data-toggle="tooltip" data-title="Login" data-placement="bottom" data-boundary="window"><i className="material-icons">lock_open</i></a>
+                                <Link to="/login" className="nav-link" data-toggle="tooltip" data-title="Login" data-placement="bottom" data-boundary="window"><i className="material-icons">lock_open</i></Link>
                             </li>
                             <li className="nav-item">
-                                <a href="fixed-signup.html" className="btn btn-outline-white">Get Started</a>
+                                <Link to="/signup" className="btn btn-outline-white">Get Started</Link>
                             </li>
                         </ul>
                     </div>
@@ -105,7 +82,7 @@ const Header = props => {
                         <div className="hero container page__container text-center text-md-left py-112pt">
                             <h1 className="text-white text-shadow">Learn to Code</h1>
                             <p className="lead measure-hero-lead mx-auto mx-md-0 text-white text-shadow mb-48pt">Business, Technology and Creative Skills taught by industry experts. Explore a wide range of skills with our professional tutorials.</p>
-                            <a href="fixed-courses.html" className="btn btn-lg btn-white btn--raised mb-16pt">Browse Courses</a>
+                            <Link to="/list-course" className="btn btn-lg btn-white btn--raised mb-16pt">Browse Courses</Link>
                             <p className="mb-0"><a href="!#" className="text-white text-shadow"><strong>Are you a teacher?</strong></a></p>
                         </div>
                     </div>
