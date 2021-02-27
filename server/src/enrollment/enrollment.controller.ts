@@ -1,12 +1,10 @@
 import { Controller, Get, Param, Post, Request } from '@nestjs/common';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AuthedRequest } from 'src/auth/dto/authed-request';
-import { Role } from 'src/shared/decorators/role.decorator';
 import { BooleanResponse } from 'src/shared/dtos/boolean-response.dto';
 import { PagingRequest } from 'src/shared/dtos/paging-request.dto';
 import { PagingResponse } from 'src/shared/dtos/paging-response.dto';
 import { Enrollment } from 'src/shared/entities/enrollment.entity';
-import { UserRole } from 'src/shared/enums/user-role';
 import { EnrollmentService } from './enrollment.service';
 
 @ApiTags('Enrollment')

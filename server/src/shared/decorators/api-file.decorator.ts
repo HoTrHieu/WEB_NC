@@ -1,6 +1,6 @@
 import { ApiBody } from '@nestjs/swagger';
 
-export const ApiFile = (formData: any, fileName: string = 'file'): MethodDecorator => (
+export const ApiFile = (fileName: string = 'file', formData: any = {}): MethodDecorator => (
   target: any,
   propertyKey: string,
   descriptor: PropertyDescriptor,

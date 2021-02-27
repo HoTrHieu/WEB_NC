@@ -32,7 +32,7 @@ export const mysqlModule = TypeOrmModule.forRootAsync({
       CategoryTotalEnrollment
     ],
     synchronize: config.get('settings.mysql.sync'),
-    logging: process.env.NODE_ENV === 'dev',
+    // logging: process.env.NODE_ENV === 'dev',
   }),
   inject: [ConfigService],
 });

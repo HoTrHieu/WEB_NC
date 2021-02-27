@@ -4,7 +4,9 @@ import {
   Controller,
   Post,
   UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBearerAuth, ApiBody, ApiConsumes, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ApiFile } from 'src/shared/decorators/api-file.decorator';
 import { BooleanResponse } from 'src/shared/dtos/boolean-response.dto';
@@ -24,21 +26,18 @@ export class UploaderController {
     type: StdResponse,
   })
   @ApiConsumes('multipart/form-data')
-  @ApiFile({
+  @ApiFile('file', {
     fileType: {
       enum: FileType
     }
   })
   @ApiBearerAuth()
+  @UseInterceptors(FileInterceptor('file'))
   async upload(
     @Body() request: UploadRequest,
     @UploadedFile() file: Express.Multer.File,
   ) {
-    const folder = UploaderService.Folder[request.fileType];
-    if (!folder) {
-      throw new BadRequestException('File type is invalid');
-    }
-    const filePath = await this.uploaderService.upload(folder, file);
+    const filePath = await this.uploaderService.upload(request.fileType, file);
     return StdResponse.of(StdResponseCode.SUCCESS, filePath);
   }
 }
