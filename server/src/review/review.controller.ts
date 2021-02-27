@@ -33,7 +33,7 @@ export class ReviewController {
     type: BooleanResponse,
   })
   @ApiBearerAuth()
-  async upcateStatus(
+  async updateStatus(
     @Param('courseId') courseId: number,
     @Request() req: any,
     @Body() body: ReviewRequest,

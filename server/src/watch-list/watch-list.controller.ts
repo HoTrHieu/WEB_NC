@@ -36,7 +36,7 @@ export class WatchListController {
     type: BooleanResponse,
   })
   @ApiBearerAuth()
-  async upcateStatus(
+  async updateStatus(
     @Param('courseId') courseId: number,
     @Body() request: UpdateStatusRequest,
     @Request() req: any,

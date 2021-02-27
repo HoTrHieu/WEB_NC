@@ -24,8 +24,13 @@ export class UploaderController {
     type: StdResponse,
   })
   @ApiConsumes('multipart/form-data')
+  @ApiFile({
+    fileType: {
+      enum: FileType
+    }
+  })
   @ApiBearerAuth()
-  async upcateStatus(
+  async upload(
     @Body() request: UploadRequest,
     @UploadedFile() file: Express.Multer.File,
   ) {

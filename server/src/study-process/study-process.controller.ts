@@ -17,7 +17,7 @@ export class StudyProcessController {
     type: BooleanResponse,
   })
   @ApiBearerAuth()
-  async upcateStatus(
+  async updateStatus(
     @Param('courseId') courseId: number,
     @Body() request: UpdateStudyProcessRequest,
     @Request() req: any,

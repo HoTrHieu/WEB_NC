@@ -71,7 +71,7 @@ export class CategoryController {
     type: BooleanResponse,
   })
   @ApiBearerAuth()
-  async upcateStatus(
+  async updateStatus(
     @Param('id') id: number,
     @Body() request: UpdateStatusRequest,
   ) {

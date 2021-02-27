@@ -36,7 +36,7 @@ export class EnrollmentController {
     type: BooleanResponse,
   })
   @ApiBearerAuth()
-  async upcateStatus(@Param('courseId') courseId: number, @Request() req: any) {
+  async updateStatus(@Param('courseId') courseId: number, @Request() req: any) {
     await this.enrollmentService.enroll(courseId, req.user.id);
     return BooleanResponse.of(true);
   }
