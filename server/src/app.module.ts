@@ -17,6 +17,8 @@ import { StudyProcessModule } from './study-process/study-process.module';
 import { UploaderModule } from './uploader/uploader.module';
 import { UserModule } from './user/user.module';
 import { WatchListModule } from './watch-list/watch-list.module';
+import { mailerModule } from './shared/modules/mailer.module';
+import { MailSenderModule } from './mail-sender/mail-sender.module';
 
 @Module({
   imports: [
@@ -27,6 +29,7 @@ import { WatchListModule } from './watch-list/watch-list.module';
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'webapp'),
     }),
+    mailerModule,
     mysqlModule,
     AuthModule,
     CategoryModule,
@@ -38,6 +41,7 @@ import { WatchListModule } from './watch-list/watch-list.module';
     UploaderModule,
     UserModule,
     WatchListModule,
+    MailSenderModule
   ],
   providers: [
     {

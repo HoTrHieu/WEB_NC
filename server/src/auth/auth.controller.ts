@@ -6,6 +6,7 @@ import {
   Post,
   Put,
   Query,
+  Req,
   Request,
   UseGuards,
   UseInterceptors,
@@ -23,10 +24,12 @@ import { StdResponse } from 'src/shared/dtos/std-response.dto';
 import { User } from 'src/shared/entities/user.entity';
 import { StdResponseCode } from 'src/shared/enums/std-response-code';
 import { AuthService } from './auth.service';
+import { AuthedRequest } from './dto/authed-request';
 import { ChangePasswordRequest } from './dto/change-password-request.dto';
 import { LoginRequest } from './dto/login-request.dto';
 import { LoginResponse } from './dto/login-response.dto';
 import { RegisterRequest } from './dto/register-request.dto';
+import { GoogleAuthGuard } from './guard/google.guard';
 import { LocalAuthGuard } from './guard/local.guard';
 import { TokenService } from './token/token.service';
 
@@ -57,7 +60,19 @@ export class AuthController {
     type: LoginResponse,
   })
   @Public()
-  login(@Request() req) {
+  login(@Request() req: AuthedRequest) {
+    return this.authService.login(req.user);
+  }
+
+  @Get('/login/google')
+  @UseGuards(GoogleAuthGuard)
+  @Public()
+  async googleLogin(@Req() req) {}
+
+  @Get('/redirect/google')
+  @UseGuards(GoogleAuthGuard)
+  @Public()
+  googleRedirect(@Req() req) {
     return this.authService.login(req.user);
   }
 
@@ -82,7 +97,7 @@ export class AuthController {
     type: User,
   })
   @ApiBearerAuth()
-  getProfile(@Request() req) {
+  getProfile(@Request() req: AuthedRequest) {
     return this.authService.getProfile(req.user);
   }
 

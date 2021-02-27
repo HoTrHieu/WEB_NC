@@ -11,6 +11,7 @@ import {
   Request,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { AuthedRequest } from 'src/auth/dto/authed-request';
 import { Role } from 'src/shared/decorators/role.decorator';
 import { BooleanResponse } from 'src/shared/dtos/boolean-response.dto';
 import { PagingResponse } from 'src/shared/dtos/paging-response.dto';
@@ -19,7 +20,7 @@ import { StdResponse } from 'src/shared/dtos/std-response.dto';
 import { UpdateStatusRequest } from 'src/shared/dtos/update-status-request.dto';
 import { StdResponseCode } from 'src/shared/enums/std-response-code';
 import { UserRole } from 'src/shared/enums/user-role';
-import { AddUserRequest } from './dto/add-user-request.dto';
+import { AddUserWithRoleRequest } from './dto/add-user-with-role-request.dto';
 import { UpdateUserFirstLastNameRequest } from './dto/update-user-first-last-name-request.dto';
 import { UpdateUserRoleRequest } from './dto/update-user-role-request.dto';
 import { UserService } from './user.service';
@@ -46,7 +47,7 @@ export class UserController {
     type: StdResponse,
   })
   @ApiBearerAuth()
-  async addUser(@Body() request: AddUserRequest) {
+  async addUser(@Body() request: AddUserWithRoleRequest) {
     const newUser = await this.userService.addUser(request);
     return StdResponse.of(StdResponseCode.SUCCESS, newUser.id);
   }
@@ -57,7 +58,7 @@ export class UserController {
   })
   @ApiBearerAuth()
   async updateFirstLastName(
-    @Request() req: any,
+    @Request() req: AuthedRequest,
     @Body() body: UpdateUserFirstLastNameRequest,
   ) {
     const isSuccess = await this.userService.updateFirstLastName(

@@ -10,6 +10,20 @@
       "password": "123456789",
       "dbname": "web_nc_fademy",
       "sync": true
+    },
+    "mailer": {
+      "host": "smtp.office365.com",
+      "port": 587,
+      "from": "fademy.edu@outlook.com.vn",
+      "auth": {
+        "user": "fademy.edu@outlook.com.vn",
+        "pass": "F4d3my_2021"
+      }
+    },
+    "google": {
+      "clientId": "749715082106-b3ae5s2fc3j5s72fd58rtr4jhnqen9nf.apps.googleusercontent.com",
+      "clientSecret": "O2MUfctyfz6jEVMmFdN45vB_",
+      "callbackURL": "http://localhost:3105/api/v1/auth/redirect/google"
     }
   }
 }

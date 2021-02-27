@@ -1,15 +1,31 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsEnum } from 'class-validator';
-import { RegisterRequest } from 'src/auth/dto/register-request.dto';
-import { UserRole } from 'src/shared/enums/user-role';
-import { ClassUtils } from 'src/shared/utils/class.util';
+import { ApiProperty } from "@nestjs/swagger";
+import { IsEmail, IsString, Length, MaxLength, MinLength } from "class-validator";
 
-export class AddUserRequest extends RegisterRequest {
-  @IsEnum(UserRole)
-  @ApiProperty({ enum: UserRole })
-  role: UserRole;
+export class AddUserRequest {
+  @ApiProperty({ minLength: 4, maxLength: 255 })
+  @IsString()
+  @Length(4, 255)
+  username: string;
 
-  static of(registerRequest: RegisterRequest): AddUserRequest {
-    return ClassUtils.copyFields(registerRequest, new AddUserRequest());
-  }
+  @ApiProperty({ minLength: 4, maxLength: 255 })
+  @IsEmail()
+  @Length(4, 255)
+  email: string;
+
+  @ApiProperty({ minLength: 8, maxLength: 255 })
+  @IsString()
+  @Length(8, 255)
+  password: string;
+
+  @IsString()
+  @ApiProperty({ minLength: 4, maxLength: 255 })
+  @MinLength(4)
+  @MaxLength(255)
+  firstName: string;
+
+  @IsString()
+  @ApiProperty({ minLength: 4, maxLength: 255 })
+  @MinLength(4)
+  @MaxLength(255)
+  lastName: string;
 }

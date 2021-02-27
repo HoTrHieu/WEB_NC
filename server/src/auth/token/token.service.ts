@@ -16,7 +16,7 @@ export class TokenService {
     private config: ConfigService,
     private jwtService: JwtService,
   ) {
-    this.RTK_TTL = config.get('jwt.refreshToken.ttl');
+    this.RTK_TTL = this.config.get('jwt.refreshToken.ttl');
   }
 
   public async createTokens(userId: number, role: UserRole) {
