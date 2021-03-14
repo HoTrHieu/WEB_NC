@@ -4,72 +4,18 @@ const Footer = () => {
 
     const render = () => {
         return (
-            <footer id="mu-footer">
-                <div className="mu-footer-top">
-                    <div className="container">
-                        <div className="mu-footer-top-area">
-                            <div className="row">
-                                <div className="col-lg-3 col-md-3 col-sm-3">
-                                    <div className="mu-footer-widget">
-                                        <h4>Information</h4>
-                                        <ul>
-                                            <li><a href="!#">About Us</a></li>
-                                            <li><a href="!#">Features</a></li>
-                                            <li><a href="!#">Course</a></li>
-                                            <li><a href="!#">Event</a></li>
-                                            <li><a href="!#">Sitemap</a></li>
-                                            <li><a href="!#">Term Of Use</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div className="col-lg-3 col-md-3 col-sm-3">
-                                    <div className="mu-footer-widget">
-                                        <h4>Student Help</h4>
-                                        <ul>
-                                            <li><a href="!#">Get Started</a></li>
-                                            <li><a href="!#">My Questions</a></li>
-                                            <li><a href="!#">Download Files</a></li>
-                                            <li><a href="!#">Latest Course</a></li>
-                                            <li><a href="!#">Academic News</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div className="col-lg-3 col-md-3 col-sm-3">
-                                    <div className="mu-footer-widget">
-                                        <h4>News letter</h4>
-                                        <p>Get latest update, news & academic offers</p>
-                                        <form className="mu-subscribe-form">
-                                            <input type="email" placeholder="Type your Email" />
-                                            <button className="mu-subscribe-btn" type="submit">Subscribe!</button>
-                                        </form>
-                                    </div>
-                                </div>
-                                <div className="col-lg-3 col-md-3 col-sm-3">
-                                    <div className="mu-footer-widget">
-                                        <h4>Contact</h4>
-                                        <address>
-                                            <p>P.O. Box 320, Ross, California 9495, USA</p>
-                                            <p>Phone: (415) 453-1568 </p>
-                                            <p>Website: www.markups.io</p>
-                                            <p>Email: info@markups.io</p>
-                                        </address>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <div className="js-fix-footer2 bg-white border-top-2">
+                <div className="container page__container page-section d-flex flex-column">
+                    <p className="text-70 brand mb-24pt">
+                        <img className="brand-icon" src="assets/images/logo/black-70@2x.png" width={30} alt="Luma" /> Luma
+                    </p>
+                    <p className="measure-lead-max text-50 small mr-8pt">Luma is a beautifully crafted user interface for modern Education Platforms, including Courses &amp; Tutorials, Video Lessons, Student and Teacher Dashboard, Curriculum Management, Earnings and Reporting, ERP, HR, CMS, Tasks, Projects, eCommerce and more.</p>
+                    <p className="text-50 small mt-n1 mb-0">Copyright 2019 © All rights reserved.</p>
                 </div>
-                <div className="mu-footer-bottom">
-                    <div className="container">
-                        <div className="mu-footer-bottom-area">
-                            <p>&copy; All Right Reserved. Designed by <a href="http://www.markups.io/" rel="nofollow">MarkUps.io</a></p>
-                        </div>
-                    </div>
-                </div>
-            </footer>
+            </div>
         )
     }
-    
+
     return render();
 }
 

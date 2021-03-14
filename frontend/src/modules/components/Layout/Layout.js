@@ -1,14 +1,15 @@
-import React from 'react';
-import { Menu, Search, Footer, Header } from '../index';
+import React, {useState} from 'react';
+import { Footer, Header, NavBar } from '../index';
 
 const Layout = (props) => {
-    
+
     const render = () => {
         return (
-            <div>
-                <Menu />
-                <Search />
-                {props.children}
+            <div  className="mdk-header-layout js-mdk-header-layout">
+                <Header/>
+                <div className="mdk-header-layout__content page-content ">
+                    {props.children}
+                </div>
                 <Footer/>
             </div>
         )
