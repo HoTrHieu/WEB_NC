@@ -1,5 +1,6 @@
 import Axios from "axios";
 import { ApiEndpoint } from "../../shared/constants/ApiEndpoint";
+import { IUser } from "../../shared/entities/IUser";
 import { UserRole } from "../../shared/enums/UserRole";
 import { CrudService } from "../../shared/services/CrudService";
 
@@ -51,7 +52,7 @@ export class AuthService {
 
   static logout() {
     this.clearTokens();
-    window.location.pathname = "/authen";
+    window.location.pathname = "/auth";
   }
 
   static async refreshAccessToken() {
