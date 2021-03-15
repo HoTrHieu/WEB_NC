@@ -27,6 +27,10 @@ export class Enrollment {
   @PrimaryColumn()
   userId: number;
 
+  @ApiProperty()
+  @Column('int')
+  amount: number;
+
   @ApiProperty({ type: () => Course })
   @ManyToOne(() => Course, (course) => course.enrollments)
   @JoinColumn({ name: 'courseId' })
@@ -40,10 +44,6 @@ export class Enrollment {
   @ApiProperty({ type: () => StudyProcess, isArray: true })
   @OneToMany(() => StudyProcess, (studyProcess) => studyProcess.enrollment)
   studyProcesses: StudyProcess[];
-
-  @ApiProperty()
-  @Column('int')
-  amount: number;
 
   @ApiProperty()
   @Column({

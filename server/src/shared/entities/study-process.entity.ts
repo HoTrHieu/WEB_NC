@@ -29,19 +29,6 @@ export class StudyProcess {
   @PrimaryColumn()
   contentId: number;
 
-  @ApiProperty({ type: () => Enrollment })
-  @ManyToOne(() => Enrollment, (enrollment) => enrollment.studyProcesses)
-  @JoinColumn([
-    { name: 'courseId', referencedColumnName: 'courseId' },
-    { name: 'userId', referencedColumnName: 'userId' },
-  ])
-  enrollment: Enrollment;
-
-  @ApiProperty({ type: () => Content })
-  @ManyToOne(() => Content, (content) => content.studyProcesses)
-  @JoinColumn({ name: 'contentId' })
-  content: Content;
-
   @ApiProperty()
   @Column('int')
   duration: number;
@@ -66,6 +53,19 @@ export class StudyProcess {
   @ApiProperty()
   @CreateDateColumn()
   createdDate: Date;
+
+  @ApiProperty({ type: () => Enrollment })
+  @ManyToOne(() => Enrollment, (enrollment) => enrollment.studyProcesses)
+  @JoinColumn([
+    { name: 'courseId', referencedColumnName: 'courseId' },
+    { name: 'userId', referencedColumnName: 'userId' },
+  ])
+  enrollment: Enrollment;
+
+  @ApiProperty({ type: () => Content })
+  @ManyToOne(() => Content, (content) => content.studyProcesses)
+  @JoinColumn({ name: 'contentId' })
+  content: Content;
 
   static of(
     courseId: number,

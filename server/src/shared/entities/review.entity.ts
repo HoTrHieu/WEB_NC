@@ -25,16 +25,6 @@ export class Review {
   @PrimaryColumn()
   courseId: number;
 
-  @ApiProperty({ type: () => User })
-  @ManyToOne(() => User, (user) => user.reviews)
-  @JoinColumn({ name: 'userId' })
-  user: User;
-
-  @ApiProperty({ type: () => Course })
-  @ManyToOne(() => Course, (course) => course.reviews)
-  @JoinColumn({ name: 'courseId' })
-  course: Course;
-
   @ApiProperty()
   @Column('int')
   star: number;
@@ -59,6 +49,16 @@ export class Review {
   @ApiProperty()
   @CreateDateColumn()
   createdDate: Date;
+
+  @ApiProperty({ type: () => User })
+  @ManyToOne(() => User, (user) => user.reviews)
+  @JoinColumn({ name: 'userId' })
+  user: User;
+
+  @ApiProperty({ type: () => Course })
+  @ManyToOne(() => Course, (course) => course.reviews)
+  @JoinColumn({ name: 'courseId' })
+  course: Course;
 
   static of(courseId: number, userId: number, star: number, feedback: string) {
     const review = new Review();
