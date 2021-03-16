@@ -11,7 +11,7 @@ import { Course } from 'src/shared/entities/course.entity';
 import { EntityStatus } from 'src/shared/enums/entity-status';
 import { OrderDirection } from 'src/shared/enums/order-direction';
 import { ArrayUtil } from 'src/shared/utils/array.util';
-import { In, Repository } from 'typeorm';
+import { FindManyOptions, In, Repository } from 'typeorm';
 import { CourseEsService } from './course-es.service';
 import { CourseSearchRequest } from './dto/course-search-request.dto';
 import { CourseTopType } from './enums/course-top-type';
@@ -55,15 +55,7 @@ export class CourseService {
 
   async search(request: CourseSearchRequest) {
     const esResult = await this.courseEsService.search(request);
-    const courses = await this.findByIdIn(esResult.courseIds);
-    if (request.orderBy && request.orderDirection) {
-      courses.sort((a, b) => {
-        return (
-          (a[request.orderBy] - b[request.orderBy]) *
-          (request.orderDirection === OrderDirection.ASC ? -1 : 1)
-        );
-      });
-    }
+    const courses = await this.findByIdIn(esResult.courseIds, );
     return PagingResponse.of(
       request.page,
       request.pageSize,
@@ -72,19 +64,31 @@ export class CourseService {
     );
   }
 
-  async findByIdIn(ids: number[]) {
+  async findByIdIn(ids: number[], options?: FindManyOptions<Course>) {
     if (ArrayUtil.isEmpty(ids)) {
       return [];
     }
 
-    return this.courseRepository.find({
+    const rawResult = await this.courseRepository.find({
       where: {
         id: In(ids),
         status: EntityStatus.ACTIVE,
       },
       select: this.PROJECTION as any,
       relations: ['creator', 'category', 'category.parent'],
+      ...options
     });
+    
+    const idxMap = ids.reduce((map: any, id: number, idx: number) => {
+      map[id] = idx;
+      return map;
+    }, {});
+
+    const result = [];
+    rawResult.forEach((item) => {
+      result[idxMap[item.id]] = item;
+    });
+    return result;
   }
 
   async getDetail(courseId: number) {

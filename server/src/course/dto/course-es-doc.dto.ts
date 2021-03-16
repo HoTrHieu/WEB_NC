@@ -4,6 +4,7 @@ export class CourseEsDoc {
   id: number;
   title: string;
   price: number;
+  originalPrice: number;
   discount: number;
   avatarPath: string;
   coverPath: string;
@@ -20,7 +21,8 @@ export class CourseEsDoc {
     const doc = new CourseEsDoc();
     doc.id = course.id;
     doc.title = course.title;
-    doc.price = course.price;
+    doc.price = course.price - course.discount;
+    doc.originalPrice = course.price;
     doc.discount = course.discount;
     doc.avatarPath = course.avatarPath;
     doc.coverPath = course.coverPath;

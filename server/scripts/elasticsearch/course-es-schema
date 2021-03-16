@@ -39,6 +39,9 @@ PUT web_nc_courses
       "price": {
         "type": "float"
       },
+      "originalPrice": {
+        "type": "float"
+      },
       "discount": {
         "type": "float"
       },

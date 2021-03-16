@@ -1,11 +1,12 @@
 import { ApiEndpoint } from "../../shared/constants/ApiEndpoint";
 import { ICourse } from "../../shared/entities/ICourse";
 import { CrudService } from "../../shared/services/CrudService";
+import { IPagingResponse } from "../../types/IPagingResponse";
 import { CourseTopType } from "./enums/CourseTopType";
 import { IContentSearchRequest } from "./types/ContentSearchRequest";
 
 export class CourseService {
-  static search(request: IContentSearchRequest) {
+  static search(request: IContentSearchRequest): Promise<IPagingResponse<ICourse>> {
     return CrudService.get(ApiEndpoint.course.search, {
       params: request
     });

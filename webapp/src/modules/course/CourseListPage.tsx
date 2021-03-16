@@ -1,24 +1,22 @@
 import React, { useCallback } from 'react';
 import { RouteComponentProps } from 'react-router';
-import { useQuery } from '../../shared/hooks/useQuery.hook';
 import { CourseList } from './CourseList';
 import { CourseService } from './CourseService';
+import { IContentSearchRequest } from './types/ContentSearchRequest';
 
 export function CourseListPage(props: RouteComponentProps) {
   const { categoryId } = props.match.params as any;
   
-  const fetchSource = useCallback(() => {
+  const fetchSource = useCallback((req: IContentSearchRequest) => {
     return CourseService.search({
-      categoryIds: [categoryId] as any,
-      page: 1,
-      pageSize: 50,
+      ...req,
+      categoryIds: [categoryId]
     });
   }, [categoryId]);
 
-  const courses = useQuery(fetchSource);
   return (
     <div>
-      <CourseList pagingResponse={courses.data} />
+      <CourseList fetchSource={fetchSource} />
     </div>
   )
 }
