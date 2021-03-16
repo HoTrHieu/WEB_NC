@@ -184,7 +184,7 @@ export class CourseService {
   }
 
   async updateAvgStar(courseId: number, avgStar: number) {
-    const result = await this.partialUpdate(courseId, { avgStar });
+    const result = await this.partialUpdate(courseId, { avgStar, totalReview: () => `totalReview = totalReview + 1` });
     if (avgStar >= 4) {
       await this.highlightCourseService.increaseScore(courseId, 2);
     }

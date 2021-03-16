@@ -15,7 +15,7 @@ export function CourseCard(props: ICourseCardProps) {
   console.log(course);
   return (
     <Card
-      className="rounded"
+      className="rounded border"
       hoverable
       loading={loading}
       cover={
@@ -29,14 +29,28 @@ export function CourseCard(props: ICourseCardProps) {
       }
       {...restProps}
     >
-      <Card.Meta 
-        title={course.title} 
-        description={(
+      <Card.Meta
+        title={course.title}
+        description={
           <>
-            <p className="my-0">{course.creator?.lastName} {course.creator?.firstName}</p>
-            <p className="my-0"><Rate disabled defaultValue={course.avgStar} /> ({course.avgStar})</p>
+            <p className="my-0">
+              <span className="text-yellow-300 mr-1">{course.avgStar}</span>{" "}
+              <Rate disabled defaultValue={course.avgStar} /> (
+              {course.totalReview})
+            </p>
+            <p className="my-0">{course.category?.name}</p>
+            <p className="my-0 text-blue-400">
+              {course.creator?.lastName} {course.creator?.firstName}
+            </p>
+            <p className="my-0">
+              <b className="text-red-400">$ {Math.round((course.price - course.discount) * 100) / 100}</b>{" "}
+              <span className="line-through ml-1 text-gray-400">
+                {course.discount ? `(${course.price})` : ""}
+              </span>
+            </p>
           </>
-        )} />
+        }
+      />
     </Card>
   );
 }

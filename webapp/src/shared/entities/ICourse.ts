@@ -10,10 +10,12 @@ export interface ICourse extends IEntity {
   subDescription: string;
   description: string;
   price: number;
+  discount: number;
   avatarPath: string;
   coverPath: string;
   totalEnrollment: number;
   avgStar: number;
+  totalReview: number;
   totalView: number;
   creatorId: number;
   categoryId: number;

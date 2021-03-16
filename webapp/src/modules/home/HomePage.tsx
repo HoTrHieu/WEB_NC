@@ -14,7 +14,6 @@ import { CategoryService } from "../category/CategoryService";
 import { ICategoryTotalEnrollment } from "../../shared/entities/ICategoryTotalEnrollment";
 import { NavLink } from "react-router-dom";
 import Slider from 'react-slick';
-import { CrudService } from "../../shared/services/CrudService";
 import { CourseTopType } from "../course/enums/CourseTopType";
 
 const features = [
@@ -96,7 +95,7 @@ export function HomePage() {
         </h1>
         <Slider {...sliderSettings}>
           {[...(Array(5).keys() as any)].map((_, idx) => (
-            <div className="px-2">
+            <div className="p-2">
               <CourseCard
                 className="w-full"
                 course={topCoursesOfWeek.data ? topCoursesOfWeek.data[idx] : {}}
@@ -132,7 +131,7 @@ export function HomePage() {
         </h1>
         <Slider {...sliderSettings}>
           {[...(Array(10).keys() as any)].map((_, idx) => (
-            <div className="px-2">
+            <div className="p-2">
               <CourseCard
                 className="w-full"
                 course={top10Viewed.data ? top10Viewed.data[idx] : {}}
@@ -149,7 +148,7 @@ export function HomePage() {
         </h1>
         <Slider {...sliderSettings}>
           {[...(Array(10).keys() as any)].map((_, idx) => (
-            <div className="px-2">
+            <div className="p-2">
               <CourseCard
                 className="w-full"
                 course={top10New.data ? top10New.data[idx] : {}}

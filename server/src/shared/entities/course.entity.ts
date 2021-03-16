@@ -15,7 +15,6 @@ import { Category } from './category.entity';
 import { Content } from './content.entity';
 import { User } from './user.entity';
 import { WatchList } from './watch-list.entity';
-import { Discount } from './discount.entity';
 import { Enrollment } from './enrollment.entity';
 import { Review } from './review.entity';
 import { IsNumber, IsString, Length, Min } from 'class-validator';
@@ -57,6 +56,11 @@ export class Course {
   price: number;
 
   @ApiProperty()
+  @Column('float', { default: 0 })
+  @IsNumber()
+  discount: number;
+
+  @ApiProperty()
   @Column('varchar', { length: 1000, default: '' })
   @IsString()
   avatarPath: string;
@@ -73,6 +77,10 @@ export class Course {
   @ApiResponseProperty()
   @Column('float', { default: 0 })
   avgStar: number;
+
+  @ApiResponseProperty()
+  @Column('int', { default: 0 })
+  totalReview: number;
 
   @ApiResponseProperty()
   @Column('int', { default: 0 })
@@ -122,10 +130,6 @@ export class Course {
   @ApiResponseProperty({ type: () => WatchList })
   @OneToMany(() => WatchList, (watchList) => watchList.course)
   watchLists: WatchList[];
-
-  @ApiResponseProperty({ type: () => Discount })
-  @OneToMany(() => Discount, (discount) => discount.course)
-  discounts: Discount[];
 
   @ApiResponseProperty({ type: () => Enrollment })
   @OneToMany(() => Enrollment, (enrollment) => enrollment.course)

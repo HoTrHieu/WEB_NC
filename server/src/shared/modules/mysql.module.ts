@@ -4,7 +4,6 @@ import { CategoryTotalEnrollment } from '../entities/category-total-enrollment.e
 import { Category } from '../entities/category.entity';
 import { Content } from '../entities/content.entity';
 import { Course } from '../entities/course.entity';
-import { Discount } from '../entities/discount.entity';
 import { Enrollment } from '../entities/enrollment.entity';
 import { HighlightCourse } from '../entities/highlight-course.entity';
 import { Review } from '../entities/review.entity';
@@ -24,7 +23,6 @@ export const mysqlModule = TypeOrmModule.forRootAsync({
       Category,
       Content,
       Course,
-      Discount,
       Enrollment,
       Review,
       StudyProcess,
