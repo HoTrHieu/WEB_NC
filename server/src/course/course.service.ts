@@ -24,10 +24,12 @@ export class CourseService {
     'title',
     'subDescription',
     'price',
+    'discount',
     'avatarPath',
     'totalEnrollment',
     'avgStar',
     'totalView',
+    'totalReview',
     'creatorId',
     'categoryId',
     'createdDate',
@@ -46,19 +48,22 @@ export class CourseService {
       where: {
         status: EntityStatus.ACTIVE,
       },
-      select: this.PROJECTION as any
+      select: this.PROJECTION as any,
+      relations: ['category']
     });
   }
 
   async search(request: CourseSearchRequest) {
     const esResult = await this.courseEsService.search(request);
     const courses = await this.findByIdIn(esResult.courseIds);
-    courses.sort((a, b) => {
-      return (
-        (a[request.orderBy] - b[request.orderBy]) *
-        (request.orderDirection === OrderDirection.ASC ? -1 : 1)
-      );
-    });
+    if (request.orderBy && request.orderDirection) {
+      courses.sort((a, b) => {
+        return (
+          (a[request.orderBy] - b[request.orderBy]) *
+          (request.orderDirection === OrderDirection.ASC ? -1 : 1)
+        );
+      });
+    }
     return PagingResponse.of(
       request.page,
       request.pageSize,

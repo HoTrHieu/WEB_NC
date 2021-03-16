@@ -36,6 +36,7 @@ export class Category {
   slug: string;
 
   @ApiProperty()
+  @Column('int', { nullable: true })
   @IsNumber()
   @Min(1)
   parentId: number;

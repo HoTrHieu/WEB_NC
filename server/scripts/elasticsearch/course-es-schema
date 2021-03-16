@@ -36,12 +36,10 @@ PUT web_nc_courses
         "analyzer": "autocomplete",
         "search_analyzer": "autocomplete_search"
       },
-      "subDescription": {
-        "type": "text",
-        "analyzer": "autocomplete",
-        "search_analyzer": "autocomplete_search"
-      },
       "price": {
+        "type": "float"
+      },
+      "discount": {
         "type": "float"
       },
       "totalEnrollment": {
@@ -49,6 +47,9 @@ PUT web_nc_courses
       },
       "avgStar": {
         "type": "float"
+      },
+      "totalReview": {
+        "type": "integer"
       },
       "totalView": {
         "type": "integer"

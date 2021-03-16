@@ -15,15 +15,21 @@ export class CourseSearchRequest extends SearchRequest {
   categoryIds?: number[];
 
   @IsEnum(CourseOrderBy)
-  @ApiProperty({ enum: CourseOrderBy })
-  orderBy: CourseOrderBy;
+  @ApiPropertyOptional({ enum: CourseOrderBy })
+  @IsOptional()
+  orderBy?: CourseOrderBy;
 
   @IsEnum(OrderDirection)
-  @ApiProperty({ enum: OrderDirection })
-  orderDirection: OrderDirection;
+  @ApiPropertyOptional({ enum: OrderDirection })
+  @IsOptional()
+  orderDirection?: OrderDirection;
 
   getCategoryIds() {
     return RequestUtil.parseArray(this.categoryIds);
+  }
+
+  get isSort() {
+    return !!this.orderBy && !!this.orderDirection;
   }
 
   get isCategoryIdsExists() {

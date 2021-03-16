@@ -28,6 +28,7 @@ export class CourseEsService {
   }
 
   async search(request: CourseSearchRequest) {
+    console.log(request);
     const searchBody: any = {
       from: request.offset,
       size: request.pageSize,
@@ -35,34 +36,33 @@ export class CourseEsService {
       _source: false,
       query: {
         bool: {
-          filter: [
-            {
-              term: {
-                status: EntityStatus.ACTIVE,
-              },
-            },
-          ],
+          filter: [],
         },
       },
       sort: [
-        // sort options
-        {
-          [request.orderBy]: {
-            order: request.orderDirection,
-          },
-        },
         {
           totalEnrollment: {
             order: 'desc',
           },
         },
         {
-          updatedDate: {
+          createdDate: {
             order: 'desc',
           },
         },
       ],
     };
+
+    if (request.isSort) {
+      searchBody.sort = [
+        {
+          [request.orderBy]: {
+            order: request.orderDirection,
+          },
+        },
+        ...searchBody.sort,
+      ];
+    }
 
     if (request.isSearching) {
       if (request.isSearchTermExists) {
@@ -100,13 +100,14 @@ export class CourseEsService {
   }
 
   async upsertCourse(course: Course) {
-    const parentCategoryId = await this.categoryService.findParentId(
-      course.categoryId,
-    );
+    const category = await this.categoryService.findOne(course.categoryId);
     return this.esHelper.upsert(
       this.ES_INDEX_NAME,
       String(course.id),
-      CourseEsDoc.of(course, parentCategoryId),
+      CourseEsDoc.of({
+        ...course,
+        category,
+      }),
     );
   }
 
@@ -129,11 +130,10 @@ export class CourseEsService {
 
   async syncToEs(courses: Course[]) {
     const body = ArrayUtil.flatMap(
-      courses
-        .map((course: Course) => [
-          { index: { _index: this.ES_INDEX_NAME, _id: course.id } },
-          course,
-        ]),
+      courses.map((course: Course) => [
+        { index: { _index: this.ES_INDEX_NAME, _id: course.id } },
+        CourseEsDoc.of(course),
+      ]),
     );
     if (body.length > 0) {
       const result = await this.esService.bulk({

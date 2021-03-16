@@ -1,26 +1,39 @@
 import { Course } from 'src/shared/entities/course.entity';
-import { ClassUtils } from 'src/shared/utils/class.util';
 
 export class CourseEsDoc {
   id: number;
   title: string;
-  subDescription: string;
-  description: string;
   price: number;
+  discount: number;
   avatarPath: string;
   coverPath: string;
   totalEnrollment: number;
+  totalView: number;
+  totalReview: number;
   avgStar: number;
   creatorId: number;
   categoryId: number[];
   createdDate: Date;
   updatedDate: Date;
 
-  static of(course: Course, parentCategoryId: number) {
-    const doc = ClassUtils.copyFields(course, new CourseEsDoc());
+  static of(course: Course) {
+    const doc = new CourseEsDoc();
+    doc.id = course.id;
+    doc.title = course.title;
+    doc.price = course.price;
+    doc.discount = course.discount;
+    doc.avatarPath = course.avatarPath;
+    doc.coverPath = course.coverPath;
+    doc.totalEnrollment = course.totalEnrollment;
+    doc.totalView = course.totalView;
+    doc.totalReview = course.totalReview;
+    doc.avgStar = course.avgStar;
+    doc.creatorId = course.creatorId;
+    doc.createdDate = course.createdDate;
+    doc.updatedDate = course.updatedDate;
     doc.categoryId = [course.categoryId];
-    if (!!parentCategoryId) {
-      doc.categoryId.push(parentCategoryId);
+    if (!!course.category?.parentId) {
+      doc.categoryId.push(course.category.parentId);
     }
     return doc;
   }

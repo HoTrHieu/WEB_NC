@@ -15,9 +15,13 @@ export class CategoryService {
 
   findAll() {
     return this.categoryRepository.find({
-      where: { status: EntityStatus.ACTIVE, parent: IsNull() },
+      where: { status: EntityStatus.ACTIVE, parentId: IsNull() },
       relations: ['children'],
     });
+  }
+
+  findOne(categoryId: number) {
+    return this.categoryRepository.findOne(categoryId);
   }
 
   async findParentId(categoryId: number) {

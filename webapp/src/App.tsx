@@ -7,7 +7,7 @@ function App() {
   return (
     <>
       <FdmHeader />
-      <div className="mt-16 py-5 flex w-full justify-center">
+      <div className="mt-24 mb-12 flex w-full justify-center">
         <div className="container">
           <AppRoutes />
         </div>

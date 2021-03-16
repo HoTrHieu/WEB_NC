@@ -63,7 +63,7 @@ export function HomePage() {
   const top10Viewed = useQuery(useCallback(() => CourseService.top(CourseTopType.VIEW), []));
   const top10New = useQuery(useCallback(() => CourseService.top(CourseTopType.NEW), []));
   return (
-    <div className="mt-8 mb-16">
+    <div>
       <div>
         <h1 className="text-center text-blue-400 text-3xl">
           Welcome to Fademy
@@ -97,6 +97,7 @@ export function HomePage() {
           {[...(Array(5).keys() as any)].map((_, idx) => (
             <div className="p-2">
               <CourseCard
+                key={idx}
                 className="w-full"
                 course={topCoursesOfWeek.data ? topCoursesOfWeek.data[idx] : {}}
                 loading={!topCoursesOfWeek.data}
@@ -115,10 +116,11 @@ export function HomePage() {
             topCategoriesOfWeek.data.map((tc: ICategoryTotalEnrollment) => (
               <div className="w-1/5 p-2">
                 <NavLink
+                  key={tc.categoryId}
                   to={`/courses/${tc.categoryId}`}
                   className="text-gray-500 block border rounded-lg p-5 cursor-pointer hover:shadow"
                 >
-                  {tc.category.name}
+                  {tc.category.name} ({tc.totalEnrollment})
                 </NavLink>
               </div>
             ))}
@@ -133,6 +135,7 @@ export function HomePage() {
           {[...(Array(10).keys() as any)].map((_, idx) => (
             <div className="p-2">
               <CourseCard
+                key={idx}
                 className="w-full"
                 course={top10Viewed.data ? top10Viewed.data[idx] : {}}
                 loading={!top10Viewed.data}
@@ -150,6 +153,7 @@ export function HomePage() {
           {[...(Array(10).keys() as any)].map((_, idx) => (
             <div className="p-2">
               <CourseCard
+                key={idx}
                 className="w-full"
                 course={top10New.data ? top10New.data[idx] : {}}
                 loading={!top10New.data}
