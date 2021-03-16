@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Category } from 'src/shared/entities/category.entity';
 import { EntityStatus } from 'src/shared/enums/entity-status';
-import { Repository } from 'typeorm';
+import { IsNull, Repository } from 'typeorm';
 import * as moment from 'moment';
 import { TopCategoryOfWeek } from './dto/top-category-of-week.dto';
 
@@ -15,7 +15,7 @@ export class CategoryService {
 
   findAll() {
     return this.categoryRepository.find({
-      where: { status: EntityStatus.ACTIVE },
+      where: { status: EntityStatus.ACTIVE, parent: IsNull() },
       relations: ['children'],
     });
   }

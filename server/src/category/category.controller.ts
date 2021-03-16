@@ -44,7 +44,7 @@ export class CategoryController {
   }
 
   @Public()
-  @Get('/top-of-week')
+  @Get('/top-of-weeks')
   @ApiResponse({
     type: TopCategoryOfWeek,
     isArray: true,

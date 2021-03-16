@@ -26,7 +26,8 @@ export class InitCourses1615823484890 implements MigrationInterface {
         const slugExists = {};
         const crawlerRootPath = path.resolve(__dirname, '../../../..', 'crawler');
         for (const filename of fs.readdirSync(path.join(crawlerRootPath, 'courses'))) {
-            const [parentCate, childCate] = filename.split('.')[0].split("_");
+            const [groupedCate] = filename.split('.')
+            const [parentCate, childCate] = groupedCate.split("_");
             const coursesJson = await fsAsync.readFile(path.join(crawlerRootPath, 'courses', filename), 'utf8');
             const courses = JSON.parse(coursesJson);
             courses.forEach((course: any) => {
@@ -36,7 +37,7 @@ export class InitCourses1615823484890 implements MigrationInterface {
                         slug: course.slug + (slugExists[course.slug] ? `-${slugExists[course.slug]}` : ''),
                         subDescription: faker.lorem.paragraph(3),
                         description: faker.lorem.paragraphs(5),
-                        avatarPath: `${filename}/${course.slug}.jpg`,
+                        avatarPath: `${groupedCate}/${course.slug}.jpg`,
                         coverPath: `default-cover.jpg`,
                         creatorId: teachers[faker.random.number(teachers.length - 1)].id,
                         categoryId: categories.find(c => c.slug === childCate).id

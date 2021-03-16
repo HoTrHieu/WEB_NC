@@ -8,8 +8,8 @@ export class CategoryService {
     return CrudService.get(ApiEndpoint.category.all);
   }
 
-  static topOfWeek() {
-    return CrudService.get(ApiEndpoint.category.topOfWeek);
+  static topOfWeeks() {
+    return CrudService.get(ApiEndpoint.category.topOfWeeks);
   }
 
   static add(category: ICategory) {

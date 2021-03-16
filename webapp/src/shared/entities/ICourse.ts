@@ -6,8 +6,8 @@ import { IWatchList } from "./IWatchList";
 
 export interface ICourse extends IEntity {
   id: number;
-  title: number;
-  subDescription: number;
+  title: string;
+  subDescription: string;
   description: string;
   price: number;
   avatarPath: string;

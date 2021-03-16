@@ -5,6 +5,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { HighlightCourseService } from 'src/highlight-course/highlight-course.service';
 import { PagingResponse } from 'src/shared/dtos/paging-response.dto';
 import { Course } from 'src/shared/entities/course.entity';
 import { EntityStatus } from 'src/shared/enums/entity-status';
@@ -13,16 +14,41 @@ import { ArrayUtil } from 'src/shared/utils/array.util';
 import { In, Repository } from 'typeorm';
 import { CourseEsService } from './course-es.service';
 import { CourseSearchRequest } from './dto/course-search-request.dto';
+import { CourseTopType } from './enums/course-top-type';
 
 @Injectable()
 export class CourseService {
   private readonly logger = new Logger(CourseService.name);
+  private readonly PROJECTION = [
+    'id',
+    'title',
+    'subDescription',
+    'price',
+    'avatarPath',
+    'totalEnrollment',
+    'avgStar',
+    'totalView',
+    'creatorId',
+    'categoryId',
+    'createdDate',
+    'updatedDate',
+  ];
 
   constructor(
     @InjectRepository(Course)
     private courseRepository: Repository<Course>,
     private courseEsService: CourseEsService,
+    private highlightCourseService: HighlightCourseService,
   ) {}
+
+  all() {
+    return this.courseRepository.find({
+      where: {
+        status: EntityStatus.ACTIVE,
+      },
+      select: this.PROJECTION as any
+    });
+  }
 
   async search(request: CourseSearchRequest) {
     const esResult = await this.courseEsService.search(request);
@@ -51,21 +77,7 @@ export class CourseService {
         id: In(ids),
         status: EntityStatus.ACTIVE,
       },
-      select: [
-        'id',
-        'title',
-        'subDescription',
-        'price',
-        'avatarPath',
-        'totalEnrollment',
-        'avgStar',
-        'totalView',
-        'creatorId',
-        'categoryId',
-        'createdDate',
-        'creator',
-        'category',
-      ],
+      select: this.PROJECTION as any,
       relations: ['creator', 'category', 'category.parent'],
     });
   }
@@ -171,12 +183,18 @@ export class CourseService {
     return this.partialUpdate(courseId, { status });
   }
 
-  updateAvgStar(courseId: number, avgStar: number) {
-    return this.partialUpdate(courseId, { avgStar });
+  async updateAvgStar(courseId: number, avgStar: number) {
+    const result = await this.partialUpdate(courseId, { avgStar });
+    if (avgStar >= 4) {
+      await this.highlightCourseService.increaseScore(courseId, 2);
+    }
+    return result;
   }
 
-  updateTotalEnrollment(courseId: number, totalEnrollment: number) {
-    return this.partialUpdate(courseId, { totalEnrollment });
+  async updateTotalEnrollment(courseId: number, totalEnrollment: number) {
+    const result = await this.partialUpdate(courseId, { totalEnrollment });
+    await this.highlightCourseService.increaseScore(courseId, 3);
+    return result;
   }
 
   async findTotalView(courseId: number) {
@@ -195,6 +213,46 @@ export class CourseService {
     if (Number.isNaN(totalView)) {
       throw new NotFoundException('This course is not exists');
     }
-    return this.partialUpdate(courseId, { totalView: totalView + 1 });
+    const result = await this.partialUpdate(courseId, {
+      totalView: totalView + 1,
+    });
+    await this.highlightCourseService.increaseScore(courseId, 1);
+    return result;
+  }
+
+  async topOfWeeks() {
+    const highlights = await this.highlightCourseService.topOfWeeks();
+    const highlightSize = Array.isArray(highlights) ? highlights.length : 0;
+    const courses = await this.findByIdIn(highlights.map(h => h.courseId));
+    if (highlightSize < 5) {
+      courses.push(
+        ...await this.courseRepository.find({
+          where: {
+            status: EntityStatus.ACTIVE
+          },
+          order: {
+            totalEnrollment: 'DESC',
+            avgStar: 'DESC',
+            totalView: 'DESC'
+          },
+          relations: ['creator', 'category', 'category.parent'],
+          take: highlights.length - highlightSize
+        })
+      );
+    }
+    return courses;
+  }
+
+  async top(type: CourseTopType, limit: number = 10) {
+    return this.courseRepository.find({
+      where: {
+        status: EntityStatus.ACTIVE
+      },
+      order: {
+        [type]: 'DESC'
+      },
+      relations: ['creator', 'category', 'category.parent'],
+      take: limit
+    });
   }
 }

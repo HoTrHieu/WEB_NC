@@ -2,6 +2,7 @@ import {
   Inject,
   Injectable,
   InternalServerErrorException,
+  Logger,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ElasticsearchService } from '@nestjs/elasticsearch';
@@ -9,12 +10,14 @@ import { CategoryService } from 'src/category/category.service';
 import { EsHelperService } from 'src/es-helper/es-helper.service';
 import { Course } from 'src/shared/entities/course.entity';
 import { EntityStatus } from 'src/shared/enums/entity-status';
+import { ArrayUtil } from 'src/shared/utils/array.util';
 import { CourseEsDoc } from './dto/course-es-doc.dto';
 import { CourseSearchRequest } from './dto/course-search-request.dto';
 
 @Injectable()
 export class CourseEsService {
   private readonly ES_INDEX_NAME;
+  private readonly logger = new Logger(CourseEsService.name);
   constructor(
     private esService: ElasticsearchService,
     private esHelper: EsHelperService,
@@ -122,5 +125,26 @@ export class CourseEsService {
 
   updateStatus(id: number, status: EntityStatus) {
     return this.partialUpdate(id, { status });
+  }
+
+  async syncToEs(courses: Course[]) {
+    const body = ArrayUtil.flatMap(
+      courses
+        .map((course: Course) => [
+          { index: { _index: this.ES_INDEX_NAME, _id: course.id } },
+          course,
+        ]),
+    );
+    if (body.length > 0) {
+      const result = await this.esService.bulk({
+        refresh: true,
+        body,
+      });
+      if (result.body.errors) {
+        this.logger.error(result.body.errors);
+        return false;
+      }
+    }
+    return true;
   }
 }

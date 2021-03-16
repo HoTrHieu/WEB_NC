@@ -1,6 +1,7 @@
 import { ApiEndpoint } from "../../shared/constants/ApiEndpoint";
 import { ICourse } from "../../shared/entities/ICourse";
 import { CrudService } from "../../shared/services/CrudService";
+import { CourseTopType } from "./enums/CourseTopType";
 import { IContentSearchRequest } from "./types/ContentSearchRequest";
 
 export class CourseService {
@@ -8,6 +9,14 @@ export class CourseService {
     return CrudService.get(ApiEndpoint.course.search, {
       params: request
     });
+  }
+
+  static topOfWeeks() {
+    return CrudService.get(ApiEndpoint.course.topOfWeeks);
+  }
+
+  static top(type: CourseTopType) {
+    return CrudService.get(ApiEndpoint.course.top(type));
   }
 
   static add(course: ICourse) {

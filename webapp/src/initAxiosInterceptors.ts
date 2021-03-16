@@ -1,4 +1,5 @@
 import Axios from "axios";
+import { AuthService } from "./modules/auth/AuthService";
 import { PublicApiEndpoints } from "./shared/constants/ApiEndpoint";
 
 export function initAxiosInterceptors() {

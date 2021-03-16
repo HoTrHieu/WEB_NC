@@ -19,6 +19,7 @@ import { Discount } from './discount.entity';
 import { Enrollment } from './enrollment.entity';
 import { Review } from './review.entity';
 import { IsNumber, IsString, Length, Min } from 'class-validator';
+import { HighlightCourse } from './highlight-course.entity';
 
 @Entity({
   name: 'courses',
@@ -133,4 +134,8 @@ export class Course {
   @ApiResponseProperty({ type: () => Review })
   @OneToMany(() => Review, (review) => review.course)
   reviews: Review[];
+
+  @ApiResponseProperty({ type: () => HighlightCourse })
+  @OneToMany(() => HighlightCourse, (highlight) => highlight.course)
+  highlights: HighlightCourse[];
 }

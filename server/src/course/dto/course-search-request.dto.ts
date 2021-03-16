@@ -4,7 +4,7 @@ import { IsEnum, IsNumber, IsOptional, Min } from 'class-validator';
 import { SearchRequest } from 'src/shared/dtos/search-request.dto';
 import { OrderDirection } from 'src/shared/enums/order-direction';
 import { RequestUtil } from 'src/shared/utils/request.util';
-import { CourseOrderBy } from './course-order-by';
+import { CourseOrderBy } from '../enums/course-order-by';
 
 export class CourseSearchRequest extends SearchRequest {
   @ApiPropertyOptional({ type: [Number] })

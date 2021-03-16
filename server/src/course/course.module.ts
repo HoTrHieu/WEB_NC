@@ -2,6 +2,7 @@ import { forwardRef, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CategoryModule } from 'src/category/category.module';
 import { EsHelperModule } from 'src/es-helper/es-helper.module';
+import { HighlightCourseModule } from 'src/highlight-course/highlight-course.module';
 import { Course } from 'src/shared/entities/course.entity';
 import { esModule } from 'src/shared/modules/elasticsearch.module';
 import { CourseEsService } from './course-es.service';
@@ -13,6 +14,7 @@ import { CourseService } from './course.service';
     TypeOrmModule.forFeature([Course]),
     esModule,
     EsHelperModule,
+    HighlightCourseModule,
     forwardRef(() => CategoryModule)
   ],
   controllers: [CourseController],

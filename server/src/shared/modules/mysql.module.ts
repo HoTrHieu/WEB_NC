@@ -6,6 +6,7 @@ import { Content } from '../entities/content.entity';
 import { Course } from '../entities/course.entity';
 import { Discount } from '../entities/discount.entity';
 import { Enrollment } from '../entities/enrollment.entity';
+import { HighlightCourse } from '../entities/highlight-course.entity';
 import { Review } from '../entities/review.entity';
 import { StudyProcess } from '../entities/study-process.entity';
 import { User } from '../entities/user.entity';
@@ -29,7 +30,8 @@ export const mysqlModule = TypeOrmModule.forRootAsync({
       StudyProcess,
       User,
       WatchList,
-      CategoryTotalEnrollment
+      HighlightCourse,
+      CategoryTotalEnrollment,
     ],
     synchronize: config.get('settings.mysql.sync'),
     // logging: process.env.NODE_ENV === 'dev',

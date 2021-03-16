@@ -17,9 +17,9 @@ export function FdmCategoryMenu(props: IFdmCategoryMenuProps) {
   return (
     <Menu>
       {props.categories.map(parent => (
-        <Menu.SubMenu title={parent.name} onTitleClick={() => navigate(parent)}>
+        <Menu.SubMenu key={parent.id} title={parent.name} onTitleClick={() => navigate(parent)}>
           {parent.children.map(child => (
-            <Menu.Item onClick={() => navigate(child)}>{child.name}</Menu.Item>
+            <Menu.Item key={child.id} onClick={() => navigate(child)}>{child.name}</Menu.Item>
           ))}
         </Menu.SubMenu>
       ))}

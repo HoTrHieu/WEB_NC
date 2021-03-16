@@ -1,3 +1,5 @@
+import { CourseTopType } from "../../modules/course/enums/CourseTopType";
+
 export const ApiEndpoint = {
   auth: {
     register: '/api/v1/auth/register',
@@ -16,13 +18,15 @@ export const ApiEndpoint = {
   },
   category: {
     all: '/api/v1/category/all',
-    topOfWeek: '/api/v1/category/top-of-week',
+    topOfWeeks: '/api/v1/category/top-of-weeks',
     add: '/api/v1/category/add',
     udpateStatus: (id: number) => `/api/v1/cateogry/update-status`
   },
   course: {
     search: '/api/v1/course/search',
+    topOfWeeks: '/api/v1/course/top-of-weeks',
     add: '/api/v1/course/add',
+    top: (type: CourseTopType) => `/api/v1/course/top/${type}`,
     getOne: (id: number) => `/api/v1/course/${id}`,
     update: (id: number) => `/api/v1/course/${id}`,
     updateStatus: (id: number) => `/api/v1/course/update-status/${id}`,

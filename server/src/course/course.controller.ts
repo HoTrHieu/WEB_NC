@@ -21,13 +21,18 @@ import { UpdateStatusRequest } from 'src/shared/dtos/update-status-request.dto';
 import { Course } from 'src/shared/entities/course.entity';
 import { StdResponseCode } from 'src/shared/enums/std-response-code';
 import { UserRole } from 'src/shared/enums/user-role';
+import { CourseEsService } from './course-es.service';
 import { CourseService } from './course.service';
 import { CourseSearchRequest } from './dto/course-search-request.dto';
+import { CourseTopType } from './enums/course-top-type';
 
 @ApiTags('Course')
 @Controller('/course')
 export class CourseController {
-  constructor(private courseService: CourseService) {}
+  constructor(
+    private courseService: CourseService,
+    private courseEsService: CourseEsService,
+  ) {}
 
   @Public()
   @Get('/search')
@@ -37,6 +42,28 @@ export class CourseController {
   @UseInterceptors(ClassSerializerInterceptor)
   search(@Query() request: CourseSearchRequest) {
     return this.courseService.search(request);
+  }
+
+  @Public()
+  @Get('/top-of-weeks')
+  @ApiResponse({
+    type: Course,
+    isArray: true
+  })
+  @UseInterceptors(ClassSerializerInterceptor)
+  topOfWeeks() {
+    return this.courseService.topOfWeeks();
+  }
+
+  @Public()
+  @Get('/top/:type')
+  @ApiResponse({
+    type: Course,
+    isArray: true
+  })
+  @UseInterceptors(ClassSerializerInterceptor)
+  top(@Param('type') type: CourseTopType) {
+    return this.courseService.top(type);
   }
 
   @Public()
@@ -103,10 +130,20 @@ export class CourseController {
     type: BooleanResponse,
   })
   @ApiBearerAuth()
-  async increaseTotalView(
-    @Param('id') courseId: number,
-  ) {
+  async increaseTotalView(@Param('id') courseId: number) {
     const isSuccess = await this.courseService.increaseTotalView(courseId);
+    return BooleanResponse.of(isSuccess);
+  }
+
+  @Post('/sync-to-es')
+  @ApiResponse({
+    type: BooleanResponse,
+  })
+  @ApiBearerAuth()
+  @Role(UserRole.ADMIN)
+  async syncToEs() {
+    const courses = await this.courseService.all();
+    const isSuccess = await this.courseEsService.syncToEs(courses);
     return BooleanResponse.of(isSuccess);
   }
 }

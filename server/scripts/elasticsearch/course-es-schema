@@ -41,19 +41,8 @@ PUT web_nc_courses
         "analyzer": "autocomplete",
         "search_analyzer": "autocomplete_search"
       },
-      "description": {
-        "type": "text",
-        "analyzer": "autocomplete",
-        "search_analyzer": "autocomplete_search"
-      },
       "price": {
         "type": "float"
-      },
-      "avatarPath": {
-        "type": "keyword"
-      },
-      "coverPath": {
-        "type": "keyword"
       },
       "totalEnrollment": {
         "type": "integer"
