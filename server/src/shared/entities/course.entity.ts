@@ -29,10 +29,16 @@ export class Course {
   id: number;
 
   @ApiProperty()
-  @Column('varchar', { length: 768, unique: true })
+  @Column('varchar', { length: 255, unique: true })
   @IsString()
-  @Length(1, 768)
+  @Length(1, 255)
   title: string;
+
+  @ApiProperty()
+  @Column('varchar', { length: 255, unique: true })
+  @IsString()
+  @Length(1, 255)
+  slug: string;
 
   @ApiProperty()
   @Column('text')

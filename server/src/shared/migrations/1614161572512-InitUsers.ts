@@ -51,7 +51,9 @@ export class InitUsers1614161572512 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query('truncate `users`');
+      await queryRunner.query('SET FOREIGN_KEY_CHECKS = 0');
+      await queryRunner.query('truncate `users`');
+      await queryRunner.query('SET FOREIGN_KEY_CHECKS = 1');
     }
 
 }

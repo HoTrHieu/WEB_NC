@@ -29,6 +29,10 @@ import { MailSenderModule } from './mail-sender/mail-sender.module';
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'webapp'),
     }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'assets'),
+      serveRoot: '/assets',
+    }),
     mailerModule,
     mysqlModule,
     AuthModule,
