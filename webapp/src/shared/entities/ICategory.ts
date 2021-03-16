@@ -5,6 +5,7 @@ import { IEntity } from "./IEntity";
 export interface ICategory extends IEntity {
   id: number;
   name: string;
+  slug: string;
   parentId: number;
   children: ICategory[];
   categoryTotalEnrollments: ICategoryTotalEnrollment[];
