@@ -79,6 +79,38 @@ export class CourseEsService {
           },
         });
       }
+
+      if (request.isFromPriceExists) {
+        searchBody.query.bool.filter.push({
+          range: {
+            price: { gte: request.fromPrice }
+          }
+        });
+      }
+
+      if (request.isToPriceExists) {
+        searchBody.query.bool.filter.push({
+          range: {
+            price: { lte: request.toPrice }
+          }
+        });
+      }
+
+      if (request.isFromStarExists) {
+        searchBody.query.bool.filter.push({
+          range: {
+            avgStar: { gte: request.fromStar }
+          }
+        });
+      }
+
+      if (request.isFromStarExists) {
+        searchBody.query.bool.filter.push({
+          range: {
+            avgStar: { lte: request.toStar }
+          }
+        });
+      }
     }
 
     const esResult = await this.esService.search({

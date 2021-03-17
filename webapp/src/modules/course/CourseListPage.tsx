@@ -6,29 +6,24 @@ import { IContentSearchRequest } from "./types/ContentSearchRequest";
 import { useFdmStore } from "../../shared/store/useFdmStore";
 
 export function CourseListPage(props: RouteComponentProps) {
-  const { categoryId } = props.match.params as any;
+  const categoryId = Number((props.match.params as any).categoryId);
   const [globalState, dispatch] = useFdmStore();
 
   const fetchSource = useCallback(
     (req: IContentSearchRequest) => {
-      let categoryIds;
-      if (categoryId > 0) {
-        categoryIds = [categoryId];
-      }
-
-      dispatch('SET_SEARCH_TERM', req.searchTerm || '');
-
-      return CourseService.search({
-        ...req,
-        categoryIds,
-      });
+      dispatch("SET_SEARCH_TERM", req.searchTerm || "");
+      return CourseService.search(req);
     },
-    [categoryId, dispatch]
+    [dispatch]
   );
 
   return (
     <div>
-      <CourseList fetchSource={fetchSource} searchTerm={globalState.searchTerm} />
+      <CourseList
+        categoryId={categoryId}
+        fetchSource={fetchSource}
+        searchTerm={globalState.searchTerm}
+      />
     </div>
   );
 }

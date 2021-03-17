@@ -9,7 +9,6 @@ import { HighlightCourseService } from 'src/highlight-course/highlight-course.se
 import { PagingResponse } from 'src/shared/dtos/paging-response.dto';
 import { Course } from 'src/shared/entities/course.entity';
 import { EntityStatus } from 'src/shared/enums/entity-status';
-import { OrderDirection } from 'src/shared/enums/order-direction';
 import { ArrayUtil } from 'src/shared/utils/array.util';
 import { FindManyOptions, In, Repository } from 'typeorm';
 import { CourseEsService } from './course-es.service';

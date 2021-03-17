@@ -14,6 +14,34 @@ export class CourseSearchRequest extends SearchRequest {
   @IsOptional()
   categoryIds?: number[];
 
+  @ApiPropertyOptional({ type: Number })
+  @IsNumber()
+  @Min(0)
+  @Type(() => Number)
+  @IsOptional()
+  fromPrice?: number;
+
+  @ApiPropertyOptional({ type: Number })
+  @IsNumber()
+  @Min(0)
+  @Type(() => Number)
+  @IsOptional()
+  toPrice?: number;
+
+  @ApiPropertyOptional({ type: Number })
+  @IsNumber()
+  @Min(0)
+  @Type(() => Number)
+  @IsOptional()
+  fromStar?: number;
+
+  @ApiPropertyOptional({ type: Number })
+  @IsNumber()
+  @Min(0)
+  @Type(() => Number)
+  @IsOptional()
+  toStar?: number;
+
   @IsEnum(CourseOrderBy)
   @ApiPropertyOptional({ enum: CourseOrderBy })
   @IsOptional()
@@ -37,7 +65,30 @@ export class CourseSearchRequest extends SearchRequest {
     return !!categoryIds && categoryIds.length > 0;
   }
 
+  get isFromPriceExists() {
+    return !isNaN(this.fromPrice);
+  }
+
+  get isToPriceExists() {
+    return !isNaN(this.toPrice);
+  }
+
+  get isFromStarExists() {
+    return !isNaN(this.fromStar);
+  }
+
+  get isToStarExists() {
+    return !isNaN(this.toStar);
+  }
+
   get isSearching() {
-    return this.isCategoryIdsExists || this.isSearchTermExists;
+    return (
+      this.isCategoryIdsExists ||
+      this.isSearchTermExists ||
+      this.isFromPriceExists ||
+      this.isToPriceExists ||
+      this.isFromStarExists ||
+      this.isToStarExists
+    );
   }
 }
