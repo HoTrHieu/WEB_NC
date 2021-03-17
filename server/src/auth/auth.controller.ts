@@ -8,9 +8,11 @@ import {
   Query,
   Req,
   Request,
+  Res,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import {
   ApiBearerAuth,
   ApiBody,
@@ -39,12 +41,13 @@ export class AuthController {
   constructor(
     private authService: AuthService,
     private tokenService: TokenService,
+    private configService: ConfigService,
   ) {}
 
   @Public()
   @Post('/register')
   @ApiResponse({
-    type: StdResponse
+    type: StdResponse,
   })
   async register(@Body() request: RegisterRequest) {
     const newUser = await this.authService.register(request);
@@ -72,8 +75,12 @@ export class AuthController {
   @Get('/redirect/google')
   @UseGuards(GoogleAuthGuard)
   @Public()
-  googleRedirect(@Req() req) {
-    return this.authService.login(req.user);
+  async googleRedirect(@Req() req, @Res() res) {
+    const loginResult = await this.authService.login(req.user);
+    res.redirect(
+      this.configService.get('settings.google.feRedirectURL') +
+        `?accessToken=${loginResult.accessToken}&refreshToken=${loginResult.refreshToken}`,
+    );
   }
 
   @Post('/refresh-access-token')

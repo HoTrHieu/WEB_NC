@@ -1,9 +1,10 @@
 import { Input, Pagination } from "antd";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { FdmLoading } from "../../shared/components/FdmLoading";
 import { FdmOrderDirectionSelect } from "../../shared/components/FdmOrderDirectionSelect";
 import { ICourse } from "../../shared/entities/ICourse";
 import { OrderDirection } from "../../shared/enums/OrderDirection";
+import { useCompKey } from "../../shared/hooks/useCompKey";
 import { useQuery } from "../../shared/hooks/useQuery.hook";
 import { IPagingResponse } from "../../types/IPagingResponse";
 import { CourseCard } from "./CourseCard";
@@ -12,6 +13,7 @@ import { CourseOrderBy } from "./enums/CourseOrderBy";
 import { IContentSearchRequest } from "./types/ContentSearchRequest";
 
 interface ICourseListProps {
+  searchTerm?: string;
   fetchSource: (
     request: IContentSearchRequest
   ) => Promise<IPagingResponse<ICourse>>;
@@ -20,11 +22,19 @@ interface ICourseListProps {
 export function CourseList(props: ICourseListProps) {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(20);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState(props.searchTerm || "");
   const [orderBy, setOrderBy] = useState<CourseOrderBy | null>(null);
   const [orderDirection, setOrderDirection] = useState<OrderDirection | null>(
     null
   );
+  const searchTermCompKey = useCompKey();
+  const renewSearchTermCompKey = searchTermCompKey.renewCompKey;
+
+  useEffect(() => {
+    setSearchTerm(props.searchTerm || '');
+    renewSearchTermCompKey();
+  }, [props.searchTerm, renewSearchTermCompKey]);
+
   const propsFetchSource = props.fetchSource;
   const fetchSource = useCallback(() => {
     return propsFetchSource({
@@ -69,6 +79,7 @@ export function CourseList(props: ICourseListProps) {
         </div>
       </div>
       <Input.Search
+        key={searchTermCompKey.compKey}
         allowClear
         className="w-full mb-4"
         placeholder="Search courses..."
@@ -80,7 +91,7 @@ export function CourseList(props: ICourseListProps) {
       ) : (
         <div className="flex flex-wrap">
           {pagingResponse.items.map((course: ICourse) => (
-            <div className="w-1/5 px-2">
+            <div className="w-1/5 px-2 mb-4">
               <CourseCard course={course} key={course.id} />
             </div>
           ))}

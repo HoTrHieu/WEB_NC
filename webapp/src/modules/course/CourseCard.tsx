@@ -14,7 +14,7 @@ interface ICourseCardProps {
 export function CourseCard(props: ICourseCardProps) {
   const { course } = props;
   return (
-    <div className="rounded-lg p-5 hover:shadow-lg h-auto cursor-pointer">
+    <div className="rounded-lg p-5 border shadow hover:shadow-lg h-auto cursor-pointer">
       <div className="flex justify-center mb-5">
         <FdmImage
           alt={course.title}

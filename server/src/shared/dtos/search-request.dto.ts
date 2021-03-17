@@ -4,7 +4,7 @@ import { PagingRequest } from './paging-request.dto';
 
 export class SearchRequest extends PagingRequest {
   @ApiPropertyOptional({ minLength: 2, maxLength: 255 })
-  @MinLength(2)
+  @MinLength(1)
   @MaxLength(255)
   @IsOptional()
   searchTerm?: string;

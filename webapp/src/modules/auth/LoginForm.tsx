@@ -4,7 +4,8 @@ import { useForm } from "antd/lib/form/Form";
 import React, { useCallback } from "react";
 import { UserFormRules } from "../user/UserFormRules";
 import { AuthService } from "./AuthService";
-
+import { HOST } from "../../shared/constants/constants";
+import { ApiEndpoint } from "../../shared/constants/ApiEndpoint";
 interface ILoginFormProps {
   redirect?: string;
 }
@@ -38,20 +39,25 @@ export function LoginForm(props: ILoginFormProps) {
         <Button
           type="primary"
           shape="round"
-          className="w-full"
+          className="w-full mb-4"
           htmlType="submit"
         >
           Login
         </Button>
-      </Form.Item>
-      <Form.Item>
         <Button
           type="primary"
           shape="round"
           className="w-full"
-          danger 
+          danger
+          onClick={() =>
+            (window.location.replace(HOST + ApiEndpoint.auth.loginGoogle))
+          }
         >
-          <GoogleCircleFilled className="text-xl" style={{ transform: 'translateY(-2px)' }} /> Sign-in with Google
+          <GoogleCircleFilled
+            className="text-xl"
+            style={{ transform: "translateY(-2px)" }}
+          />{" "}
+          Sign-in with Google
         </Button>
       </Form.Item>
     </Form>

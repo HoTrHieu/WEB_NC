@@ -1,4 +1,4 @@
-import { PoweroffOutlined, UserOutlined } from '@ant-design/icons';
+import { HeartOutlined, PoweroffOutlined, UserOutlined } from '@ant-design/icons';
 import { Menu } from 'antd';
 import React from 'react';
 import { AuthService } from '../../modules/auth/AuthService';
@@ -14,6 +14,11 @@ export function FdmUserDropdownMenu(props: IFdmUserDropdownMenuProps) {
       <Menu.Item>
         <div className="flex items-center">
           <UserOutlined /> Profile
+        </div>
+      </Menu.Item>
+      <Menu.Item>
+        <div className="flex items-center">
+          <HeartOutlined /> Watch list
         </div>
       </Menu.Item>
       <Menu.Item onClick={() => AuthService.logout()}>

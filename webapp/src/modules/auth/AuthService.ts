@@ -4,6 +4,7 @@ import { IUser } from "../../shared/entities/IUser";
 import { UserRole } from "../../shared/enums/UserRole";
 import { CrudService } from "../../shared/services/CrudService";
 import { IRegisterRequest } from "./types/IRegisterRequest";
+import qs from 'querystring';
 
 interface ITokenResponse {
   accessToken: string;
@@ -16,6 +17,10 @@ export class AuthService {
   private static readonly REFRESH_TOKEN_KEY = "FDM_REFRESH_TOKEN";
 
   static get isAuthed() {
+    const params: any = qs.parse(window.location.search.replace('?', ''));
+    if (!!params.accessToken && !!params.refreshToken) {
+      this.saveTokens(params);
+    }
     return !!this.accessToken;
   }
 

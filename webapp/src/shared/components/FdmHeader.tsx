@@ -1,6 +1,6 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { Button, Dropdown, Input } from "antd";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useHistory } from "react-router-dom";
 import { CategoryService } from "../../modules/category/CategoryService";
 import { useQuery } from "../hooks/useQuery.hook";
 
@@ -10,8 +10,11 @@ import { CaretDownOutlined, LoadingOutlined } from "@ant-design/icons";
 import { useAuthedUser } from "../hooks/useAuthedUser";
 import { AuthService } from "../../modules/auth/AuthService";
 import { FdmUserDropdownMenu } from "./FdmUserDropdownMenu";
+import { useFdmStore } from "../store/useFdmStore";
+import { useCompKey } from "../hooks/useCompKey";
 
 export function FdmHeader() {
+  const history = useHistory();
   const categories = useQuery(CategoryService.all);
   const categoryMenu = useMemo(() => {
     if (!!categories.data) {
@@ -24,6 +27,14 @@ export function FdmHeader() {
   const userDropdownMenu = useMemo(() => {
     return <FdmUserDropdownMenu user={authedUser as any} />;
   }, [authedUser]);
+
+  const [globalState, dispatch] = useFdmStore();
+  const searchTermCompKey = useCompKey();
+  const renewSearchTermCompKey = searchTermCompKey.renewCompKey;
+
+  useEffect(() => {
+    renewSearchTermCompKey();
+  }, [globalState.searchTerm, renewSearchTermCompKey]);
 
   return (
     <div
@@ -53,12 +64,22 @@ export function FdmHeader() {
 
         <div className="ml-auto flex items-center">
           <Input.Search
+            key={searchTermCompKey.compKey}
+            allowClear
+            defaultValue={globalState.searchTerm}
             placeholder="Search courses..."
             className="rounded mr-4"
             style={{ width: "250px" }}
+            onSearch={(searchTerm) => {
+              dispatch("SET_SEARCH_TERM", searchTerm);
+              history.push(`/courses/0`);
+            }}
           />
           {AuthService.isAuthed ? (
-            <Dropdown overlay={userDropdownMenu as any} overlayClassName="shadow">
+            <Dropdown
+              overlay={userDropdownMenu as any}
+              overlayClassName="shadow"
+            >
               {loading ? (
                 <>
                   <LoadingOutlined className="mr-1" /> Loading...
@@ -66,7 +87,7 @@ export function FdmHeader() {
               ) : (
                 <Button type="primary" shape="round">
                   <div className="flex items-center">
-                    <span className="mr-2">{authedUser?.username}</span>{" "}
+                    <span className="mr-2">{authedUser?.email}</span>{" "}
                     <CaretDownOutlined />
                   </div>
                 </Button>
