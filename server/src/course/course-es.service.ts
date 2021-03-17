@@ -28,7 +28,6 @@ export class CourseEsService {
   }
 
   async search(request: CourseSearchRequest) {
-    console.log(request);
     const searchBody: any = {
       from: request.offset,
       size: request.pageSize,

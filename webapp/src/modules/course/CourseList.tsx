@@ -53,7 +53,7 @@ export function CourseList(props: ICourseListProps) {
               onChange={(val) => {
                 setOrderBy(val);
                 if (!orderDirection) {
-                  setOrderDirection(OrderDirection.ASC);
+                  setOrderDirection(OrderDirection.DESC);
                 }
               }}
             />

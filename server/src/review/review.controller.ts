@@ -29,12 +29,12 @@ export class ReviewController {
     return this.reviewService.paginate(courseId, request);
   }
 
-  @Post('/review/:courseId')
+  @Post('/:courseId')
   @ApiResponse({
     type: BooleanResponse,
   })
   @ApiBearerAuth()
-  async updateStatus(
+  async review(
     @Param('courseId') courseId: number,
     @Request() req: AuthedRequest,
     @Body() body: ReviewRequest,

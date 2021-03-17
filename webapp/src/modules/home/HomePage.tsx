@@ -13,8 +13,9 @@ import { CourseCard } from "../course/CourseCard";
 import { CategoryService } from "../category/CategoryService";
 import { ICategoryTotalEnrollment } from "../../shared/entities/ICategoryTotalEnrollment";
 import { NavLink } from "react-router-dom";
-import Slider from 'react-slick';
+import Slider from "react-slick";
 import { CourseTopType } from "../course/enums/CourseTopType";
+import { FdmLoading } from "../../shared/components/FdmLoading";
 
 const features = [
   {
@@ -54,14 +55,18 @@ const sliderSettings = {
   infinite: true,
   speed: 500,
   slidesToShow: 5,
-  slidesToScroll: 5
-}
+  slidesToScroll: 5,
+};
 
 export function HomePage() {
   const topCoursesOfWeek = useQuery(CourseService.topOfWeeks);
   const topCategoriesOfWeek = useQuery(CategoryService.topOfWeeks);
-  const top10Viewed = useQuery(useCallback(() => CourseService.top(CourseTopType.VIEW), []));
-  const top10New = useQuery(useCallback(() => CourseService.top(CourseTopType.NEW), []));
+  const top10Viewed = useQuery(
+    useCallback(() => CourseService.top(CourseTopType.VIEW), [])
+  );
+  const top10New = useQuery(
+    useCallback(() => CourseService.top(CourseTopType.NEW), [])
+  );
   return (
     <div>
       <div>
@@ -73,8 +78,8 @@ export function HomePage() {
           learning with us and reaching their goals.
         </p>
         <div className="flex flex-wrap mt-12">
-          {features.map((feature) => (
-            <div className="flex items-center w-1/3 mb-2">
+          {features.map((feature, idx) => (
+            <div key={idx} className="flex items-center w-1/3 mb-2">
               <div className="rounded-full h-16 w-16 flex items-center justify-center bg-blue-400 text-white text-2xl mb-4">
                 {feature.icon}
               </div>
@@ -93,18 +98,24 @@ export function HomePage() {
         <h1 className="text-center text-blue-400 text-3xl mt-16 mb-8">
           Top courses of week
         </h1>
-        <Slider {...sliderSettings}>
-          {[...(Array(5).keys() as any)].map((_, idx) => (
-            <div className="p-2">
-              <CourseCard
-                key={idx}
-                className="w-full"
-                course={topCoursesOfWeek.data ? topCoursesOfWeek.data[idx] : {}}
-                loading={!topCoursesOfWeek.data}
-              />
-            </div>
-          ))}
-        </Slider>
+        {!topCoursesOfWeek.data ? (
+          <FdmLoading />
+        ) : (
+          <Slider {...sliderSettings}>
+            {[...(Array(5).keys() as any)].map((_, idx) => (
+              <div className="p-2">
+                <CourseCard
+                  key={idx}
+                  className="w-full"
+                  course={
+                    topCoursesOfWeek.data ? topCoursesOfWeek.data[idx] : {}
+                  }
+                  loading={!topCoursesOfWeek.data}
+                />
+              </div>
+            ))}
+          </Slider>
+        )}
       </div>
 
       <div>
@@ -112,18 +123,25 @@ export function HomePage() {
           Top categories of week
         </h1>
         <div className="flex flex-wrap">
-          {topCategoriesOfWeek.data &&
-            topCategoriesOfWeek.data.map((tc: ICategoryTotalEnrollment) => (
-              <div className="w-1/5 p-2">
-                <NavLink
-                  key={tc.categoryId}
-                  to={`/courses/${tc.categoryId}`}
-                  className="text-gray-500 block border rounded-lg p-5 cursor-pointer hover:shadow"
-                >
-                  {tc.category.name} ({tc.totalEnrollment})
-                </NavLink>
-              </div>
-            ))}
+          {!topCategoriesOfWeek.data ? (
+            <div className="py-5 flex justify-center items-center w-full">
+              <FdmLoading />
+            </div>
+          ) : (
+            topCategoriesOfWeek.data.map(
+              (tc: ICategoryTotalEnrollment, idx: number) => (
+                <div className="w-1/5 p-2">
+                  <NavLink
+                    key={idx}
+                    to={`/courses/${tc.categoryId}`}
+                    className="text-gray-500 block border rounded-lg p-5 cursor-pointer hover:shadow"
+                  >
+                    {tc.category.name} ({tc.totalEnrollment})
+                  </NavLink>
+                </div>
+              )
+            )
+          )}
         </div>
       </div>
 
@@ -131,36 +149,44 @@ export function HomePage() {
         <h1 className="text-center text-blue-400 text-3xl mt-16 mb-8">
           Most viewed courses
         </h1>
-        <Slider {...sliderSettings}>
-          {[...(Array(10).keys() as any)].map((_, idx) => (
-            <div className="p-2">
-              <CourseCard
-                key={idx}
-                className="w-full"
-                course={top10Viewed.data ? top10Viewed.data[idx] : {}}
-                loading={!top10Viewed.data}
-              />
-            </div>
-          ))}
-        </Slider>
+        {!top10Viewed.data ? (
+          <FdmLoading />
+        ) : (
+          <Slider {...sliderSettings}>
+            {[...(Array(10).keys() as any)].map((_, idx) => (
+              <div className="p-2">
+                <CourseCard
+                  key={idx}
+                  className="w-full"
+                  course={top10Viewed.data ? top10Viewed.data[idx] : {}}
+                  loading={!top10Viewed.data}
+                />
+              </div>
+            ))}
+          </Slider>
+        )}
       </div>
 
       <div>
         <h1 className="text-center text-blue-400 text-3xl mt-16 mb-8">
           Newest courses
         </h1>
-        <Slider {...sliderSettings}>
-          {[...(Array(10).keys() as any)].map((_, idx) => (
-            <div className="p-2">
-              <CourseCard
-                key={idx}
-                className="w-full"
-                course={top10New.data ? top10New.data[idx] : {}}
-                loading={!top10New.data}
-              />
-            </div>
-          ))}
-        </Slider>
+        {!top10New.data ? (
+          <FdmLoading />
+        ) : (
+          <Slider {...sliderSettings}>
+            {[...(Array(10).keys() as any)].map((_, idx) => (
+              <div className="p-2">
+                <CourseCard
+                  key={idx}
+                  className="w-full"
+                  course={top10New.data ? top10New.data[idx] : {}}
+                  loading={!top10New.data}
+                />
+              </div>
+            ))}
+          </Slider>
+        )}
       </div>
     </div>
   );

@@ -26,7 +26,7 @@ export class AuthService {
       password,
       user.passwordHash,
     );
-    if (isValidPassword) {
+    if (!isValidPassword) {
       throw new UnauthorizedException();
     }
     return user;

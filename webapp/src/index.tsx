@@ -4,11 +4,14 @@ import './styles/index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
+import { initAxiosInterceptors } from './initAxiosInterceptors';
 
 import 'antd/dist/antd.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import './styles/index.css';
+
+initAxiosInterceptors();
 
 ReactDOM.render(
   <React.StrictMode>

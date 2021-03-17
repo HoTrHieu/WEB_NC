@@ -3,6 +3,7 @@ import { ApiEndpoint } from "../../shared/constants/ApiEndpoint";
 import { IUser } from "../../shared/entities/IUser";
 import { UserRole } from "../../shared/enums/UserRole";
 import { CrudService } from "../../shared/services/CrudService";
+import { IRegisterRequest } from "./types/IRegisterRequest";
 
 interface ITokenResponse {
   accessToken: string;
@@ -11,8 +12,8 @@ interface ITokenResponse {
 
 export class AuthService {
   public static user: IUser;
-  private static readonly ACCESS_TOKEN_KEY = "AP_ACCESS_TOKEN";
-  private static readonly REFRESH_TOKEN_KEY = "AP_REFRESH_TOKEN";
+  private static readonly ACCESS_TOKEN_KEY = "FDM_ACCESS_TOKEN";
+  private static readonly REFRESH_TOKEN_KEY = "FDM_REFRESH_TOKEN";
 
   static get isAuthed() {
     return !!this.accessToken;
@@ -52,7 +53,7 @@ export class AuthService {
 
   static logout() {
     this.clearTokens();
-    window.location.pathname = "/auth";
+    window.location.pathname = "/";
   }
 
   static async refreshAccessToken() {
@@ -108,5 +109,9 @@ export class AuthService {
 
   static get isAdmin() {
     return this.user.role === UserRole.ADMIN;
+  }
+
+  static register(user: IRegisterRequest) {
+    return CrudService.create(ApiEndpoint.auth.register, user);
   }
 }

@@ -12,6 +12,8 @@ export const ApiEndpoint = {
   user: {
     search: '/api/v1/user/search',
     add: '/api/v1/user/add',
+    checkEmail: '/api/v1/user/check-email',
+    checkUsername: '/api/v1/user/check-username',
     updateFirstLastName: '/api/v1/user/update-first-last-name',
     updateRole: (id: number) => `/api/v1/user/update-role/${id}`,
     updateStatus: (id: number) => `/api/v1/user/update-status/${id}`
@@ -47,21 +49,38 @@ export const ApiEndpoint = {
   },
   review: {
     paginate: '/api/v1/review/paginate',
-    updateStatus: (id: number) => `/api/v1/review/update-status/${id}`
+    add: (courseId: number) => `/api/v1/review/${courseId}`
   },
   studyProcess: {
     update: (id: number) => `/api/v1/study-process/${id}`
   },
   watchList: {
     paginate: '/api/v1/watch-list/paginate',
-    updateStatus: (id: number) => `/api/v1/watch-list/update-status/${id}`
+    updateStatus: (courseId: number) => `/api/v1/watch-list/update-status/${courseId}`
   },
   mailSender: {
     sendOtpMail: '/api/v1/mail-sender/send-otp-mail'
   }
 }
 
-export const PublicApiEndpoints = [
-  ApiEndpoint.auth.login,
+export const AuthedApiEndpoints = [
+  ApiEndpoint.auth.getProfile,
   ApiEndpoint.auth.refreshAccessToken,
+  ApiEndpoint.auth.changePassword,
+  ApiEndpoint.user.updateFirstLastName,
+  ApiEndpoint.user.updateRole,
+  ApiEndpoint.user.updateStatus,
+  ApiEndpoint.category.add,
+  ApiEndpoint.category.udpateStatus,
+  ApiEndpoint.course.add,
+  ApiEndpoint.course.update,
+  ApiEndpoint.course.updateStatus,
+  ApiEndpoint.course.increaseTotalView,
+  ApiEndpoint.content.update,
+  ApiEndpoint.content.updateStatus,
+  ApiEndpoint.uploader.upload,
+  ApiEndpoint.enrollment.enroll,
+  ApiEndpoint.review.add,
+  ApiEndpoint.studyProcess.update,
+  ApiEndpoint.watchList.updateStatus
 ];

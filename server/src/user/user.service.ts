@@ -54,12 +54,12 @@ export class UserService {
   }
 
   async addUser(request: AddUserWithRoleRequest, hashPassword = true) {
-    let count = await this.userRepository.count({ email: request.email });
-    if (count > 0) {
+    let exists = await this.findOneByEmail(request.email);
+    if (exists) {
       throw new BadRequestException('Email has already existed');
     }
-    count = await this.userRepository.count({ username: request.username });
-    if (count > 0) {
+    exists = await this.findOneByUsername(request.username);
+    if (exists) {
       throw new BadRequestException('Username has already existed');
     }
     const user = ClassUtils.copyFields(request, {});

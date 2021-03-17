@@ -19,4 +19,8 @@ export class CrudService {
   static async delete(url: string) {
     return this.put(url, null, 'delete');
   }
+
+  static async post(url: string, payload: any) {
+    return this.put(url, payload, 'post');
+  }
 }
