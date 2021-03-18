@@ -1,6 +1,6 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { IsEnum, IsNumber, IsOptional, Min } from 'class-validator';
+import { IsBoolean, IsEnum, IsNumber, IsOptional, Min } from 'class-validator';
 import { SearchRequest } from 'src/shared/dtos/search-request.dto';
 import { OrderDirection } from 'src/shared/enums/order-direction';
 import { RequestUtil } from 'src/shared/utils/request.util';
@@ -59,6 +59,12 @@ export class CourseSearchRequest extends SearchRequest {
   @IsOptional()
   orderDirection?: OrderDirection;
 
+  @ApiPropertyOptional()
+  @IsBoolean()
+  @IsOptional()
+  @Type(() => Boolean)
+  onlyWatchList?: boolean;
+
   getIds() {
     return RequestUtil.parseArray(this.ids);
   }
@@ -95,6 +101,10 @@ export class CourseSearchRequest extends SearchRequest {
 
   get isToStarExists() {
     return !isNaN(this.toStar);
+  }
+
+  get isOnlyWatchListExists() {
+    return !!this.onlyWatchList;
   }
 
   get isSearching() {

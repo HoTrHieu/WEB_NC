@@ -104,7 +104,11 @@ export function ProfileEditForm(props: RouteComponentProps) {
       try {
         await UserService.updateEmail(payload);
         setEditEmail(false);
-        dispatch("SET_USER", { ...authedUser, email: payload.email });
+        dispatch("SET_USER", {
+          ...authedUser,
+          email: payload.email,
+          updatedEmailDate: new Date(),
+        });
         notification.success({
           message: "Success",
           description: "Update email success",

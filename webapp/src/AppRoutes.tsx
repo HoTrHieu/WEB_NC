@@ -6,6 +6,7 @@ import { CoursePage } from './modules/course/CoursePage';
 import { HomePage } from './modules/home/HomePage';
 import { ProfilePage } from './modules/profile/ProfilePage';
 import { TeacherPage } from './modules/teacher/TeacherPage';
+import { WatchListPage } from './modules/watch-list/WatchListPage';
 
 export function AppRoutes() {
   return (
@@ -15,6 +16,7 @@ export function AppRoutes() {
       <Route path="/courses" component={CoursePage} />
       <Route path="/teacher" component={TeacherPage} />
       <Route path="/profile" component={ProfilePage} />
+      <Route path="/watch-list" component={WatchListPage} />
       <Route path="/admin" component={AdminPage} />
     </Switch>
   )

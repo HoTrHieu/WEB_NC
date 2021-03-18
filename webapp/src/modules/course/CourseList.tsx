@@ -13,13 +13,13 @@ import { CategorySelect } from "../category/CategorySelect";
 import { CourseCard } from "./CourseCard";
 import { CourseOrderBySelect } from "./CourseSortTypeSelect";
 import { CourseOrderBy } from "./enums/CourseOrderBy";
-import { IContentSearchRequest } from "./types/ContentSearchRequest";
+import { ICourseSearchRequest } from "./types/CourseSearchRequest";
 
 interface ICourseListProps {
-  categoryId: number;
+  categoryId?: number;
   searchTerm?: string;
   fetchSource: (
-    request: IContentSearchRequest
+    request: ICourseSearchRequest
   ) => Promise<IPagingResponse<ICourse>>;
 }
 
@@ -33,7 +33,9 @@ export function CourseList(props: ICourseListProps) {
   );
   const [filters, setFilters] = useState<any>({
     categoryIds: (() => {
-      return !isNaN(props.categoryId) && props.categoryId > 0
+      return props.categoryId &&
+        !isNaN(props.categoryId) &&
+        props.categoryId > 0
         ? [props.categoryId]
         : [];
     })(),
@@ -120,7 +122,7 @@ export function CourseList(props: ICourseListProps) {
         ) : (
           <div className="flex flex-wrap">
             {pagingResponse.items.map((course: ICourse) => (
-              <div className="w-1/4 pr-2 mb-4">
+              <div className="w-1/4 px-2 mb-4">
                 <CourseCard course={course} key={course.id} />
               </div>
             ))}
@@ -142,14 +144,18 @@ export function CourseList(props: ICourseListProps) {
       </div>
       <div className="w-1/6 ml-5">
         <div className="rounded-lg shadow p-3">
-          <label className="block mb-4"><b>Category</b></label>
+          <label className="block mb-4">
+            <b>Category</b>
+          </label>
           <CategorySelect
             defaultValue={filters.categoryIds}
             mode="multiple"
             onChange={(categoryIds) => updateFilters({ categoryIds })}
           />
           <Divider />
-          <label className="block my-4"><b>Price</b></label>
+          <label className="block my-4">
+            <b>Price</b>
+          </label>
           <FdmPriceSlider
             range
             defaultValue={[0, 500]}
@@ -158,7 +164,9 @@ export function CourseList(props: ICourseListProps) {
             }}
           />
           <Divider />
-          <label className="block my-4"><b>Star</b></label>
+          <label className="block my-4">
+            <b>Star</b>
+          </label>
           <FdmStarSlider
             range
             defaultValue={[0, 5]}

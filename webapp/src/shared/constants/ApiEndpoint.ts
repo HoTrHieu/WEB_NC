@@ -56,7 +56,6 @@ export const ApiEndpoint = {
     update: (id: number) => `/api/v1/study-process/${id}`
   },
   watchList: {
-    search: '/api/v1/watch-list/search',
     updateStatus: (courseId: number) => `/api/v1/watch-list/update-status/${courseId}`
   },
   mailSender: {
@@ -84,6 +83,5 @@ export const AuthedApiEndpoints = [
   ApiEndpoint.enrollment.enroll,
   ApiEndpoint.review.add,
   ApiEndpoint.studyProcess.update,
-  ApiEndpoint.watchList.search,
   ApiEndpoint.watchList.updateStatus
 ];

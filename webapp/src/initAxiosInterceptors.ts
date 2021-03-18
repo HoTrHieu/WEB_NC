@@ -4,14 +4,15 @@ import { AuthedApiEndpoints } from "./shared/constants/ApiEndpoint";
 
 export function initAxiosInterceptors() {
   Axios.interceptors.request.use((req) => {
-    if (AuthedApiEndpoints.includes(req.url as any)) {
-      const accessToken = AuthService.accessToken;
-      if (!accessToken) {
+    const accessToken = AuthService.accessToken;
+    if (!accessToken) {
+      if (AuthedApiEndpoints.includes(req.url as any)) {
         window.location.pathname = "/auth/login";
-      } else {
-        req.headers.Authorization = `Bearer ${accessToken}`;
       }
+    } else {
+      req.headers.Authorization = `Bearer ${accessToken}`;
     }
+
     return req;
   });
 

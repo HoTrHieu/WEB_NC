@@ -6,7 +6,6 @@ import {
   Post,
   Put,
   Query,
-  Req,
   Request,
   Res,
   UseGuards,
@@ -70,12 +69,12 @@ export class AuthController {
   @Get('/login/google')
   @UseGuards(GoogleAuthGuard)
   @Public()
-  async googleLogin(@Req() req) {}
+  async googleLogin(@Request() req) {}
 
   @Get('/redirect/google')
   @UseGuards(GoogleAuthGuard)
   @Public()
-  async googleRedirect(@Req() req, @Res() res) {
+  async googleRedirect(@Request() req, @Res() res) {
     const loginResult = await this.authService.login(req.user);
     res.redirect(
       this.configService.get('settings.google.feRedirectURL') +
