@@ -2,6 +2,7 @@ import React, { createContext, useReducer } from "react";
 import { FdmReducer } from "./FdmReducer";
 
 const initialState = {
+  user: null,
   searchTerm: "",
 };
 

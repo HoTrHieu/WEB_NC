@@ -72,6 +72,10 @@ export class User {
   @CreateDateColumn()
   createdDate: Date;
 
+  @ApiProperty()
+  @Column('datetime', { nullable: true })
+  updatedEmailDate: Date;
+
   @ApiProperty({ type: () => Course, isArray: true })
   @OneToMany(() => Course, (course) => course.creator)
   createdCourses: Course[];

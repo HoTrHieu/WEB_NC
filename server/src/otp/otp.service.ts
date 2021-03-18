@@ -29,6 +29,10 @@ export class OtpService {
 
   async checkOtp(otp: string, sessionId: string) {
     const savedSessionId = await this.cacheManager.get(otp);
-    return !!savedSessionId && savedSessionId === sessionId;
+    const result = !!savedSessionId && savedSessionId === sessionId;
+    if (result) {
+      await this.cacheManager.del(otp);
+    }
+    return result;
   }
 }

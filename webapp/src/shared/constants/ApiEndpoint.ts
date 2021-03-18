@@ -14,6 +14,7 @@ export const ApiEndpoint = {
     add: '/api/v1/user/add',
     checkEmail: '/api/v1/user/check-email',
     checkUsername: '/api/v1/user/check-username',
+    updateEmail: '/api/v1/user/update-email',
     updateFirstLastName: '/api/v1/user/update-first-last-name',
     updateRole: (id: number) => `/api/v1/user/update-role/${id}`,
     updateStatus: (id: number) => `/api/v1/user/update-status/${id}`
@@ -67,6 +68,7 @@ export const AuthedApiEndpoints = [
   ApiEndpoint.auth.getProfile,
   ApiEndpoint.auth.refreshAccessToken,
   ApiEndpoint.auth.changePassword,
+  ApiEndpoint.user.updateEmail,
   ApiEndpoint.user.updateFirstLastName,
   ApiEndpoint.user.updateRole,
   ApiEndpoint.user.updateStatus,

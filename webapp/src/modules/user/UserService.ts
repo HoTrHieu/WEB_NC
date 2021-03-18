@@ -18,4 +18,12 @@ export class UserService {
     });
     return res.exists;
   }
+
+  static async updateEmail(payload: any) {
+    return CrudService.put(ApiEndpoint.user.updateEmail, payload);
+  }
+
+  static async updateFirstLastName(payload: any) {
+    return CrudService.put(ApiEndpoint.user.updateFirstLastName, payload);
+  }
 }

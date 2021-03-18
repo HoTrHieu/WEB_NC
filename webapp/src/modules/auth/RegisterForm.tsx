@@ -1,48 +1,23 @@
 import { Button, Form, Input, notification } from "antd";
 import { useForm } from "antd/lib/form/Form";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useHistory } from "react-router";
 import { NotificationUtils } from "../../shared/utils/NotificationUtils";
-import { MailSenderService } from "../mail-sender/MailSenderService";
+import { useOtpSender } from "../otp/useOtpSender";
 import { IAddUserRequest } from "../user/types/AddUserRequest";
 import { UserFormRules } from "../user/UserFormRules";
 import { AuthService } from "./AuthService";
 import { RegisterFormRules } from "./RegisterFormRules";
 
-const sendOtpWaitTimes = [0, 30, 300, 600, 1800];
-
 export function RegisterForm() {
   const [form] = useForm();
-  const [sendOtpCount, setSendOtpCount] = useState(0);
-  const [sendOtpWaitTime, setSendOtpWaitTime] = useState(0);
   const [user, setUser] = useState<IAddUserRequest | null>(null);
   const [submitLoading, setSubmitLoading] = useState(false);
   const [registerLoading, setRegisterLoading] = useState(false);
   const history = useHistory();
-  const intervalRef = useRef<any>();
+  const otpSender = useOtpSender();
 
-  const sendOtp = useCallback(
-    async (user: IAddUserRequest) => {
-      try {
-        await MailSenderService.sendOtp(user.firstName, user.email);
-        setSendOtpCount(sendOtpCount + 1);
-        notification.success({
-          message: "Success",
-          description: (
-            <>
-              An e-mail with OTP is sent for <b>{user.email}</b>, please check
-              it
-            </>
-          ),
-        });
-      } catch (err) {
-        console.error(err);
-        NotificationUtils.error(err.message);
-      }
-    },
-    [sendOtpCount]
-  );
-
+  const { sendOtp } = otpSender;
   const submit = useCallback(
     async (user: IAddUserRequest) => {
       setSubmitLoading(true);
@@ -77,28 +52,7 @@ export function RegisterForm() {
     }
   }, [history, form]);
 
-  const removeInterval = useCallback(() => {
-    if (!!intervalRef.current) {
-      clearInterval(intervalRef.current);
-    }
-  }, []);
-
-  useEffect(() => {
-    removeInterval();
-
-    let totalWaitTime =
-      sendOtpWaitTimes[Math.min(sendOtpCount, sendOtpWaitTimes.length - 1)];
-    setSendOtpWaitTime(totalWaitTime);
-    intervalRef.current = setInterval(() => {
-      if (--totalWaitTime === 0) {
-        removeInterval();
-      }
-      setSendOtpWaitTime(totalWaitTime);
-    }, 1000);
-
-    return removeInterval;
-  }, [sendOtpCount, removeInterval]);
-
+  const { SendOtpButton } = otpSender;
   return (
     <Form form={form} onFinish={submit}>
       <label className="block mb-2">
@@ -159,17 +113,10 @@ export function RegisterForm() {
             <Input placeholder="OTP..." />
           </Form.Item>
           <Form.Item>
-            <Button
-              type="primary"
-              shape="round"
+            <SendOtpButton
               className="w-full mb-4"
-              loading={sendOtpWaitTime > 0}
-              onClick={() => sendOtp(user as any)}
-            >
-              {sendOtpWaitTime > 0
-                ? `Please wait for ${sendOtpWaitTime} (s)...`
-                : "Re-send OTP"}
-            </Button>
+              onClick={() => otpSender.sendOtp(user)}
+            />
             <Button
               type="primary"
               shape="round"

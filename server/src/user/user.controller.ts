@@ -25,6 +25,7 @@ import { AddUserWithRoleRequest } from './dto/add-user-with-role-request.dto';
 import { CheckEmailRequest } from './dto/check-email-request.dto';
 import { CheckResponse } from './dto/check-response.dto';
 import { CheckUsernameRequest } from './dto/check-username-request.dto';
+import { UpdateEmailRequest } from './dto/update-email-request.dto';
 import { UpdateUserFirstLastNameRequest } from './dto/update-user-first-last-name-request.dto';
 import { UpdateUserRoleRequest } from './dto/update-user-role-request.dto';
 import { UserService } from './user.service';
@@ -74,6 +75,23 @@ export class UserController {
   async addUser(@Body() request: AddUserWithRoleRequest) {
     const newUser = await this.userService.addUser(request);
     return StdResponse.of(StdResponseCode.SUCCESS, newUser.id);
+  }
+
+  @Put('/update-email')
+  @ApiResponse({
+    type: BooleanResponse,
+  })
+  @ApiBearerAuth()
+  async updateEmail(
+    @Request() req: AuthedRequest,
+    @Body() body: UpdateEmailRequest,
+  ) {
+    const isSuccess = await this.userService.updateEmail(
+      req.user.id,
+      body.email,
+      body.otp,
+    );
+    return BooleanResponse.of(isSuccess);
   }
 
   @Put('/update-first-last-name')

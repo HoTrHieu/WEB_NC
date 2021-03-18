@@ -12,6 +12,7 @@ export interface IUser extends IEntity {
   lastName: string;
   passwordHash: string;
   role: UserRole;
+  updatedEmailDate: Date;
   createdCourses: ICourse[];
   watchLists: IWatchList[];
   enrollments: IEnrollment[];

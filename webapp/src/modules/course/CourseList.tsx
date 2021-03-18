@@ -1,4 +1,4 @@
-import { Collapse, Input, Pagination } from "antd";
+import { Divider, Input, Pagination } from "antd";
 import React, { useCallback, useEffect, useState } from "react";
 import { FdmLoading } from "../../shared/components/FdmLoading";
 import { FdmOrderDirectionSelect } from "../../shared/components/FdmOrderDirectionSelect";
@@ -33,16 +33,21 @@ export function CourseList(props: ICourseListProps) {
   );
   const [filters, setFilters] = useState<any>({
     categoryIds: (() => {
-      return !isNaN(props.categoryId) && props.categoryId > 0 ? [props.categoryId] : [];
+      return !isNaN(props.categoryId) && props.categoryId > 0
+        ? [props.categoryId]
+        : [];
     })(),
   });
   const searchTermCompKey = useCompKey();
   const renewSearchTermCompKey = searchTermCompKey.renewCompKey;
 
-  const updateFilters = useCallback((newFilters: any) => {
-    setFilters({ ...filters, ...newFilters });
-    setPage(1);
-  }, [filters]);
+  const updateFilters = useCallback(
+    (newFilters: any) => {
+      setFilters({ ...filters, ...newFilters });
+      setPage(1);
+    },
+    [filters]
+  );
 
   useEffect(() => {
     setSearchTerm(props.searchTerm || "");
@@ -136,33 +141,32 @@ export function CourseList(props: ICourseListProps) {
         </div>
       </div>
       <div className="w-1/6 ml-5">
-        <Collapse defaultActiveKey={["category", "price", "star"]}>
-          <Collapse.Panel header="Category" key="category">
-            <CategorySelect
-              defaultValue={filters.categoryIds}
-              mode="multiple"
-              onChange={(categoryIds) => updateFilters({ categoryIds })}
-            />
-          </Collapse.Panel>
-          <Collapse.Panel header="Price" key="price">
-            <FdmPriceSlider
-              range
-              defaultValue={[0, 500]}
-              onAfterChange={([fromPrice, toPrice]) => {
-                updateFilters({ fromPrice, toPrice });
-              }}
-            />
-          </Collapse.Panel>
-          <Collapse.Panel header="Star" key="star">
-            <FdmStarSlider
-              range
-              defaultValue={[0, 5]}
-              onAfterChange={([fromStar, toStar]) => {
-                updateFilters({ fromStar, toStar });
-              }}
-            />
-          </Collapse.Panel>
-        </Collapse>
+        <div className="rounded-lg shadow p-3">
+          <label className="block mb-4"><b>Category</b></label>
+          <CategorySelect
+            defaultValue={filters.categoryIds}
+            mode="multiple"
+            onChange={(categoryIds) => updateFilters({ categoryIds })}
+          />
+          <Divider />
+          <label className="block my-4"><b>Price</b></label>
+          <FdmPriceSlider
+            range
+            defaultValue={[0, 500]}
+            onAfterChange={([fromPrice, toPrice]) => {
+              updateFilters({ fromPrice, toPrice });
+            }}
+          />
+          <Divider />
+          <label className="block my-4"><b>Star</b></label>
+          <FdmStarSlider
+            range
+            defaultValue={[0, 5]}
+            onAfterChange={([fromStar, toStar]) => {
+              updateFilters({ fromStar, toStar });
+            }}
+          />
+        </div>
       </div>
     </div>
   );
