@@ -9,6 +9,7 @@ import {
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AuthedRequest } from 'src/auth/dto/authed-request';
+import { CourseSearchRequest } from 'src/course/dto/course-search-request.dto';
 import { Role } from 'src/shared/decorators/role.decorator';
 import { BooleanResponse } from 'src/shared/dtos/boolean-response.dto';
 import { PagingRequest } from 'src/shared/dtos/paging-request.dto';
@@ -22,13 +23,13 @@ import { WatchListService } from './watch-list.service';
 export class WatchListController {
   constructor(private watchListService: WatchListService) {}
 
-  @Get('/paginate')
+  @Get('/search')
   @ApiResponse({
     type: PagingResponse,
   })
   @ApiBearerAuth()
-  paginate(request: PagingRequest, @Request() req: AuthedRequest) {
-    return this.watchListService.paginate(req.user.id, request);
+  search(request: CourseSearchRequest, @Request() req: AuthedRequest) {
+    return this.watchListService.search(req.user.id, request);
   }
 
   @Role(UserRole.ADMIN)

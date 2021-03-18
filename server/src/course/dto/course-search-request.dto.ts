@@ -12,6 +12,13 @@ export class CourseSearchRequest extends SearchRequest {
   @Min(1, { each: true })
   @Type(() => Number)
   @IsOptional()
+  ids?: number[];
+
+  @ApiPropertyOptional({ type: [Number] })
+  @IsNumber({}, { each: true })
+  @Min(1, { each: true })
+  @Type(() => Number)
+  @IsOptional()
   categoryIds?: number[];
 
   @ApiPropertyOptional({ type: Number })
@@ -52,6 +59,10 @@ export class CourseSearchRequest extends SearchRequest {
   @IsOptional()
   orderDirection?: OrderDirection;
 
+  getIds() {
+    return RequestUtil.parseArray(this.ids);
+  }
+
   getCategoryIds() {
     return RequestUtil.parseArray(this.categoryIds);
   }
@@ -63,6 +74,11 @@ export class CourseSearchRequest extends SearchRequest {
   get isCategoryIdsExists() {
     const categoryIds = this.getCategoryIds();
     return !!categoryIds && categoryIds.length > 0;
+  }
+
+  get isIdsExists() {
+    const ids = this.getIds();
+    return !!ids && ids.length > 0;
   }
 
   get isFromPriceExists() {
@@ -88,7 +104,8 @@ export class CourseSearchRequest extends SearchRequest {
       this.isFromPriceExists ||
       this.isToPriceExists ||
       this.isFromStarExists ||
-      this.isToStarExists
+      this.isToStarExists ||
+      this.isIdsExists
     );
   }
 }

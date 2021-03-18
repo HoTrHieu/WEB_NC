@@ -18,9 +18,9 @@ export function FdmUserDropdownMenu(props: IFdmUserDropdownMenuProps) {
         </Link>
       </Menu.Item>
       <Menu.Item>
-        <div className="flex items-center">
+        <Link to="/watch-list" className="flex items-center">
           <HeartOutlined /> Watch list
-        </div>
+        </Link>
       </Menu.Item>
       <Menu.Item onClick={() => AuthService.logout()}>
         <div className="flex items-center text-red-400">

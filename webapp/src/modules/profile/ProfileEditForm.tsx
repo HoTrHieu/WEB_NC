@@ -165,10 +165,7 @@ export function ProfileEditForm(props: RouteComponentProps) {
           E-mail {editEmail && <b className="text-red-400">*</b>}
         </label>
         <Form.Item name="email" rules={RegisterFormRules.email}>
-          <Input
-            disabled={!editEmail}
-            placeholder="E-mail..."
-          />
+          <Input disabled={!editEmail} placeholder="E-mail..." />
         </Form.Item>
         {!email && remainDaysToUpdateEmail < 0 && (
           <Form.Item>
@@ -182,11 +179,11 @@ export function ProfileEditForm(props: RouteComponentProps) {
             />
           </Form.Item>
         )}
-        {
+        {remainDaysToUpdateEmail > 0 && (
           <p className="my-0 text-red-400">
             Please wait for {remainDaysToUpdateEmail} days to update your email
           </p>
-        }
+        )}
         {!!email && (
           <>
             <label className="block mb-2">
