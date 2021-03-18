@@ -67,7 +67,7 @@ export class CourseController {
   }
 
   @Public()
-  @Get('/:courseId')
+  @Get('/detail/:courseId')
   @ApiResponse({
     type: Course,
   })

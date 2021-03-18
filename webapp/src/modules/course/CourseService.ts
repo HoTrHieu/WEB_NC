@@ -24,7 +24,7 @@ export class CourseService {
     return CrudService.create(ApiEndpoint.course.add, course);
   }
 
-  static getOne(id: number) {
-
+  static getDetail(id: number) {
+    return CrudService.get(ApiEndpoint.course.getDetail(id));
   }
 }

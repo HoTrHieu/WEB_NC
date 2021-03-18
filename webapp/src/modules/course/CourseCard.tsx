@@ -2,6 +2,7 @@ import { HeartFilled, HeartOutlined } from "@ant-design/icons";
 import { Rate, Tag, Tooltip } from "antd";
 import moment from "moment";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { FdmImage } from "../../shared/components/FdmImage";
 import { ASSETS_URL } from "../../shared/constants/constants";
 import { ICourse } from "../../shared/entities/ICourse";
@@ -19,7 +20,10 @@ export function CourseCard(props: ICourseCardProps) {
   const { course } = props;
   const [isWatchList, setIsWatchList] = useState(course.isWatchList);
   return (
-    <div className="rounded-lg p-5 border shadow hover:shadow-lg h-auto cursor-pointer">
+    <Link
+      to={`/courses/detail/${course.id}`}
+      className="block rounded-lg p-5 border shadow hover:shadow-lg h-auto cursor-pointer"
+    >
       <div className="flex justify-center mb-5">
         <FdmImage
           alt={course.title}
@@ -33,7 +37,7 @@ export function CourseCard(props: ICourseCardProps) {
         {AuthService.isAuthed && (
           <Tooltip placement="left" title={isWatchList ? "Un-love" : "Love"}>
             <div
-              className={"ml-2 text-xl " + (isWatchList ? "text-red-400" : "")}
+              className={"ml-2 text-xl " + (isWatchList ? "text-red-400" : "text-gray-700")}
             >
               {isWatchList ? (
                 <HeartFilled
@@ -65,13 +69,13 @@ export function CourseCard(props: ICourseCardProps) {
           </Tooltip>
         )}
       </div>
-      <p className="my-0">
+      <p className="my-0 text-gray-700">
         <span className="text-yellow-300 mr-1">{course.avgStar}</span>{" "}
         <Rate disabled value={course.avgStar} /> ({course.totalReview})
       </p>
-      <p className="my-0">{course.category?.name}</p>
+      <p className="my-0 text-gray-700">{course.category?.name}</p>
       <p className="my-0 text-blue-400">
-        {course.creator?.lastName} {course.creator?.firstName}
+        {course.creator?.firstName} {course.creator?.lastName}
       </p>
       <p className="my-0">
         <b className="text-red-400">
@@ -88,6 +92,6 @@ export function CourseCard(props: ICourseCardProps) {
           <Tag color="green">New</Tag>
         )}
       </div>
-    </div>
+    </Link>
   );
 }

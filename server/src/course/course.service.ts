@@ -129,7 +129,8 @@ export class CourseService {
       throw new NotFoundException('This course is not exists');
     }
 
-    return this.decor([course], user)[0];
+    const responses = await this.decor([course], user);
+    return responses[0];
   }
 
   async findCategoryId(courseId: number) {

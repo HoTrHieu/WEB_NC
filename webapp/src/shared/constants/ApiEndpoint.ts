@@ -30,7 +30,7 @@ export const ApiEndpoint = {
     topOfWeeks: '/api/v1/course/top-of-weeks',
     add: '/api/v1/course/add',
     top: (type: CourseTopType) => `/api/v1/course/top/${type}`,
-    getOne: (id: number) => `/api/v1/course/${id}`,
+    getDetail: (id: number) => `/api/v1/course/detail/${id}`,
     update: (id: number) => `/api/v1/course/${id}`,
     updateStatus: (id: number) => `/api/v1/course/update-status/${id}`,
     increaseTotalView: (id: number) => `/api/v1/course/increase-total-view/${id}`
