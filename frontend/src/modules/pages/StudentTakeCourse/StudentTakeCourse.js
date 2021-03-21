@@ -157,50 +157,6 @@ const StudentTakeCourse = () => {
                     </div>
                 </div>
 
-                <div class="page-section bg-alt border-top-2 border-bottom-2">
-
-
-                    <div class="container page__container">
-                        <div class="row ">
-                            <div class="col-md-7">
-                                <div class="page-separator">
-                                    <div class="page-separator__text">About this course</div>
-                                </div>
-                                <p class="text-70">This course will teach you the fundamentals o*f working with Angular 2. You *will learn everything you need to know to create complete applications including: components, services, directives, pipes, routing, HTTP, and even testing.</p>
-                                <p class="text-70 mb-0">This course will teach you the fundamentals o*f working with Angular 2. You *will learn everything you need to know to create complete applications including: components, services, directives, pipes, routing, HTTP, and even testing.</p>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="page-separator">
-                                    <div class="page-separator__text bg-alt">What you’ll learn</div>
-                                </div>
-                                <ul class="list-unstyled">
-                                    <li class="d-flex align-items-center">
-                                        <span class="material-icons text-50 mr-8pt">check</span>
-                                        <span class="text-70">Fundamentals of working with Angular</span>
-                                    </li>
-                                    <li class="d-flex align-items-center">
-                                        <span class="material-icons text-50 mr-8pt">check</span>
-                                        <span class="text-70">Create complete Angular applications</span>
-                                    </li>
-                                    <li class="d-flex align-items-center">
-                                        <span class="material-icons text-50 mr-8pt">check</span>
-                                        <span class="text-70">Working with the Angular CLI</span>
-                                    </li>
-                                    <li class="d-flex align-items-center">
-                                        <span class="material-icons text-50 mr-8pt">check</span>
-                                        <span class="text-70">Understanding Dependency Injection</span>
-                                    </li>
-                                    <li class="d-flex align-items-center">
-                                        <span class="material-icons text-50 mr-8pt">check</span>
-                                        <span class="text-70">Testing with Angular</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
                 <div class="page-section bg-alt border-bottom-2">
                     <div class="container">
                         <div class="row">

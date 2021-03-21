@@ -6,6 +6,7 @@ import Profile from './Profile/Profile';
 import DetailCourse from './DetailCourse/DetailCourse';
 import StudentCourse from './StudentCourse/StudentCourse';
 import StudentTakeCourse from './StudentTakeCourse/StudentTakeCourse';
+import TaskList from './TaskList/TaskList';
 
 export const page = [
     Home,
@@ -15,7 +16,8 @@ export const page = [
     Profile,
     DetailCourse,
     StudentCourse,
-    StudentTakeCourse
+    StudentTakeCourse,
+    TaskList
 ]
 
 export {
@@ -26,5 +28,6 @@ export {
     Profile,
     DetailCourse,
     StudentCourse,
-    StudentTakeCourse
+    StudentTakeCourse,
+    TaskList
 }
