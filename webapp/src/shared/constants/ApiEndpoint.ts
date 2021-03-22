@@ -69,6 +69,7 @@ export const AuthedApiEndpoints = [
   ApiEndpoint.auth.changePassword,
   ApiEndpoint.user.updateEmail,
   ApiEndpoint.user.updateFirstLastName,
+  ApiEndpoint.user.search,
   ApiEndpoint.user.updateRole,
   ApiEndpoint.user.updateStatus,
   ApiEndpoint.category.add,
