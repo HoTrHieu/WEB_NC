@@ -16,12 +16,18 @@ export class WatchListService {
       if (success) {
         notification.success({
           message: "Success",
-          description: `${state} success`
+          description: `${state} success`,
+          style: {
+            zIndex: 10
+          }
         });
       } else {
         notification.error({
           message: "Error",
-          description: `${state} failed, please try again`
+          description: `${state} failed, please try again`,
+          style: {
+            zIndex: 10
+          }
         });
       }
       return success;

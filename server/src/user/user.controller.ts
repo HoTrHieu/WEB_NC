@@ -26,6 +26,7 @@ import { CheckEmailRequest } from './dto/check-email-request.dto';
 import { CheckResponse } from './dto/check-response.dto';
 import { CheckUsernameRequest } from './dto/check-username-request.dto';
 import { UpdateEmailRequest } from './dto/update-email-request.dto';
+import { UpdateTeacherProfileRequest } from './dto/update-teacher-profile-request.dto';
 import { UpdateUserFirstLastNameRequest } from './dto/update-user-first-last-name-request.dto';
 import { UpdateUserRoleRequest } from './dto/update-user-role-request.dto';
 import { UserService } from './user.service';
@@ -107,6 +108,24 @@ export class UserController {
       req.user.id,
       body.firstName,
       body.lastName,
+    );
+    return BooleanResponse.of(isSuccess);
+  }
+
+  @Put('/update-teacher-profile')
+  @ApiResponse({
+    type: BooleanResponse,
+  })
+  @ApiBearerAuth()
+  @Role(UserRole.TEACHER)
+  async updateTeacherProfile(
+    @Request() req: AuthedRequest,
+    @Body() body: UpdateTeacherProfileRequest,
+  ) {
+    const isSuccess = await this.userService.updateTeacherProfile(
+      req.user.id,
+      body.bio,
+      body.introduction,
     );
     return BooleanResponse.of(isSuccess);
   }

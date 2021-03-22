@@ -1,42 +1,66 @@
-import { Controller, Get, Param, Post, Request } from '@nestjs/common';
+import { Controller, Get, Logger, Param, Post, Request } from '@nestjs/common';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AuthedRequest } from 'src/auth/dto/authed-request';
-import { BooleanResponse } from 'src/shared/dtos/boolean-response.dto';
-import { PagingRequest } from 'src/shared/dtos/paging-request.dto';
-import { PagingResponse } from 'src/shared/dtos/paging-response.dto';
+import { CategoryTotalEnrollmentService } from 'src/category-total-enrollment/category-total-enrollment.service';
+import { CourseService } from 'src/course/course.service';
+import { StdResponse } from 'src/shared/dtos/std-response.dto';
 import { Enrollment } from 'src/shared/entities/enrollment.entity';
+import { StdResponseCode } from 'src/shared/enums/std-response-code';
 import { EnrollmentService } from './enrollment.service';
 
 @ApiTags('Enrollment')
 @Controller('/enrollment')
 export class EnrollmentController {
-  constructor(private enrollmentService: EnrollmentService) {}
+  private readonly logger = new Logger(EnrollmentController.name);
 
-  @Get('/paginate')
-  @ApiResponse({
-    type: PagingResponse,
-  })
-  @ApiBearerAuth()
-  paginate(request: PagingRequest, @Request() req: AuthedRequest) {
-    return this.enrollmentService.paginate(req.user.id, request);
-  }
+  constructor(
+    private enrollmentService: EnrollmentService,
+    private courseService: CourseService,
+    private categoryTotalEnrollmentService: CategoryTotalEnrollmentService,
+  ) {}
 
-  @Get('/get-detail/:courseId')
+  @Get('/:courseId')
   @ApiResponse({
     type: Enrollment,
   })
   @ApiBearerAuth()
-  getDetail(@Param('courseId') courseId: number, @Request() req: AuthedRequest) {
+  getDetail(
+    @Param('courseId') courseId: number,
+    @Request() req: AuthedRequest,
+  ) {
     return this.enrollmentService.getDetail(courseId, req.user.id);
   }
 
   @Post('/enroll/:courseId')
   @ApiResponse({
-    type: BooleanResponse,
+    type: StdResponse,
   })
   @ApiBearerAuth()
-  async updateStatus(@Param('courseId') courseId: number, @Request() req: AuthedRequest) {
-    await this.enrollmentService.enroll(courseId, req.user.id);
-    return BooleanResponse.of(true);
+  async updateStatus(
+    @Param('courseId') courseId: number,
+    @Request() req: AuthedRequest,
+  ) {
+    const savedEnrollment = await this.enrollmentService.enroll(
+      courseId,
+      req.user.id,
+    );
+    if (!!savedEnrollment) {
+      const totalEnrollment = await this.enrollmentService.findTotalEnrollment(
+        courseId,
+      );
+      let success = await this.courseService.updateTotalEnrollment(
+        courseId,
+        totalEnrollment,
+      );
+      if (success) {
+        const categoryId = await this.courseService.findCategoryId(courseId);
+        await this.categoryTotalEnrollmentService.increase(categoryId);
+      } else {
+        this.logger.error(
+          `Update total enrollment failed for course: ${courseId}`,
+        );
+      }
+    }
+    return StdResponse.of(StdResponseCode.SUCCESS, true);
   }
 }

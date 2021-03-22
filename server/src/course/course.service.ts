@@ -6,9 +6,11 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AuthUser } from 'src/auth/dto/auth-user.dto';
+import { EnrollmentService } from 'src/enrollment/enrollment.service';
 import { HighlightCourseService } from 'src/highlight-course/highlight-course.service';
 import { PagingResponse } from 'src/shared/dtos/paging-response.dto';
 import { Course } from 'src/shared/entities/course.entity';
+import { Enrollment } from 'src/shared/entities/enrollment.entity';
 import { WatchList } from 'src/shared/entities/watch-list.entity';
 import { EntityStatus } from 'src/shared/enums/entity-status';
 import { ArrayUtil } from 'src/shared/utils/array.util';
@@ -45,23 +47,34 @@ export class CourseService {
     private courseEsService: CourseEsService,
     private highlightCourseService: HighlightCourseService,
     private watchListService: WatchListService,
+    private enrollmentService: EnrollmentService,
   ) {}
 
   async decor(courses: Course[], user?: AuthUser): Promise<CourseResponse[]> {
     if (!user) {
       return courses;
     }
+    const courseIds = courses.map((c) => c.id);
     const watchList = await this.watchListService.findByCourseIdIn(
       user.id,
-      courses.map((c) => c.id),
+      courseIds,
+    );
+    const enrollment = await this.enrollmentService.findByCourseIdIn(
+      user.id,
+      courseIds,
     );
     const isWatchList = watchList.reduce((map: any, curr: WatchList) => {
+      map[curr.courseId] = true;
+      return map;
+    }, {});
+    const isEnrollment = enrollment.reduce((map: any, curr: Enrollment) => {
       map[curr.courseId] = true;
       return map;
     }, {});
     return courses.map((course) => ({
       ...course,
       isWatchList: isWatchList[course.id] || false,
+      isEnrollment: isEnrollment[course.id] || false,
     }));
   }
 
@@ -78,16 +91,28 @@ export class CourseService {
   }
 
   async search(request: CourseSearchRequest, user?: AuthUser) {
+    let courses = [];
+    let total = 0;
+    let isEmpty = false;
     if (request.onlyWatchList) {
       const watchList = await this.watchListService.findByUserId(user.id);
       request.ids = watchList.map((wl) => wl.courseId);
+      isEmpty = true;
     }
-    const esResult = await this.courseEsService.search(request);
-    const courses = await this.findByIdIn(esResult.courseIds);
+    if (request.onlyEnrollment) {
+      const enrollments = await this.enrollmentService.findByUserId(user.id);
+      request.ids = enrollments.map((e) => e.courseId);
+      isEmpty = true;
+    }
+    if (!isEmpty) {
+      const esResult = await this.courseEsService.search(request);
+      total = esResult.total;
+      courses = await this.findByIdIn(esResult.courseIds);
+    }
     return PagingResponse.of(
       request.page,
       request.pageSize,
-      esResult.total,
+      total,
       await this.decor(courses, user),
     );
   }
@@ -224,9 +249,9 @@ export class CourseService {
   async updateAvgStar(courseId: number, avgStar: number) {
     const result = await this.partialUpdate(courseId, {
       avgStar,
-      totalReview: () => `totalReview = totalReview + 1`,
+      totalReview: () => `totalReview + 1`,
     });
-    if (avgStar >= 4) {
+    if (avgStar >= 3) {
       await this.highlightCourseService.increaseScore(courseId, 2);
     }
     return result;

@@ -4,7 +4,6 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CourseService } from 'src/course/course.service';
 import { Content } from 'src/shared/entities/content.entity';
 import { Repository } from 'typeorm';
 import { getVideoDurationInSeconds } from 'get-video-duration';
@@ -16,7 +15,6 @@ export class ContentService {
   constructor(
     @InjectRepository(Content)
     private contentRepository: Repository<Content>,
-    private courseService: CourseService,
     private uploaderService: UploaderService,
   ) {}
 
@@ -35,8 +33,7 @@ export class ContentService {
     return maxOrder || 0;
   }
 
-  async add(courseId: number, userId: number, content: Content) {
-    await this.courseService.validateAndThrow(courseId, userId);
+  async add(courseId: number, content: Content) {
     content.duration = await getVideoDurationInSeconds(
       this.uploaderService.getFullFilePath(content.videoPath),
     );
@@ -45,8 +42,7 @@ export class ContentService {
     return this.contentRepository.save(content);
   }
 
-  async update(userId: number, contentId: number, content: Content) {
-    await this.courseService.validateAndThrow(content.course.id, userId);
+  async update(contentId: number, content: Content) {
     const currContent = await this.findOne(contentId);
     if (!currContent) {
       throw new NotFoundException("This content is not exists");

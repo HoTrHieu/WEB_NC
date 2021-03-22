@@ -21,5 +21,10 @@ export function CourseDetailPage(props: RouteComponentProps) {
     );
   }
 
-  return <CourseDetail course={courseResponse.data} />;
+  return (
+    <CourseDetail
+      course={courseResponse.data}
+      onRefreshNeeded={courseResponse.reFetch}
+    />
+  );
 }

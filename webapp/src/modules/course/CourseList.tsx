@@ -121,9 +121,9 @@ export function CourseList(props: ICourseListProps) {
           <FdmLoading />
         ) : (
           <div className="flex flex-wrap">
-            {pagingResponse.items.map((course: ICourse) => (
+            {pagingResponse.items.map((course: ICourse, idx: number) => (
               <div className="w-1/4 px-2 mb-4">
-                <CourseCard course={course} key={course.id} />
+                <CourseCard course={course} key={idx} />
               </div>
             ))}
           </div>

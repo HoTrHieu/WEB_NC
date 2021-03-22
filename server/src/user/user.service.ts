@@ -91,6 +91,14 @@ export class UserService {
     return result.affected > 0;
   }
 
+  async updateTeacherProfile(id: number, bio: string, introduction: string) {
+    const result = await this.userRepository.update(
+      { id },
+      { bio, introduction },
+    );
+    return result.affected > 0;
+  }
+
   async updateEmail(id: number, email: string, otp: string) {
     const validOtp = await this.otpService.checkOtp(otp, email);
     if (!validOtp) {

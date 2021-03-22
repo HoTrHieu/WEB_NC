@@ -4,6 +4,7 @@ import { CourseService } from 'src/course/course.service';
 import { EnrollmentService } from 'src/enrollment/enrollment.service';
 import { PagingRequest } from 'src/shared/dtos/paging-request.dto';
 import { Review } from 'src/shared/entities/review.entity';
+import { EntityStatus } from 'src/shared/enums/entity-status';
 import { PagingUtil } from 'src/shared/utils/paging.util';
 import { Repository } from 'typeorm';
 import { ReviewRequest } from './dto/review-request.dto';
@@ -21,7 +22,11 @@ export class ReviewService {
 
   paginate(courseId: number, request: PagingRequest) {
     return PagingUtil.paginate(this.reviewRepository, request, {
-      where: { courseId },
+      where: { courseId, status: EntityStatus.ACTIVE },
+      relations: ['user'],
+      order: {
+        updatedDate: 'DESC'
+      }
     });
   }
 
@@ -35,7 +40,7 @@ export class ReviewService {
   }
 
   async review(courseId: number, userId: number, body: ReviewRequest) {
-    if (!this.courseService.exists(userId)) {
+    if (!(await this.courseService.exists(userId))) {
       throw new BadRequestException('This course is not exists');
     }
     if (!(await this.enrollmentService.exists(courseId, userId))) {

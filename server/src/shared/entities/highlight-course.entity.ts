@@ -1,5 +1,5 @@
 import { ApiProperty, ApiResponseProperty } from "@nestjs/swagger";
-import moment from "moment";
+import * as moment from "moment";
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
 import { EntityStatus } from "../enums/entity-status";
 import { Course } from "./course.entity";

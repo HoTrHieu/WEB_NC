@@ -26,4 +26,8 @@ export class UserService {
   static async updateFirstLastName(payload: any) {
     return CrudService.put(ApiEndpoint.user.updateFirstLastName, payload);
   }
+
+  static async updateTeacherProfile(payload: any) {
+    return CrudService.put(ApiEndpoint.user.updateTeacherProfile, payload);
+  }
 }

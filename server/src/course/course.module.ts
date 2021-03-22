@@ -1,6 +1,7 @@
 import { forwardRef, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CategoryModule } from 'src/category/category.module';
+import { EnrollmentModule } from 'src/enrollment/enrollment.module';
 import { EsHelperModule } from 'src/es-helper/es-helper.module';
 import { HighlightCourseModule } from 'src/highlight-course/highlight-course.module';
 import { Course } from 'src/shared/entities/course.entity';
@@ -17,7 +18,8 @@ import { CourseService } from './course.service';
     EsHelperModule,
     HighlightCourseModule,
     WatchListModule,
-    forwardRef(() => CategoryModule)
+    CategoryModule,
+    EnrollmentModule,
   ],
   controllers: [CourseController],
   providers: [CourseService, CourseEsService],

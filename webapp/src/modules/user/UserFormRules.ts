@@ -1,5 +1,4 @@
 import { Rule } from "rc-field-form/lib/interface";
-
 interface IUserFormRules {
   [key: string]: Rule[]
 }
@@ -39,5 +38,12 @@ export const UserFormRules: IUserFormRules = {
     { required: true, message: 'Last name is required' },
     { min: 2, message: 'Last name is too short' },
     { max: 255, message: 'Last name is too long' }
+  ],
+  bio: [
+    { min: 2, message: 'Bio is too short' },
+    { max: 255, message: 'Bio is too long' }
+  ],
+  introduction: [
+    { min: 2, message: 'Introduction is too short' }
   ]
 }

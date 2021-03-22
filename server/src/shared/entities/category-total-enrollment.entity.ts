@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import moment from 'moment';
+import * as moment from 'moment';
 import {
   Column,
   Entity,

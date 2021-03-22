@@ -16,8 +16,9 @@ export const ApiEndpoint = {
     checkUsername: '/api/v1/user/check-username',
     updateEmail: '/api/v1/user/update-email',
     updateFirstLastName: '/api/v1/user/update-first-last-name',
+    updateTeacherProfile: '/api/v1/user/update-teacher-profile',
     updateRole: (id: number) => `/api/v1/user/update-role/${id}`,
-    updateStatus: (id: number) => `/api/v1/user/update-status/${id}`
+    updateStatus: (id: number) => `/api/v1/user/update-status/${id}`,
   },
   category: {
     all: '/api/v1/category/all',
@@ -44,12 +45,11 @@ export const ApiEndpoint = {
     upload: '/api/v1/uploader/upload'
   },
   enrollment: {
-    paginate: '/api/v1/enrollment/paginate',
     getDetail: (courseId: number) => `/api/v1/enrollment/${courseId}`,
     enroll: (courseId: number) => `/api/v1/enrollment/enroll/${courseId}`
   },
   review: {
-    paginate: '/api/v1/review/paginate',
+    paginate: (courseId: number) => `/api/v1/review/paginate/${courseId}`,
     add: (courseId: number) => `/api/v1/review/${courseId}`
   },
   studyProcess: {
@@ -80,6 +80,7 @@ export const AuthedApiEndpoints = [
   ApiEndpoint.content.update,
   ApiEndpoint.content.updateStatus,
   ApiEndpoint.uploader.upload,
+  ApiEndpoint.enrollment.getDetail,
   ApiEndpoint.enrollment.enroll,
   ApiEndpoint.review.add,
   ApiEndpoint.studyProcess.update,

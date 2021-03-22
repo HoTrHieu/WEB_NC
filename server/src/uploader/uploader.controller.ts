@@ -1,19 +1,23 @@
 import {
-  BadRequestException,
-  Body,
   Controller,
   Post,
   UploadedFile,
   UseInterceptors,
+  Headers,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiBearerAuth, ApiBody, ApiConsumes, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiConsumes,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { ApiFile } from 'src/shared/decorators/api-file.decorator';
-import { BooleanResponse } from 'src/shared/dtos/boolean-response.dto';
+import { Role } from 'src/shared/decorators/role.decorator';
 import { StdResponse } from 'src/shared/dtos/std-response.dto';
 import { FileType } from 'src/shared/enums/file-type';
 import { StdResponseCode } from 'src/shared/enums/std-response-code';
-import { UploadRequest } from './dto/upload-request.dto';
+import { UserRole } from 'src/shared/enums/user-role';
 import { UploaderService } from './uploader.service';
 
 @ApiTags('Uploader')
@@ -21,23 +25,20 @@ import { UploaderService } from './uploader.service';
 export class UploaderController {
   constructor(private uploaderService: UploaderService) {}
 
+  @Role(UserRole.TEACHER, UserRole.ADMIN)
   @Post('/upload')
   @ApiResponse({
     type: StdResponse,
   })
   @ApiConsumes('multipart/form-data')
-  @ApiFile('file', {
-    fileType: {
-      enum: FileType
-    }
-  })
+  @ApiFile('file')
   @ApiBearerAuth()
   @UseInterceptors(FileInterceptor('file'))
   async upload(
-    @Body() request: UploadRequest,
+    @Headers('x-file-type') fileType: FileType,
     @UploadedFile() file: Express.Multer.File,
   ) {
-    const filePath = await this.uploaderService.upload(request.fileType, file);
+    const filePath = await this.uploaderService.upload(fileType, file);
     return StdResponse.of(StdResponseCode.SUCCESS, filePath);
   }
 }

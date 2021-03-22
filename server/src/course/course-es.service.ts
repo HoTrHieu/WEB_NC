@@ -119,6 +119,14 @@ export class CourseEsService {
           },
         });
       }
+
+      if (request.isCreatorIdExists) {
+        searchBody.query.bool.filter.push({
+          term: {
+            creatorId: request.creatorId
+          }
+        });
+      }
     }
 
     const esResult = await this.esService.search({

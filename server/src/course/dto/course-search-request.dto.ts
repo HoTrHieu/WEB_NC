@@ -65,6 +65,19 @@ export class CourseSearchRequest extends SearchRequest {
   @Type(() => Boolean)
   onlyWatchList?: boolean;
 
+  @ApiPropertyOptional()
+  @IsBoolean()
+  @IsOptional()
+  @Type(() => Boolean)
+  onlyEnrollment?: boolean;
+
+  @ApiPropertyOptional({ type: Number })
+  @IsNumber()
+  @Min(1)
+  @Type(() => Number)
+  @IsOptional()
+  creatorId: number;
+
   getIds() {
     return RequestUtil.parseArray(this.ids);
   }
@@ -107,6 +120,14 @@ export class CourseSearchRequest extends SearchRequest {
     return !!this.onlyWatchList;
   }
 
+  get isOnlyEnrollmentExists() {
+    return !!this.onlyEnrollment;
+  }
+
+  get isCreatorIdExists() {
+    return !!this.creatorId;
+  }
+
   get isSearching() {
     return (
       this.isCategoryIdsExists ||
@@ -115,7 +136,9 @@ export class CourseSearchRequest extends SearchRequest {
       this.isToPriceExists ||
       this.isFromStarExists ||
       this.isToStarExists ||
-      this.isIdsExists
+      this.isIdsExists ||
+      this.isOnlyEnrollmentExists ||
+      this.isCreatorIdExists
     );
   }
 }

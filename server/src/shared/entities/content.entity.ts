@@ -29,7 +29,7 @@ export class Content {
   title: string;
 
   @ApiProperty()
-  @Column('text')
+  @Column('text', { nullable: true })
   @IsString()
   description: string;
 
