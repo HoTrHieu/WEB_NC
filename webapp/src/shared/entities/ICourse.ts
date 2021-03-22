@@ -19,6 +19,8 @@ export interface ICourse extends IEntity {
   totalView: number;
   creatorId: number;
   categoryId: number;
+  isWatchList: boolean;
+  isEnrollment: boolean;
   category: ICategory;
   creator: IUser;
   contents: IContent[];

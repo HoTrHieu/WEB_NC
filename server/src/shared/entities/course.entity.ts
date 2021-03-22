@@ -1,5 +1,4 @@
 import { ApiProperty, ApiResponseProperty } from '@nestjs/swagger';
-import { Exclude } from 'class-transformer';
 import {
   Column,
   CreateDateColumn,
@@ -17,7 +16,7 @@ import { User } from './user.entity';
 import { WatchList } from './watch-list.entity';
 import { Enrollment } from './enrollment.entity';
 import { Review } from './review.entity';
-import { IsNumber, IsString, Length, Min } from 'class-validator';
+import { IsNumber, IsString, Length, Max, Min, MinLength } from 'class-validator';
 import { HighlightCourse } from './highlight-course.entity';
 
 @Entity({
@@ -31,18 +30,17 @@ export class Course {
   @ApiProperty()
   @Column('varchar', { length: 255, unique: true })
   @IsString()
-  @Length(1, 255)
+  @Length(8, 255)
   title: string;
 
-  @ApiProperty()
+  @ApiResponseProperty()
   @Column('varchar', { length: 255, unique: true })
-  @IsString()
-  @Length(1, 255)
   slug: string;
 
   @ApiProperty()
   @Column('text')
   @IsString()
+  @MinLength(8)
   subDescription: string;
 
   @ApiProperty()
@@ -53,11 +51,15 @@ export class Course {
   @ApiProperty()
   @Column('float', { default: 0 })
   @IsNumber()
+  @Min(0)
+  @Max(500)
   price: number;
 
   @ApiProperty()
   @Column('float', { default: 0 })
   @IsNumber()
+  @Min(0)
+  @Max(500)
   discount: number;
 
   @ApiProperty()
@@ -106,7 +108,6 @@ export class Course {
 
   @ApiResponseProperty()
   @UpdateDateColumn()
-  @Exclude()
   updatedDate: Date;
 
   @ApiResponseProperty()

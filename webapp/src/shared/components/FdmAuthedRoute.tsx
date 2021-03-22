@@ -10,7 +10,7 @@ interface Props extends RouteProps {
   roles?: UserRole[];
 }
 
-export const AuthedRoute: React.FC<Props> = ({
+export const FdmAuthedRoute: React.FC<Props> = ({
   component: Component,
   roles,
   ...rest

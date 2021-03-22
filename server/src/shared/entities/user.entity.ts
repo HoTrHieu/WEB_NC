@@ -1,11 +1,10 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Exclude } from 'class-transformer';
 import {
   Column,
   CreateDateColumn,
   Entity,
   Index,
-  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -43,6 +42,14 @@ export class User {
   @Column('varchar', { length: 255 })
   lastName: string;
 
+  @ApiPropertyOptional()
+  @Column('varchar', { length: 255, nullable: true })
+  bio?: string;
+
+  @ApiPropertyOptional()
+  @Column('text', { nullable: true })
+  introduction?: string;
+
   @Column('varchar', { length: 255, nullable: true })
   @Exclude()
   passwordHash: string;
@@ -71,6 +78,10 @@ export class User {
   @ApiProperty()
   @CreateDateColumn()
   createdDate: Date;
+
+  @ApiProperty()
+  @Column('datetime', { nullable: true })
+  updatedEmailDate: Date;
 
   @ApiProperty({ type: () => Course, isArray: true })
   @OneToMany(() => Course, (course) => course.creator)

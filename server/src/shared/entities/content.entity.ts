@@ -23,13 +23,13 @@ export class Content {
   id: number;
 
   @ApiProperty()
-  @Column('varchar', { length: 1000 })
+  @Column('varchar', { length: 255 })
   @IsString()
-  @Length(1, 1000)
+  @Length(4, 255)
   title: string;
 
   @ApiProperty()
-  @Column('text')
+  @Column('text', { nullable: true })
   @IsString()
   description: string;
 

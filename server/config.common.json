@@ -7,7 +7,7 @@
   "jwt": {
     "secret": "BCFat4MMv7h>*DQ",
     "accessToken": {
-      "expiresIn": "30m"
+      "expiresIn": "1h"
     },
     "refreshToken": {
       "ttl": 1.21e+9

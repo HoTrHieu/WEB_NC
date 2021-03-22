@@ -27,4 +27,16 @@ export class UserService {
       params: request
     });
   }
+  
+  static async updateEmail(payload: any) {
+    return CrudService.put(ApiEndpoint.user.updateEmail, payload);
+  }
+
+  static async updateFirstLastName(payload: any) {
+    return CrudService.put(ApiEndpoint.user.updateFirstLastName, payload);
+  }
+
+  static async updateTeacherProfile(payload: any) {
+    return CrudService.put(ApiEndpoint.user.updateTeacherProfile, payload);
+  }
 }

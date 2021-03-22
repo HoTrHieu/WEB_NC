@@ -25,6 +25,9 @@ import { AddUserWithRoleRequest } from './dto/add-user-with-role-request.dto';
 import { CheckEmailRequest } from './dto/check-email-request.dto';
 import { CheckResponse } from './dto/check-response.dto';
 import { CheckUsernameRequest } from './dto/check-username-request.dto';
+import { SearchUserRequest } from './dto/search-user-request.dto';
+import { UpdateEmailRequest } from './dto/update-email-request.dto';
+import { UpdateTeacherProfileRequest } from './dto/update-teacher-profile-request.dto';
 import { UpdateUserFirstLastNameRequest } from './dto/update-user-first-last-name-request.dto';
 import { UpdateUserRoleRequest } from './dto/update-user-role-request.dto';
 import { UserService } from './user.service';
@@ -41,7 +44,7 @@ export class UserController {
     type: PagingResponse,
   })
   @ApiBearerAuth()
-  searchUser(@Query() request: SearchRequest) {
+  searchUser(@Query() request: SearchUserRequest) {
     return this.userService.searchUser(request);
   }
 
@@ -76,6 +79,23 @@ export class UserController {
     return StdResponse.of(StdResponseCode.SUCCESS, newUser.id);
   }
 
+  @Put('/update-email')
+  @ApiResponse({
+    type: BooleanResponse,
+  })
+  @ApiBearerAuth()
+  async updateEmail(
+    @Request() req: AuthedRequest,
+    @Body() body: UpdateEmailRequest,
+  ) {
+    const isSuccess = await this.userService.updateEmail(
+      req.user.id,
+      body.email,
+      body.otp,
+    );
+    return BooleanResponse.of(isSuccess);
+  }
+
   @Put('/update-first-last-name')
   @ApiResponse({
     type: BooleanResponse,
@@ -89,6 +109,24 @@ export class UserController {
       req.user.id,
       body.firstName,
       body.lastName,
+    );
+    return BooleanResponse.of(isSuccess);
+  }
+
+  @Put('/update-teacher-profile')
+  @ApiResponse({
+    type: BooleanResponse,
+  })
+  @ApiBearerAuth()
+  @Role(UserRole.TEACHER)
+  async updateTeacherProfile(
+    @Request() req: AuthedRequest,
+    @Body() body: UpdateTeacherProfileRequest,
+  ) {
+    const isSuccess = await this.userService.updateTeacherProfile(
+      req.user.id,
+      body.bio,
+      body.introduction,
     );
     return BooleanResponse.of(isSuccess);
   }

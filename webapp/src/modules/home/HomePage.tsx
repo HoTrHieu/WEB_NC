@@ -101,7 +101,7 @@ export function HomePage() {
         {!topCoursesOfWeek.data ? (
           <FdmLoading />
         ) : (
-          <Slider {...sliderSettings}>
+          <Slider {...sliderSettings} >
             {[...(Array(5).keys() as any)].map((_, idx) => (
               <div className="p-2">
                 <CourseCard

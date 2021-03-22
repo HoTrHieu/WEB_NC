@@ -1,6 +1,6 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { IsEnum, IsNumber, IsOptional, Min } from 'class-validator';
+import { IsBoolean, IsEnum, IsNumber, IsOptional, Min } from 'class-validator';
 import { SearchRequest } from 'src/shared/dtos/search-request.dto';
 import { OrderDirection } from 'src/shared/enums/order-direction';
 import { RequestUtil } from 'src/shared/utils/request.util';
@@ -12,7 +12,42 @@ export class CourseSearchRequest extends SearchRequest {
   @Min(1, { each: true })
   @Type(() => Number)
   @IsOptional()
+  ids?: number[];
+
+  @ApiPropertyOptional({ type: [Number] })
+  @IsNumber({}, { each: true })
+  @Min(1, { each: true })
+  @Type(() => Number)
+  @IsOptional()
   categoryIds?: number[];
+
+  @ApiPropertyOptional({ type: Number })
+  @IsNumber()
+  @Min(0)
+  @Type(() => Number)
+  @IsOptional()
+  fromPrice?: number;
+
+  @ApiPropertyOptional({ type: Number })
+  @IsNumber()
+  @Min(0)
+  @Type(() => Number)
+  @IsOptional()
+  toPrice?: number;
+
+  @ApiPropertyOptional({ type: Number })
+  @IsNumber()
+  @Min(0)
+  @Type(() => Number)
+  @IsOptional()
+  fromStar?: number;
+
+  @ApiPropertyOptional({ type: Number })
+  @IsNumber()
+  @Min(0)
+  @Type(() => Number)
+  @IsOptional()
+  toStar?: number;
 
   @IsEnum(CourseOrderBy)
   @ApiPropertyOptional({ enum: CourseOrderBy })
@@ -23,6 +58,29 @@ export class CourseSearchRequest extends SearchRequest {
   @ApiPropertyOptional({ enum: OrderDirection })
   @IsOptional()
   orderDirection?: OrderDirection;
+
+  @ApiPropertyOptional()
+  @IsBoolean()
+  @IsOptional()
+  @Type(() => Boolean)
+  onlyWatchList?: boolean;
+
+  @ApiPropertyOptional()
+  @IsBoolean()
+  @IsOptional()
+  @Type(() => Boolean)
+  onlyEnrollment?: boolean;
+
+  @ApiPropertyOptional({ type: Number })
+  @IsNumber()
+  @Min(1)
+  @Type(() => Number)
+  @IsOptional()
+  creatorId: number;
+
+  getIds() {
+    return RequestUtil.parseArray(this.ids);
+  }
 
   getCategoryIds() {
     return RequestUtil.parseArray(this.categoryIds);
@@ -37,7 +95,50 @@ export class CourseSearchRequest extends SearchRequest {
     return !!categoryIds && categoryIds.length > 0;
   }
 
+  get isIdsExists() {
+    const ids = this.getIds();
+    return !!ids && ids.length > 0;
+  }
+
+  get isFromPriceExists() {
+    return !isNaN(this.fromPrice);
+  }
+
+  get isToPriceExists() {
+    return !isNaN(this.toPrice);
+  }
+
+  get isFromStarExists() {
+    return !isNaN(this.fromStar);
+  }
+
+  get isToStarExists() {
+    return !isNaN(this.toStar);
+  }
+
+  get isOnlyWatchListExists() {
+    return !!this.onlyWatchList;
+  }
+
+  get isOnlyEnrollmentExists() {
+    return !!this.onlyEnrollment;
+  }
+
+  get isCreatorIdExists() {
+    return !!this.creatorId;
+  }
+
   get isSearching() {
-    return this.isCategoryIdsExists || this.isSearchTermExists;
+    return (
+      this.isCategoryIdsExists ||
+      this.isSearchTermExists ||
+      this.isFromPriceExists ||
+      this.isToPriceExists ||
+      this.isFromStarExists ||
+      this.isToStarExists ||
+      this.isIdsExists ||
+      this.isOnlyEnrollmentExists ||
+      this.isCreatorIdExists
+    );
   }
 }

@@ -1,19 +1,19 @@
 import { useEffect, useMemo, useState } from "react";
 import { AuthService } from "../../modules/auth/AuthService";
-import { IUser } from "../entities/IUser";
+import { useFdmStore } from "../store/useFdmStore";
 
 export function useAuthedUser() {
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState<IUser | null>(null);
+  const [{ user }, dispatch] = useFdmStore();
 
   useEffect(() => {
     (async () => {
       if (AuthService.isAuthed) {
-        setUser(await AuthService.getUser());
+        dispatch('SET_USER', await AuthService.getUser());
       }
       setLoading(false);
     })();
-  }, []);
+  }, [dispatch]);
 
   return useMemo(
     () => ({

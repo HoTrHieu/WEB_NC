@@ -20,6 +20,7 @@ export class AuthService {
     const params: any = qs.parse(window.location.search.replace('?', ''));
     if (!!params.accessToken && !!params.refreshToken) {
       this.saveTokens(params);
+      window.location.search = '';
     }
     return !!this.accessToken;
   }

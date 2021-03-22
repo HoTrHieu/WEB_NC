@@ -12,6 +12,7 @@ import { AuthService } from "../../modules/auth/AuthService";
 import { FdmUserDropdownMenu } from "./FdmUserDropdownMenu";
 import { useFdmStore } from "../store/useFdmStore";
 import { useCompKey } from "../hooks/useCompKey";
+import { UserRole } from "../enums/UserRole";
 
 export function FdmHeader() {
   const history = useHistory();
@@ -60,6 +61,24 @@ export function FdmHeader() {
               Categories <CaretDownOutlined />
             </div>
           </Dropdown>
+          {authedUser?.role === UserRole.TEACHER && (
+            <NavLink
+              to="/teacher"
+              className="text-gray-400 hover:text-gray-700 mx-4"
+              activeClassName="text-gray-700"
+            >
+              Teacher
+            </NavLink>
+          )}
+          {authedUser?.role === UserRole.ADMIN && (
+            <NavLink
+              to="/admin"
+              className="text-gray-400 hover:text-gray-700 mx-4"
+              activeClassName="text-gray-700"
+            >
+              Admin
+            </NavLink>
+          )}
         </div>
 
         <div className="ml-auto flex items-center">

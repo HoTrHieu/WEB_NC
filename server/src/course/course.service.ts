@@ -5,14 +5,19 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { AuthUser } from 'src/auth/dto/auth-user.dto';
+import { EnrollmentService } from 'src/enrollment/enrollment.service';
 import { HighlightCourseService } from 'src/highlight-course/highlight-course.service';
 import { PagingResponse } from 'src/shared/dtos/paging-response.dto';
 import { Course } from 'src/shared/entities/course.entity';
+import { Enrollment } from 'src/shared/entities/enrollment.entity';
+import { WatchList } from 'src/shared/entities/watch-list.entity';
 import { EntityStatus } from 'src/shared/enums/entity-status';
-import { OrderDirection } from 'src/shared/enums/order-direction';
 import { ArrayUtil } from 'src/shared/utils/array.util';
+import { WatchListService } from 'src/watch-list/watch-list.service';
 import { FindManyOptions, In, Repository } from 'typeorm';
 import { CourseEsService } from './course-es.service';
+import { CourseResponse } from './dto/course-response.dto';
 import { CourseSearchRequest } from './dto/course-search-request.dto';
 import { CourseTopType } from './enums/course-top-type';
 
@@ -41,26 +46,74 @@ export class CourseService {
     private courseRepository: Repository<Course>,
     private courseEsService: CourseEsService,
     private highlightCourseService: HighlightCourseService,
+    private watchListService: WatchListService,
+    private enrollmentService: EnrollmentService,
   ) {}
 
-  all() {
-    return this.courseRepository.find({
+  async decor(courses: Course[], user?: AuthUser): Promise<CourseResponse[]> {
+    if (!user) {
+      return courses;
+    }
+    const courseIds = courses.map((c) => c.id);
+    const watchList = await this.watchListService.findByCourseIdIn(
+      user.id,
+      courseIds,
+    );
+    const enrollment = await this.enrollmentService.findByCourseIdIn(
+      user.id,
+      courseIds,
+    );
+    const isWatchList = watchList.reduce((map: any, curr: WatchList) => {
+      map[curr.courseId] = true;
+      return map;
+    }, {});
+    const isEnrollment = enrollment.reduce((map: any, curr: Enrollment) => {
+      map[curr.courseId] = true;
+      return map;
+    }, {});
+    return courses.map((course) => ({
+      ...course,
+      isWatchList: isWatchList[course.id] || false,
+      isEnrollment: isEnrollment[course.id] || false,
+    }));
+  }
+
+  async all(user?: AuthUser) {
+    const courses = await this.courseRepository.find({
       where: {
         status: EntityStatus.ACTIVE,
       },
       select: this.PROJECTION as any,
-      relations: ['category']
+      relations: ['category'],
     });
+
+    return this.decor(courses);
   }
 
-  async search(request: CourseSearchRequest) {
-    const esResult = await this.courseEsService.search(request);
-    const courses = await this.findByIdIn(esResult.courseIds, );
+  async search(request: CourseSearchRequest, user?: AuthUser) {
+    let courses = [];
+    let total = 0;
+    let isEmpty = false;
+    if (request.onlyWatchList) {
+      const watchList = await this.watchListService.findByUserId(user.id);
+      request.ids = watchList.map((wl) => wl.courseId);
+      isEmpty = true;
+    }
+    if (request.onlyEnrollment) {
+      const enrollments = await this.enrollmentService.findByUserId(user.id);
+      request.ids = enrollments.map((e) => e.courseId);
+      isEmpty = true;
+    }
+    if (!isEmpty) {
+      const esResult = await this.courseEsService.search(request);
+      total = esResult.total;
+      courses = await this.findByIdIn(esResult.courseIds);
+    }
     return PagingResponse.of(
       request.page,
       request.pageSize,
-      esResult.total,
-      courses,
+      total,
+      await this.decor(courses, user),
     );
   }
 
@@ -76,9 +129,9 @@ export class CourseService {
       },
       select: this.PROJECTION as any,
       relations: ['creator', 'category', 'category.parent'],
-      ...options
+      ...options,
     });
-    
+
     const idxMap = ids.reduce((map: any, id: number, idx: number) => {
       map[id] = idx;
       return map;
@@ -91,7 +144,7 @@ export class CourseService {
     return result;
   }
 
-  async getDetail(courseId: number) {
+  async getDetail(courseId: number, user?: AuthUser) {
     const course = await this.courseRepository.findOne({
       where: { id: courseId },
       relations: ['contents', 'creator', 'category', 'category.parent'],
@@ -101,7 +154,8 @@ export class CourseService {
       throw new NotFoundException('This course is not exists');
     }
 
-    return course;
+    const responses = await this.decor([course], user);
+    return responses[0];
   }
 
   async findCategoryId(courseId: number) {
@@ -193,8 +247,11 @@ export class CourseService {
   }
 
   async updateAvgStar(courseId: number, avgStar: number) {
-    const result = await this.partialUpdate(courseId, { avgStar, totalReview: () => `totalReview = totalReview + 1` });
-    if (avgStar >= 4) {
+    const result = await this.partialUpdate(courseId, {
+      avgStar,
+      totalReview: () => `totalReview + 1`,
+    });
+    if (avgStar >= 3) {
       await this.highlightCourseService.increaseScore(courseId, 2);
     }
     return result;
@@ -229,39 +286,40 @@ export class CourseService {
     return result;
   }
 
-  async topOfWeeks() {
+  async topOfWeeks(user?: AuthUser) {
     const highlights = await this.highlightCourseService.topOfWeeks();
     const highlightSize = Array.isArray(highlights) ? highlights.length : 0;
-    const courses = await this.findByIdIn(highlights.map(h => h.courseId));
+    const courses = await this.findByIdIn(highlights.map((h) => h.courseId));
     if (highlightSize < 5) {
       courses.push(
-        ...await this.courseRepository.find({
+        ...(await this.courseRepository.find({
           where: {
-            status: EntityStatus.ACTIVE
+            status: EntityStatus.ACTIVE,
           },
           order: {
             totalEnrollment: 'DESC',
             avgStar: 'DESC',
-            totalView: 'DESC'
+            totalView: 'DESC',
           },
           relations: ['creator', 'category', 'category.parent'],
-          take: highlights.length - highlightSize
-        })
+          take: highlights.length - highlightSize,
+        })),
       );
     }
-    return courses;
+    return this.decor(courses, user);
   }
 
-  async top(type: CourseTopType, limit: number = 10) {
-    return this.courseRepository.find({
+  async top(type: CourseTopType, limit: number = 10, user?: AuthUser) {
+    const courses = await this.courseRepository.find({
       where: {
-        status: EntityStatus.ACTIVE
+        status: EntityStatus.ACTIVE,
       },
       order: {
-        [type]: 'DESC'
+        [type]: 'DESC',
       },
       relations: ['creator', 'category', 'category.parent'],
-      take: limit
+      take: limit,
     });
+    return this.decor(courses, user);
   }
 }

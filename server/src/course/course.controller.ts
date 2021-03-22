@@ -40,8 +40,8 @@ export class CourseController {
     type: PagingResponse,
   })
   @UseInterceptors(ClassSerializerInterceptor)
-  search(@Query() request: CourseSearchRequest) {
-    return this.courseService.search(request);
+  search(@Query() request: CourseSearchRequest, @Request() req: AuthedRequest) {
+    return this.courseService.search(request, req.user);
   }
 
   @Public()
@@ -51,8 +51,8 @@ export class CourseController {
     isArray: true
   })
   @UseInterceptors(ClassSerializerInterceptor)
-  topOfWeeks() {
-    return this.courseService.topOfWeeks();
+  topOfWeeks(@Request() req: AuthedRequest) {
+    return this.courseService.topOfWeeks(req.user);
   }
 
   @Public()
@@ -62,18 +62,18 @@ export class CourseController {
     isArray: true
   })
   @UseInterceptors(ClassSerializerInterceptor)
-  top(@Param('type') type: CourseTopType) {
-    return this.courseService.top(type);
+  top(@Param('type') type: CourseTopType, @Request() req: AuthedRequest) {
+    return this.courseService.top(type, 10, req.user);
   }
 
   @Public()
-  @Get('/:courseId')
+  @Get('/detail/:courseId')
   @ApiResponse({
     type: Course,
   })
   @UseInterceptors(ClassSerializerInterceptor)
-  getDetail(@Param('courseId') courseId: number) {
-    return this.courseService.getDetail(courseId);
+  getDetail(@Param('courseId') courseId: number, @Request() req: AuthedRequest) {
+    return this.courseService.getDetail(courseId, req.user);
   }
 
   @Role(UserRole.TEACHER)

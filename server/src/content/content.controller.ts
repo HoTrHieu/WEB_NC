@@ -28,7 +28,6 @@ export class ContentController {
   ) {
     const newContent = await this.contentService.add(
       courseId,
-      req.user.id,
       content,
     );
     return StdResponse.of(StdResponseCode.SUCCESS, newContent.id);
@@ -46,7 +45,6 @@ export class ContentController {
     @Request() req: AuthedRequest,
   ) {
     const isSuccess = await this.contentService.update(
-      req.user.id,
       contentId,
       content,
     );

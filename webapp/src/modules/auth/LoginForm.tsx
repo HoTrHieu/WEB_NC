@@ -1,5 +1,5 @@
 import { GoogleCircleFilled } from "@ant-design/icons";
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, notification } from "antd";
 import { useForm } from "antd/lib/form/Form";
 import React, { useCallback } from "react";
 import { UserFormRules } from "../user/UserFormRules";
@@ -17,6 +17,11 @@ export function LoginForm(props: ILoginFormProps) {
       const success = await AuthService.login(values.username, values.password);
       if (success) {
         window.location.pathname = props.redirect || "/";
+      } else {
+        notification.error({
+          message: "Error",
+          description: "Username or password are wrong"
+        })
       }
     },
     [props.redirect]

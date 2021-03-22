@@ -9,7 +9,7 @@ export class UploaderService {
   private ASSETS_FOLDER_NAME;
   private configs = {
     [FileType.IMAGE]: {
-      folder: 'images',
+      folder: 'upload/images',
       maxSize:  5 * 1024 * 1024, // 5MB
       validMimeTypes: [
         'image/gif',
@@ -20,11 +20,12 @@ export class UploaderService {
       ]
     },
     [FileType.VIDEO]: {
-      folder: 'videos',
+      folder: 'upload/videos',
       maxSize:  500 * 1024 * 1024, // 500MB
       validMimeTypes: [
-        'video/webm',
-        'video/ogg'
+        'video/x-flv',
+        'video/mp4',
+        'video/3gpp'
       ]
     },
   };

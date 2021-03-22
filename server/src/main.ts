@@ -7,6 +7,7 @@ import * as path from 'path';
 async function bootstrap() {
   // setup env variables
   process.env.ROOT_PATH = path.resolve(__dirname, '..');
+  process.env.TZ = 'Asia/Ho_Chi_Minh';
 
   const app = await NestFactory.create(AppModule, { cors: true });
   app.setGlobalPrefix('/api/v1');
