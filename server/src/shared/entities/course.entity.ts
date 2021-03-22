@@ -16,7 +16,7 @@ import { User } from './user.entity';
 import { WatchList } from './watch-list.entity';
 import { Enrollment } from './enrollment.entity';
 import { Review } from './review.entity';
-import { IsNumber, IsString, Length, Max, Min } from 'class-validator';
+import { IsNumber, IsString, Length, Max, Min, MinLength } from 'class-validator';
 import { HighlightCourse } from './highlight-course.entity';
 
 @Entity({
@@ -30,7 +30,7 @@ export class Course {
   @ApiProperty()
   @Column('varchar', { length: 255, unique: true })
   @IsString()
-  @Length(1, 255)
+  @Length(8, 255)
   title: string;
 
   @ApiResponseProperty()
@@ -40,6 +40,7 @@ export class Course {
   @ApiProperty()
   @Column('text')
   @IsString()
+  @MinLength(8)
   subDescription: string;
 
   @ApiProperty()

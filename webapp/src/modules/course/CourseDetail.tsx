@@ -145,7 +145,7 @@ export function CourseDetail(props: ICourseDetailProps) {
           <h3 className="text-xl">
             <b>Description</b>
           </h3>
-          <div>{props.course.description}</div>
+          <div dangerouslySetInnerHTML={{ __html: props.course.description }}></div>
           <h3 className="mt-8 text-xl">
             <b>Course contents</b>
           </h3>

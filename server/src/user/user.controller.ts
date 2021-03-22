@@ -25,6 +25,7 @@ import { AddUserWithRoleRequest } from './dto/add-user-with-role-request.dto';
 import { CheckEmailRequest } from './dto/check-email-request.dto';
 import { CheckResponse } from './dto/check-response.dto';
 import { CheckUsernameRequest } from './dto/check-username-request.dto';
+import { SearchUserRequest } from './dto/search-user-request.dto';
 import { UpdateEmailRequest } from './dto/update-email-request.dto';
 import { UpdateTeacherProfileRequest } from './dto/update-teacher-profile-request.dto';
 import { UpdateUserFirstLastNameRequest } from './dto/update-user-first-last-name-request.dto';
@@ -43,7 +44,7 @@ export class UserController {
     type: PagingResponse,
   })
   @ApiBearerAuth()
-  searchUser(@Query() request: SearchRequest) {
+  searchUser(@Query() request: SearchUserRequest) {
     return this.userService.searchUser(request);
   }
 

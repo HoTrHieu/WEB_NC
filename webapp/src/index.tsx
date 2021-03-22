@@ -19,7 +19,7 @@ import "slick-carousel/slick/slick-theme.css";
 import 'filepond/dist/filepond.min.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
 import 'filepond-plugin-media-preview/dist/filepond-plugin-media-preview.min.css';
-import "draft-js/dist/Draft.css";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import "./styles/index.css";
 
 const FilePondPluginMediaPreview = require('filepond-plugin-media-preview');
