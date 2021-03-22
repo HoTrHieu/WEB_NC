@@ -36,9 +36,13 @@ export class UploaderController {
   @UseInterceptors(FileInterceptor('file'))
   async upload(
     @Headers('x-file-type') fileType: FileType,
+    @Headers('x-upload-state') state: string,
     @UploadedFile() file: Express.Multer.File,
   ) {
     const filePath = await this.uploaderService.upload(fileType, file);
-    return StdResponse.of(StdResponseCode.SUCCESS, filePath);
+    return StdResponse.of(StdResponseCode.SUCCESS, {
+      filePath,
+      state
+    });
   }
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useEffect } from "react";
 import { Checkbox, Form, Input, InputNumber } from "antd";
 import { IContent } from "../../shared/entities/IContent";
 import { Uploader } from "../uploader/Uploader";
@@ -8,10 +8,32 @@ import { ContentEditFormRules } from "./ContentEditFormRules";
 
 interface IContentEditFormProps {
   content?: IContent;
+  formRef?: any;
 }
 
 export function ContentEditForm(props: IContentEditFormProps) {
   const [form] = Form.useForm();
+  const { formRef } = props;
+  
+  const startProcess = useCallback(async () => {
+    let content;
+    try {
+      content = await form.validateFields();
+    } catch {
+      return;
+    }
+  }, []);
+
+  useEffect(() => {
+    if (formRef) {
+      formRef.current = {
+        async save() {
+
+        }
+      }
+    }
+  }, [formRef]);
+
   return (
     <>
       <Form form={form} initialValues={props.content}>
@@ -43,7 +65,7 @@ export function ContentEditForm(props: IContentEditFormProps) {
           <FdmEditor />
         </Form.Item>
       </Form>
-      <label className="block mb-2">Video <b className="text-red-400">*</b></label>
+      <label className="block mb-2">Video</label>
       <Uploader fileType={FileType.VIDEO} />
     </>
   );

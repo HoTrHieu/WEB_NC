@@ -1,11 +1,18 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsEnum, IsOptional } from 'class-validator';
+import { Type } from 'class-transformer';
+import { IsEnum, IsNumber, IsOptional, Min } from 'class-validator';
 import { SearchRequest } from 'src/shared/dtos/search-request.dto';
 import { UserRole } from 'src/shared/enums/user-role';
 
 export class SearchUserRequest extends SearchRequest {
-  @ApiPropertyOptional({ enum: UserRole })
-  @IsEnum(UserRole)
+  @ApiPropertyOptional()
+  @IsNumber()
+  @Type(() => Number)
+  @Min(1)
   @IsOptional()
-  role: UserRole
+  role: UserRole;
+
+  get isRoleExists() {
+    return !!this.role;
+  }
 }

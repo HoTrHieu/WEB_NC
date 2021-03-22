@@ -1,5 +1,5 @@
 import React, { useCallback, useRef, useState } from "react";
-import { Button, Divider, Form, Input, InputNumber, Tooltip } from "antd";
+import { Button, Divider, Form, Input, InputNumber, notification, Tooltip } from "antd";
 import { useForm } from "antd/lib/form/Form";
 import { ICourse } from "../../shared/entities/ICourse";
 import { FileType } from "../../shared/enums/FileType";
@@ -18,6 +18,7 @@ interface ICourseEditFormProps {
 
 export function CourseEditForm(props: ICourseEditFormProps) {
   const [form] = useForm();
+  const [submitLoading, setSubmitLoading] = useState(false);
   const [contents, setContents] = useState<IContent[]>([]);
   const addContent = useCallback(() => {
     setContents([
@@ -29,16 +30,47 @@ export function CourseEditForm(props: ICourseEditFormProps) {
     ]);
   }, [contents]);
 
-  const createCourse = useCallback(() => {
-
-  }, []);
-
-  const uploadCountRef = useRef(0);
-  const onUpLoadSuccessHandler = useCallback(() => {
-    if (++uploadCountRef.current === 2) {
-
+  const avatarRef = useRef<any>();
+  const coverRef = useRef<any>();
+  const startProcess = useCallback(async () => {
+    try {
+      await form.validateFields();
+    } catch {
+      return;
     }
-  }, []);
+
+    if (!avatarRef.current.getFile()) {
+      return notification.error({
+        message: 'Error',
+        description: "Course's avatar is empty"
+      });
+    }
+
+    if (!coverRef.current.getFile()) {
+      return notification.error({
+        message: 'Error',
+        description: "Course's cover is empty"
+      });
+    }
+
+    setSubmitLoading(true);
+    avatarRef.current.processFile();
+    coverRef.current.processFile();
+  }, [form]);
+
+  const createCourse = useCallback(async () => {
+    const course = await form.getFieldsValue();
+    console.log(course, uploadResultRef.current);
+    setSubmitLoading(false);
+  }, [form]);
+
+  const uploadResultRef = useRef<any>({});
+  const onUpLoadSuccessHandler = useCallback((result) => {
+    uploadResultRef.current[result.state] = result.filePath;
+    if (Object.keys(uploadResultRef.current).length === 2) {
+      createCourse();
+    }
+  }, [createCourse]);
 
   return (
     <>
@@ -108,12 +140,12 @@ export function CourseEditForm(props: ICourseEditFormProps) {
         <label className="block mb-2">
           Avatar <b className="text-red-400">*</b>
         </label>
-        <Uploader fileType={FileType.IMAGE} />
+        <Uploader fileType={FileType.IMAGE} state="avatarPath" onUploadSuccess={onUpLoadSuccessHandler} pondRef={avatarRef} />
       </div>
 
       <div>
         <label className="block mb-2">Cover</label>
-        <Uploader fileType={FileType.IMAGE} />
+        <Uploader fileType={FileType.IMAGE} state="coverPath" onUploadSuccess={onUpLoadSuccessHandler} pondRef={coverRef} />
       </div>
 
       <h1 className="text-xl mt-8">
@@ -146,7 +178,7 @@ export function CourseEditForm(props: ICourseEditFormProps) {
         </div>
       </Button>
       <Divider />
-      <Button danger type="primary" shape="round" className="w-full">
+      <Button loading={submitLoading} danger type="primary" shape="round" className="w-full" onClick={startProcess}>
         Create course
       </Button>
     </>

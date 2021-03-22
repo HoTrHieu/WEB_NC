@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { OtpService } from 'src/otp/otp.service';
 import { SearchRequest } from 'src/shared/dtos/search-request.dto';
@@ -11,29 +15,29 @@ import { PagingUtil } from 'src/shared/utils/paging.util';
 import { Like, Repository } from 'typeorm';
 import { AddUserWithRoleRequest } from './dto/add-user-with-role-request.dto';
 import * as moment from 'moment';
+import { SearchUserRequest } from './dto/search-user-request.dto';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
-    private otpService: OtpService
+    private otpService: OtpService,
   ) {}
 
-  searchUser(request: SearchRequest) {
-    const emailCondition: any = {};
-    const displayNameCondition: any = {};
-    const andConditions = { status: EntityStatus.ACTIVE };
+  searchUser(request: SearchUserRequest) {
+    const qb = this.userRepository
+      .createQueryBuilder()
+      .where('status = :status', { status: EntityStatus.ACTIVE });
     if (request.isSearchTermExists) {
-      emailCondition.email = Like(`%${request.searchTerm}%`);
-      displayNameCondition.displayName = Like(`%${request.searchTerm}%`);
+      qb.andWhere('email LIKE :searchTerm')
+        .andWhere('firstName LIKE :searchTerm or lastName LIKE :searchTerm')
+        .setParameter('searchTerm', `%${request.searchTerm}%`);
     }
-    return PagingUtil.paginate(this.userRepository, request, {
-      where: [
-        { ...emailCondition, ...andConditions },
-        { ...displayNameCondition, ...andConditions },
-      ],
-    });
+    if (request.isRoleExists) {
+      qb.andWhere('role = :role', { role: request.role });
+    }
+    return PagingUtil.paginateByQb(qb, request);
   }
 
   async exists(id: number) {
@@ -102,7 +106,7 @@ export class UserService {
   async updateEmail(id: number, email: string, otp: string) {
     const validOtp = await this.otpService.checkOtp(otp, email);
     if (!validOtp) {
-      throw new BadRequestException("OTP is invalid");
+      throw new BadRequestException('OTP is invalid');
     }
     const exists = await this.userRepository.findOne({ email });
     if (!!exists) {
@@ -110,18 +114,24 @@ export class UserService {
     }
     const user = await this.findOneById(id);
     if (!user) {
-      throw new NotFoundException("User not found");
+      throw new NotFoundException('User not found');
     }
     if (!!user.updatedEmailDate) {
-      const remainDays = 30 - moment().diff(moment(user.updatedEmailDate), 'days');
+      const remainDays =
+        30 - moment().diff(moment(user.updatedEmailDate), 'days');
       if (remainDays > 0) {
-        throw new BadRequestException(`Please wait for ${remainDays} days to update your email`);
+        throw new BadRequestException(
+          `Please wait for ${remainDays} days to update your email`,
+        );
       }
     }
-    const result = await this.userRepository.update({ id }, {
-      email,
-      updatedEmailDate: new Date()
-    });
+    const result = await this.userRepository.update(
+      { id },
+      {
+        email,
+        updatedEmailDate: new Date(),
+      },
+    );
     return result.affected > 0;
   }
 

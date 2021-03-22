@@ -8,6 +8,7 @@ import { AuthService } from "../auth/AuthService";
 
 interface IUploaderProps {
   fileType: FileType;
+  state?: string;
   onUploadSuccess?: (filePath: string) => any;
   pondRef?: any;
   [key: string]: any;
@@ -41,6 +42,7 @@ export function Uploader(props: IUploaderProps) {
         process: {
           headers: {
             'x-file-type': props.fileType,
+            'x-upload-state': props.state,
             'Authorization': `Bearer ${AuthService.accessToken}`
           },
           onload: (raw: any) => {
@@ -57,7 +59,7 @@ export function Uploader(props: IUploaderProps) {
         } as any
       }}
       ref={(ref) => {
-        if (props.pondRef?.current) {
+        if (props.pondRef) {
           props.pondRef.current = ref;
         }
       }}
