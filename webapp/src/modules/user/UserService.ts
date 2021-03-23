@@ -39,4 +39,9 @@ export class UserService {
   static async updateTeacherProfile(payload: any) {
     return CrudService.put(ApiEndpoint.user.updateTeacherProfile, payload);
   }
+
+  static async updateStatus(data: any) {
+    const res = await CrudService.put(ApiEndpoint.user.updateStatus(data.id), {status: data.newStatus});
+    return res;
+  }
 }
