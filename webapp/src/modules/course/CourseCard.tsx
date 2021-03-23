@@ -42,44 +42,50 @@ export function CourseCard(props: ICourseCardProps) {
     [course.id]
   );
   return (
-    <Link
-      to={`/courses/detail/${course.id}`}
-      className="h-fulli block rounded-lg p-5 border shadow hover:shadow-lg h-auto cursor-pointer"
-    >
-      <div className="flex justify-center mb-5">
+    <div className="h-fulli block rounded-lg p-5 border shadow hover:shadow-lg h-auto">
+      <Link
+        to={`/courses/detail/${course.id}`}
+        className="flex justify-center mb-5"
+      >
         <FdmImage
           alt={course.title}
           className="w-full rounded-lg"
           style={{ height: "135px" }}
-          src={`${ASSETS_URL}/images/${course.avatarPath}`}
+          src={`${ASSETS_URL}/${course.avatarPath}`}
         />
-      </div>
-      <div className="flex items-start">
-        <h1>{course.title}</h1>
-        {AuthService.isAuthed &&
-          (watchListLoading ? (
-            <LoadingOutlined className="text-xl" />
-          ) : (
-            <Tooltip placement="left" title={isWatchList ? "Un-love" : "Love"}>
-              <div
-                className={
-                  "ml-2 text-xl " +
-                  (isWatchList ? "text-red-400" : "text-gray-700")
-                }
-              >
-                {isWatchList ? (
-                  <HeartFilled
-                    className="text-red-400"
-                    onClick={() => updateWatchList(EntityStatus.DISABLED)}
-                  />
-                ) : (
-                  <HeartOutlined
-                    onClick={() => updateWatchList(EntityStatus.ACTIVE)}
-                  />
-                )}
-              </div>
-            </Tooltip>
-          ))}
+      </Link>
+      <div className="flex items-start relative">
+        <Link className="block pr-8" to={`/courses/detail/${course.id}`}>
+          <h1>{course.title}</h1>
+        </Link>
+        <div>
+          <div className="absolute" style={{ top: '-5px', right: "5px" }}>
+            {AuthService.isAuthed &&
+              (watchListLoading ? (
+                <LoadingOutlined className="text-xl" />
+              ) : (
+                <Tooltip placement="left" title={isWatchList ? "Un-love" : "Love"}>
+                  <div
+                    className={
+                      "text-xl " +
+                      (isWatchList ? "text-red-400" : "text-gray-700")
+                    }
+                  >
+                    {isWatchList ? (
+                      <HeartFilled
+                        className="text-red-400"
+                        onClick={() => updateWatchList(EntityStatus.DISABLED)}
+                      />
+                    ) : (
+                      <HeartOutlined
+                        onClick={() => updateWatchList(EntityStatus.ACTIVE)}
+                      />
+                    )}
+                  </div>
+                </Tooltip>
+              ))}
+          </div>
+        </div>
       </div>
       <p className="my-0 text-gray-700">
         <span className="text-yellow-300 mr-1">{course.avgStar}</span>{" "}
@@ -91,7 +97,7 @@ export function CourseCard(props: ICourseCardProps) {
       </p>
       {course.isEnrollment ? (
         <p className="my-0 text-red-400 flex items-center">
-          <BookOutlined className="mr-1" /> You have enrolled this course
+          <BookOutlined className="mr-1" /> You are studying this course
         </p>
       ) : (
         <p className="my-0">
@@ -112,12 +118,15 @@ export function CourseCard(props: ICourseCardProps) {
       </div>
 
       {course.creatorId === authedUser?.id && (
-        <Link to={`/teacher/edit-course/${course.id}`} className="mt-3 block w-fulli">
+        <Link
+          to={`/teacher/edit-course/${course.id}`}
+          className="mt-3 block w-fulli"
+        >
           <Button danger type="primary" shape="round" className="w-full">
             Edit course
           </Button>
         </Link>
       )}
-    </Link>
+    </div>
   );
 }

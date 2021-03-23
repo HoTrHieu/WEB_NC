@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import { RouteComponentProps } from 'react-router';
 import { FdmLoading } from '../../shared/components/FdmLoading';
 import { useQuery } from '../../shared/hooks/useQuery.hook';
+import { CourseEditForm } from '../course/CourseEditForm';
 import { CourseService } from '../course/CourseService';
 
 export function TeacherEditCoursePage(props: RouteComponentProps) {
@@ -11,7 +12,7 @@ export function TeacherEditCoursePage(props: RouteComponentProps) {
   }, [courseId]);
   const courseResponse = useQuery(fetchCourse);
 
-  if (courseResponse.loading) {
+  if (courseResponse.loading || !!courseResponse.error || !courseResponse.data) {
     return (
       <div className="flex justify-center items-center">
         <FdmLoading />
@@ -20,6 +21,8 @@ export function TeacherEditCoursePage(props: RouteComponentProps) {
   }
 
   return (
-    <div>Edit course</div>
+    <div>
+      <CourseEditForm course={courseResponse.data} />
+    </div>
   )
 }

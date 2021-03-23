@@ -39,6 +39,14 @@ export function Uploader(props: IUploaderProps) {
       maxFiles={1}
       server={{
         url: ApiEndpoint.uploader.upload,
+        load: (source, load) => {
+          const myRequest = new Request(source);
+          fetch(myRequest).then(function(response) {
+            response.blob().then(function(myBlob) {
+              load(myBlob)
+            });
+          });         
+      },
         process: {
           headers: {
             'x-file-type': props.fileType,

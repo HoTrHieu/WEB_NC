@@ -10,6 +10,7 @@ import { TeacherPage } from "./modules/teacher/TeacherPage";
 import { WatchListPage } from "./modules/watch-list/WatchListPage";
 import { FdmAuthedRoute } from "./shared/components/FdmAuthedRoute";
 import { UserRole } from "./shared/enums/UserRole";
+import { NotFoundPage } from "./shared/pages/NotFound.page";
 
 export function AppRoutes() {
   return (
@@ -30,6 +31,7 @@ export function AppRoutes() {
         roles={[UserRole.ADMIN]}
         component={AdminPage}
       />
+      <Route path="*" component={NotFoundPage} />
     </Switch>
   );
 }

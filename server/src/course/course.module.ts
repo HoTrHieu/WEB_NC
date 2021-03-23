@@ -1,6 +1,7 @@
 import { forwardRef, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CategoryModule } from 'src/category/category.module';
+import { ContentModule } from 'src/content/content.module';
 import { EnrollmentModule } from 'src/enrollment/enrollment.module';
 import { EsHelperModule } from 'src/es-helper/es-helper.module';
 import { HighlightCourseModule } from 'src/highlight-course/highlight-course.module';
@@ -20,6 +21,7 @@ import { CourseService } from './course.service';
     WatchListModule,
     CategoryModule,
     EnrollmentModule,
+    ContentModule
   ],
   controllers: [CourseController],
   providers: [CourseService, CourseEsService],

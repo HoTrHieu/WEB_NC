@@ -16,7 +16,7 @@ export class WatchListService {
       if (success) {
         notification.success({
           message: "Success",
-          description: `${state} success`,
+          description: `${state} course success`,
           style: {
             zIndex: 10
           }

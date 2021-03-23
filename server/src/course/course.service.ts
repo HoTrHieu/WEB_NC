@@ -6,6 +6,7 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AuthUser } from 'src/auth/dto/auth-user.dto';
+import { ContentService } from 'src/content/content.service';
 import { EnrollmentService } from 'src/enrollment/enrollment.service';
 import { HighlightCourseService } from 'src/highlight-course/highlight-course.service';
 import { PagingResponse } from 'src/shared/dtos/paging-response.dto';
@@ -15,11 +16,12 @@ import { WatchList } from 'src/shared/entities/watch-list.entity';
 import { EntityStatus } from 'src/shared/enums/entity-status';
 import { ArrayUtil } from 'src/shared/utils/array.util';
 import { WatchListService } from 'src/watch-list/watch-list.service';
-import { FindManyOptions, In, Repository } from 'typeorm';
+import { FindManyOptions, In, Not, Repository } from 'typeorm';
 import { CourseEsService } from './course-es.service';
 import { CourseResponse } from './dto/course-response.dto';
 import { CourseSearchRequest } from './dto/course-search-request.dto';
 import { CourseTopType } from './enums/course-top-type';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class CourseService {
@@ -48,6 +50,7 @@ export class CourseService {
     private highlightCourseService: HighlightCourseService,
     private watchListService: WatchListService,
     private enrollmentService: EnrollmentService,
+    private contentService: ContentService
   ) {}
 
   async decor(courses: Course[], user?: AuthUser): Promise<CourseResponse[]> {
@@ -97,12 +100,12 @@ export class CourseService {
     if (request.onlyWatchList) {
       const watchList = await this.watchListService.findByUserId(user.id);
       request.ids = watchList.map((wl) => wl.courseId);
-      isEmpty = true;
+      isEmpty = request.ids.length === 0;
     }
     if (request.onlyEnrollment) {
       const enrollments = await this.enrollmentService.findByUserId(user.id);
       request.ids = enrollments.map((e) => e.courseId);
-      isEmpty = true;
+      isEmpty = request.ids.length === 0;
     }
     if (!isEmpty) {
       const esResult = await this.courseEsService.search(request);
@@ -154,6 +157,7 @@ export class CourseService {
       throw new NotFoundException('This course is not exists');
     }
 
+    await this.increaseTotalView(courseId);
     const responses = await this.decor([course], user);
     return responses[0];
   }
@@ -194,42 +198,58 @@ export class CourseService {
     }
   }
 
+  async save(course: Course) {
+    return this.courseRepository.manager.transaction(async () => {
+      const { contents, ...restCourse } = course;
+      const savedCourse = await this.courseRepository.save({
+        ...restCourse,
+        slug: uuidv4()
+      });
+      if (!!savedCourse) {
+        if (!!contents) {
+          contents.forEach(content => content.courseId = savedCourse.id);
+          this.contentService.save(...contents);
+        }
+        if (!(await this.courseEsService.upsertCourse(savedCourse))) {
+          throw new Error(
+            `Upsert elasticsearch failed for course: ${savedCourse.id}`,
+          );
+        }
+        return savedCourse;
+      }
+      return null;
+    });
+  }
+
   async add(userId: number, course: Course) {
     course.creatorId = userId;
-    const savedCourse = await this.courseRepository.save(course);
-    if (!!savedCourse) {
-      const success = await this.courseEsService.upsertCourse(course);
-      if (!success) {
-        this.logger.error(
-          `Upsert elasticsearch failed for course: ${savedCourse.id}`,
-        );
-      }
-    }
-    return savedCourse;
+    return this.save(course);
   }
 
   async update(userId: number, courseId: number, course: Course) {
     await this.validateAndThrow(courseId, userId);
-    const change = {
-      title: course.title,
-      subDescription: course.subDescription,
-      description: course.description,
-      price: course.price,
-      avatarPath: course.avatarPath,
-      coverPath: course.coverPath,
-      categoryId: course.categoryId,
-    };
-    const result = await this.courseRepository.update(
-      {
-        id: courseId,
-      },
-      change,
-    );
-    let success = result.affected > 0;
-    if (success) {
-      return await this.partialUpdate(courseId, change);
-    }
-    return success;
+    return this.courseRepository.manager.transaction(async () => {
+      const change = {
+        title: course.title,
+        slug: uuidv4(),
+        subDescription: course.subDescription,
+        description: course.description,
+        price: course.price,
+        discount: course.discount,
+        avatarPath: course.avatarPath,
+        coverPath: course.coverPath,
+        categoryId: course.categoryId,
+      };
+      const success = await this.partialUpdate(courseId, change);
+      if (!success) {
+        throw new Error(`Partial update failed for course: ${courseId}`);
+      }
+      if (!!course.contents) {
+        course.contents.forEach(content => content.courseId = courseId);
+        await this.contentService.save(...course.contents);
+      }
+      return success;
+    });
   }
 
   private async partialUpdate(courseId: number, change: any) {
@@ -268,7 +288,7 @@ export class CourseService {
       totalView,
     } = await this.courseRepository
       .createQueryBuilder()
-      .where('courseId = :courseId', { courseId })
+      .where('id = :courseId', { courseId })
       .select('totalView')
       .getRawOne();
     return totalView;
@@ -289,11 +309,13 @@ export class CourseService {
   async topOfWeeks(user?: AuthUser) {
     const highlights = await this.highlightCourseService.topOfWeeks();
     const highlightSize = Array.isArray(highlights) ? highlights.length : 0;
-    const courses = await this.findByIdIn(highlights.map((h) => h.courseId));
+    const highlightCourseIds = highlights.map((h) => h.courseId);
+    const courses = await this.findByIdIn(highlightCourseIds);
     if (highlightSize < 5) {
       courses.push(
         ...(await this.courseRepository.find({
           where: {
+            id: Not(In(highlightCourseIds)),
             status: EntityStatus.ACTIVE,
           },
           order: {
@@ -302,7 +324,7 @@ export class CourseService {
             totalView: 'DESC',
           },
           relations: ['creator', 'category', 'category.parent'],
-          take: highlights.length - highlightSize,
+          take: 5 - highlightSize,
         })),
       );
     }

@@ -29,7 +29,7 @@ export const ApiEndpoint = {
   course: {
     search: '/api/v1/course/search',
     topOfWeeks: '/api/v1/course/top-of-weeks',
-    add: '/api/v1/course/add',
+    add: '/api/v1/course',
     top: (type: CourseTopType) => `/api/v1/course/top/${type}`,
     getDetail: (id: number) => `/api/v1/course/detail/${id}`,
     update: (id: number) => `/api/v1/course/${id}`,
@@ -53,7 +53,9 @@ export const ApiEndpoint = {
     add: (courseId: number) => `/api/v1/review/${courseId}`
   },
   studyProcess: {
-    update: (id: number) => `/api/v1/study-process/${id}`
+    findOne: (courseId: number) => `/api/v1/study-process/find-one/${courseId}`,
+    findByCourseId: (courseId: number) => `/api/v1/study-process/find-by-course-id/${courseId}`,
+    update: (courseId: number) => `/api/v1/study-process/${courseId}`
   },
   watchList: {
     updateStatus: (courseId: number) => `/api/v1/watch-list/update-status/${courseId}`
@@ -84,6 +86,8 @@ export const AuthedApiEndpoints = [
   ApiEndpoint.enrollment.getDetail,
   ApiEndpoint.enrollment.enroll,
   ApiEndpoint.review.add,
+  ApiEndpoint.studyProcess.findOne,
+  ApiEndpoint.studyProcess.findByCourseId,
   ApiEndpoint.studyProcess.update,
   ApiEndpoint.watchList.updateStatus
 ];

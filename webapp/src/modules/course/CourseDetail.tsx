@@ -1,4 +1,5 @@
 import {
+  BookOutlined,
   ClockCircleOutlined,
   HeartOutlined,
   MobileOutlined,
@@ -19,10 +20,12 @@ import { EnrollmentService } from "../enrollment/EnrollmentService";
 import { ReviewList } from "../review/ReviewList";
 import { WatchListService } from "../watch-list/WatchListService";
 import { CourseReviewForm } from "./CourseReviewForm";
+import { FormatUtils } from "../../shared/utils/FormatUtils";
+import { ContentList } from "../content/ContentList";
 
 interface ICourseDetailProps {
   course: ICourse;
-  onRefreshNeeded: Function
+  onRefreshNeeded: Function;
 }
 
 export function CourseDetail(props: ICourseDetailProps) {
@@ -81,8 +84,17 @@ export function CourseDetail(props: ICourseDetailProps) {
     <div className="flex">
       <div
         className="absolute bg-gray-900 w-full left-0"
-        style={{ zIndex: 1, height: "400px", marginTop: "-2rem" }}
+        style={{
+          zIndex: 1,
+          height: "400px",
+          marginTop: "-2rem",
+          backgroundImage: `url(${ASSETS_URL}/${props.course.coverPath})`,
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+        }}
       ></div>
+      <div className="absolute bg-gray-900 w-full left-0" style={{ zIndex: 2, height: "400px", marginTop: '-2rem', opacity: 0.75 }}></div>
       <div className="w-3/4 pr-4" style={{ zIndex: 2 }}>
         <p className="text-white">
           <Link
@@ -131,8 +143,9 @@ export function CourseDetail(props: ICourseDetailProps) {
         <div>
           <Button
             loading={watchListLoading}
-            type="primary"
+            type={isWatchList ? 'default' : 'primary'}
             danger
+            shape="round"
             onClick={updateWatchList}
           >
             <div className="flex items-center">
@@ -145,15 +158,28 @@ export function CourseDetail(props: ICourseDetailProps) {
           <h3 className="text-xl">
             <b>Description</b>
           </h3>
-          <div dangerouslySetInnerHTML={{ __html: props.course.description }}></div>
+          <div
+            dangerouslySetInnerHTML={{ __html: props.course.description }}
+          ></div>
           <h3 className="mt-8 text-xl">
             <b>Course contents</b>
           </h3>
+          {Array.isArray(props.course.contents) && props.course.contents.length > 0 && (
+            <ContentList courseId={props.course.id} contents={props.course.contents} isEnrolled={isEnrolled} />
+          )}
           <h3 className="mt-8 text-xl">
             <b>About the creator</b>
           </h3>
-          <div className="border py-2 px-6 rounded-lg" style={{ borderLeftColor: 'rgb(96, 165, 250)', borderLeftWidth: '.2rem' }}>
-            <h4 className="text-red-500 text-xl mb-1">{props.course.creator?.firstName} {props.course.creator?.lastName}</h4>
+          <div
+            className="border py-2 px-6 rounded-lg"
+            style={{
+              borderLeftColor: "rgb(96, 165, 250)",
+              borderLeftWidth: ".2rem",
+            }}
+          >
+            <h4 className="text-red-500 text-xl mb-1">
+              {props.course.creator?.firstName} {props.course.creator?.lastName}
+            </h4>
             <p className="text-gray-500">{props.course.creator.bio}</p>
             <p className="mb-0">{props.course.creator.introduction}</p>
           </div>
@@ -175,7 +201,7 @@ export function CourseDetail(props: ICourseDetailProps) {
             <FdmImage
               alt={props.course.title}
               className="w-full rounded-lg"
-              src={`${ASSETS_URL}/images/${props.course.avatarPath}`}
+              src={`${ASSETS_URL}/${props.course.avatarPath}`}
             />
           </div>
           {!isEnrolled && (
@@ -216,6 +242,16 @@ export function CourseDetail(props: ICourseDetailProps) {
             <p className="flex items-center">
               <SnippetsOutlined className="mr-2" />{" "}
               {props.course.contents?.length || 0} articles
+            </p>
+            <p className="flex items-center">
+              <BookOutlined className="mr-2" />{" "}
+              {FormatUtils.formatSeconds(
+                props.course.contents?.reduce(
+                  (total, curr) => total + curr.duration,
+                  0
+                )
+              )}{" "}
+              video time
             </p>
             <p className="flex items-center">
               <ClockCircleOutlined className="mr-2" /> Full lifetime access

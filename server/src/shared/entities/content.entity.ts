@@ -5,6 +5,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -54,6 +55,10 @@ export class Content {
   duration: number;
 
   @ApiResponseProperty()
+  @Column('int')
+  courseId: number;
+
+  @ApiResponseProperty()
   @Column({
     type: 'enum',
     enum: EntityStatus,
@@ -72,6 +77,7 @@ export class Content {
 
   @ApiResponseProperty({ type: () => Course })
   @ManyToOne(() => Course, (course) => course.contents)
+  @JoinColumn({ name: 'courseId' })
   course: Course;
 
   @ApiResponseProperty({ type: () => StudyProcess })

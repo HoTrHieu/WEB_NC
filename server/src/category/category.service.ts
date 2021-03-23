@@ -5,6 +5,7 @@ import { EntityStatus } from 'src/shared/enums/entity-status';
 import { IsNull, Repository } from 'typeorm';
 import * as moment from 'moment';
 import { TopCategoryOfWeek } from './dto/top-category-of-week.dto';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class CategoryService {
@@ -25,7 +26,9 @@ export class CategoryService {
   }
 
   async findParentId(categoryId: number) {
-    const { parentId } = await this.categoryRepository
+    const {
+      parentId,
+    } = await this.categoryRepository
       .createQueryBuilder()
       .where('id = :categoryId', { categoryId })
       .select('parentId')
@@ -67,7 +70,7 @@ export class CategoryService {
   async addCategory(name: string) {
     let category = await this.findOneByName(name);
     if (!category) {
-      category = this.categoryRepository.create({ name });
+      category = this.categoryRepository.create({ name, slug: uuidv4() });
     }
     category.status = EntityStatus.ACTIVE;
     return this.categoryRepository.save(category);

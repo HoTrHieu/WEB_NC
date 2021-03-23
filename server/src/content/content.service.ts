@@ -20,7 +20,7 @@ export class ContentService {
 
   findOne(contentId: number) {
     return this.contentRepository.findOne({
-      where: { contentId },
+      where: { id: contentId },
     });
   }
 
@@ -31,6 +31,14 @@ export class ContentService {
       .select('MAX(order)', 'maxOrder')
       .getRawOne();
     return maxOrder || 0;
+  }
+
+  async save(...contents: Content[]) {
+    for (const content of contents) {
+      content.duration = await getVideoDurationInSeconds(
+        this.uploaderService.getFullFilePath(content.videoPath));
+    }
+    return this.contentRepository.save(contents);
   }
 
   async add(courseId: number, content: Content) {

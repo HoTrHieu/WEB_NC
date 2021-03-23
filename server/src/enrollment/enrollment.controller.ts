@@ -36,7 +36,7 @@ export class EnrollmentController {
     type: StdResponse,
   })
   @ApiBearerAuth()
-  async updateStatus(
+  async enroll(
     @Param('courseId') courseId: number,
     @Request() req: AuthedRequest,
   ) {

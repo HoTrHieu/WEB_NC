@@ -15,11 +15,20 @@ export class StudyProcessService {
     private contentService: ContentService,
   ) {}
 
-  async findOne(courseId: number, userId: number, contentId: number) {
-    return this.studyProcessRepository.findOne({
+  async findByCourseId(courseId: number, userId: number) {
+    return this.studyProcessRepository.find({
       courseId,
       userId,
-      contentId,
+    });
+  }
+
+  async findOne(courseId: number, userId: number, contentId: number) {
+    return this.studyProcessRepository.findOne({
+      where: {
+        courseId,
+        userId,
+        contentId,
+      },
     });
   }
 
@@ -28,14 +37,6 @@ export class StudyProcessService {
     userId: number,
     request: UpdateStudyProcessRequest,
   ) {
-    const enrollmentExists = await this.enrollmentService.exists(
-      courseId,
-      userId,
-    );
-    if (!enrollmentExists) {
-      throw new BadRequestException('You are not yet enrolled in this course');
-    }
-
     const content = await this.contentService.findOne(request.contentId);
     const done = request.duration === content.duration;
     let studyProcess = await this.findOne(courseId, userId, request.contentId);
@@ -51,7 +52,6 @@ export class StudyProcessService {
       studyProcess.done = studyProcess.done || done;
       studyProcess.duration = Math.max(studyProcess.duration, request.duration);
     }
-
     return this.studyProcessRepository.save(studyProcess);
   }
 }

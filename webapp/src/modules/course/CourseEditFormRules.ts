@@ -25,7 +25,7 @@ export const CourseEditFormRules: ICourseEditFormRules = {
     { required: true, message: 'Discount is required' },
     { type: 'number', min: 0, max: 500, message: 'Invalid discount' },
     ({ getFieldValue }) => ({
-      validator(_, discount: number) {
+      async validator(_, discount: number) {
         const price = getFieldValue('price') || 0;
         if (price < discount) {
           throw new Error("Invalid discount");

@@ -21,6 +21,7 @@ import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
 import 'filepond-plugin-media-preview/dist/filepond-plugin-media-preview.min.css';
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import "./styles/index.css";
+import 'video-react/dist/video-react.css';
 
 const FilePondPluginMediaPreview = require('filepond-plugin-media-preview');
 

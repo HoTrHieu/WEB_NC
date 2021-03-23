@@ -24,6 +24,10 @@ export class CourseService {
     return CrudService.create(ApiEndpoint.course.add, course);
   }
 
+  static update(course: ICourse) {
+    return CrudService.put(ApiEndpoint.course.update(course.id), course);
+  }
+
   static getDetail(id: number) {
     return CrudService.get(ApiEndpoint.course.getDetail(id));
   }
