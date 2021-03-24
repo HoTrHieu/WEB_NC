@@ -18,14 +18,14 @@ export class AddUserRequest {
   password: string;
 
   @IsString()
-  @ApiProperty({ minLength: 4, maxLength: 255 })
-  @MinLength(4)
+  @ApiProperty({ minLength: 1, maxLength: 255 })
+  @MinLength(1)
   @MaxLength(255)
   firstName: string;
 
   @IsString()
-  @ApiProperty({ minLength: 4, maxLength: 255 })
-  @MinLength(4)
+  @ApiProperty({ minLength: 1, maxLength: 255 })
+  @MinLength(1)
   @MaxLength(255)
   lastName: string;
 }
