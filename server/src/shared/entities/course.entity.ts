@@ -99,7 +99,7 @@ export class Course {
   categoryId: number;
 
   @ApiProperty()
-  @Column('boolean')
+  @Column('boolean', { default: false })
   complete: boolean;
 
   @ApiResponseProperty()

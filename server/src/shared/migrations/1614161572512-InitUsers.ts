@@ -25,7 +25,7 @@ const jobTitles = [
   'Principal Engineer',
   'Chief Technology Officer',
   'Software Architect',
-  'Exper Manager',
+  'Expert Manager',
 ];
 
 export class InitUsers1614161572512 implements MigrationInterface {

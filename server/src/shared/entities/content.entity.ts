@@ -41,7 +41,7 @@ export class Content {
   order: number;
 
   @ApiProperty()
-  @Column('boolean')
+  @Column('boolean', { default: false })
   @IsBoolean()
   preview: boolean;
 

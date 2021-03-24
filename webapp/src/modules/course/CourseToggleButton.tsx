@@ -1,4 +1,4 @@
-import { Button, Popconfirm } from "antd";
+import { Button, notification, Popconfirm } from "antd";
 import React, { useCallback, useState } from "react";
 import { ICourse } from "../../shared/entities/ICourse";
 import { EntityStatus } from "../../shared/enums/EntityStatus";
@@ -24,6 +24,10 @@ export function CourseToggleButton(props: ICoureToggleButtonProps) {
           : EntityStatus.ACTIVE;
       await CourseService.updateStatus(course.id, newStatus);
       setStatus(newStatus);
+      notification.success({
+        message: "Success",
+        description: "Update course's status success",
+      });
     } catch (err) {
       console.error(err);
       NotificationUtils.error(err.message);

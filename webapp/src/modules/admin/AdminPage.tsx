@@ -48,7 +48,7 @@ export function AdminPage(props: RouteComponentProps) {
       </div>
       <div className="w-11/12">
         <Switch>
-          <Redirect exact from="/admin" to="/admin/student/list" />
+          <Redirect exact from="/admin" to="/admin/student" />
           <Route path="/admin/student" component={ManageStudentPage} />
           <Route path="/admin/teacher" component={ManageTeacherPage} />
           <Route path="/admin/category" component={ManageCategoryPage} />

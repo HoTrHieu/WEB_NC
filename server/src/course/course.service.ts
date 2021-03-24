@@ -194,7 +194,7 @@ export class CourseService {
     const courseExists = await this.validate(courseId, userId);
     if (!courseExists) {
       throw new BadGatewayException(
-        'Bạn không có quyền chỉnh sửa khóa học này',
+        'You are not authorized to edit this course',
       );
     }
   }
@@ -262,8 +262,7 @@ export class CourseService {
     return success;
   }
 
-  async updateStatus(userId: number, courseId: number, status: EntityStatus) {
-    await this.validateAndThrow(courseId, userId);
+  async updateStatus(courseId: number, status: EntityStatus) {
     return this.partialUpdate(courseId, { status });
   }
 

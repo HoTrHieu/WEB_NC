@@ -68,6 +68,12 @@ PUT web_nc_courses
       },
       "updatedDate": {
         "type": "date"
+      },
+      "complete": {
+        "type": "boolean"
+      },
+      "status": {
+        "type": "integer"
       }
     }
   }

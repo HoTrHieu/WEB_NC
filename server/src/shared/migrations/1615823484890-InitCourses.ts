@@ -41,12 +41,13 @@ export class InitCourses1615823484890 implements MigrationInterface {
                         coverPath: `images/default-cover.jpg`,
                         creatorId: teachers[faker.random.number(teachers.length - 1)].id,
                         categoryId: categories.find(c => c.slug === childCate).id,
-                        price: faker.random.float({ min: 5, max: 20 }),
+                        price: Math.floor(faker.random.float({ min: 5, max: 20 })),
                         discount: faker.random.number({ min: 0, max: 4 }),
                         totalView: faker.random.number({ min: 500, max: 10000 }),
                         avgStar: faker.random.float({ max: 5, min: 2 }),
                         totalReview: faker.random.number({ min: 5, max: 500 }),
-                        totalEnrollment: faker.random.number({ min: 100, max: 500 })
+                        totalEnrollment: faker.random.number({ min: 100, max: 500 }),
+                        complete: faker.random.boolean()
                     }));
 
                     titleExists[course.title] = (titleExists[course.title] || 0) + 1;

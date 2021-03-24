@@ -4,7 +4,6 @@ import { AppModule } from './app.module';
 import { useSwagger } from './shared/modules/swagger.module';
 import * as path from 'path';
 
-
 async function bootstrap() {
   // setup env variables
   process.env.ROOT_PATH = path.resolve(__dirname, '..');

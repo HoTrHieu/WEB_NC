@@ -106,7 +106,7 @@ export class CourseController {
     return BooleanResponse.of(isSuccess);
   }
 
-  @Role(UserRole.TEACHER)
+  @Role(UserRole.ADMIN)
   @Put('/update-status/:id')
   @ApiResponse({
     type: BooleanResponse,
@@ -115,10 +115,8 @@ export class CourseController {
   async updateStatus(
     @Param('id') id: number,
     @Body() request: UpdateStatusRequest,
-    @Request() req: AuthedRequest,
   ) {
     const isSuccess = await this.courseService.updateStatus(
-      req.user.id,
       id,
       request.status,
     );

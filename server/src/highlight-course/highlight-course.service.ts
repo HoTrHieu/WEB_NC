@@ -24,7 +24,7 @@ export class HighlightCourseService {
     return qb.execute();
   }
 
-  async topOfWeeks() {
+  async topOfWeeks(take = 5) {
     return this.repository.find({
       where: {
         year: moment().year(),
@@ -33,7 +33,7 @@ export class HighlightCourseService {
       order: {
         score: 'DESC'
       },
-      take: 5
+      take
     })
   }
 }

@@ -34,7 +34,7 @@ export class StudyProcess {
   duration: number;
 
   @ApiProperty()
-  @Column('boolean')
+  @Column('boolean', { default: false })
   done: boolean;
 
   @ApiProperty()

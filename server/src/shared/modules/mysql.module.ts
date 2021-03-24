@@ -32,7 +32,6 @@ export const mysqlModule = TypeOrmModule.forRootAsync({
       CategoryTotalEnrollment,
     ],
     synchronize: config.get('settings.mysql.sync'),
-    insecureAuth: true,
     // logging: true,
     // logging: process.env.NODE_ENV === 'dev',
   }),
