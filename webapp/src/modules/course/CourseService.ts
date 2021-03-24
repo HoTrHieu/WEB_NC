@@ -1,14 +1,17 @@
 import { ApiEndpoint } from "../../shared/constants/ApiEndpoint";
 import { ICourse } from "../../shared/entities/ICourse";
+import { EntityStatus } from "../../shared/enums/EntityStatus";
 import { CrudService } from "../../shared/services/CrudService";
 import { IPagingResponse } from "../../types/IPagingResponse";
 import { CourseTopType } from "./enums/CourseTopType";
 import { ICourseSearchRequest } from "./types/CourseSearchRequest";
 
 export class CourseService {
-  static search(request: ICourseSearchRequest): Promise<IPagingResponse<ICourse>> {
+  static search(
+    request: ICourseSearchRequest
+  ): Promise<IPagingResponse<ICourse>> {
     return CrudService.get(ApiEndpoint.course.search, {
-      params: request
+      params: request,
     });
   }
 
@@ -26,6 +29,10 @@ export class CourseService {
 
   static update(course: ICourse) {
     return CrudService.put(ApiEndpoint.course.update(course.id), course);
+  }
+
+  static updateStatus(id: number, status: EntityStatus) {
+    return CrudService.put(ApiEndpoint.course.updateStatus(id), { status });
   }
 
   static getDetail(id: number) {

@@ -15,11 +15,14 @@ import { EntityStatus } from "../../shared/enums/EntityStatus";
 import { useAuthedUser } from "../../shared/hooks/useAuthedUser";
 import { AuthService } from "../auth/AuthService";
 import { WatchListService } from "../watch-list/WatchListService";
+import { CourseService } from "./CourseService";
+import { CourseToggleButton } from "./CourseToggleButton";
 
 interface ICourseCardProps {
   course: ICourse;
   loading?: boolean;
   className?: string;
+  removeable?: boolean;
 }
 
 export function CourseCard(props: ICourseCardProps) {
@@ -41,6 +44,12 @@ export function CourseCard(props: ICourseCardProps) {
     },
     [course.id]
   );
+
+  const toggleCourse = useCallback(async (id: number) => {
+    try {
+    } catch {}
+  }, []);
+
   return (
     <div className="h-fulli block rounded-lg p-5 border shadow hover:shadow-lg h-auto">
       <Link
@@ -59,12 +68,15 @@ export function CourseCard(props: ICourseCardProps) {
           <h1>{course.title}</h1>
         </Link>
         <div>
-          <div className="absolute" style={{ top: '-5px', right: "5px" }}>
+          <div className="absolute" style={{ top: "-5px", right: "5px" }}>
             {AuthService.isAuthed &&
               (watchListLoading ? (
                 <LoadingOutlined className="text-xl" />
               ) : (
-                <Tooltip placement="left" title={isWatchList ? "Un-love" : "Love"}>
+                <Tooltip
+                  placement="left"
+                  title={isWatchList ? "Un-love" : "Love"}
+                >
                   <div
                     className={
                       "text-xl " +
@@ -117,6 +129,12 @@ export function CourseCard(props: ICourseCardProps) {
         )}
       </div>
 
+      {!course.complete && (
+        <p className="text-yellow-400 my-0 text-xs">
+          This course is not completed yet
+        </p>
+      )}
+
       {course.creatorId === authedUser?.id && (
         <Link
           to={`/teacher/edit-course/${course.id}`}
@@ -126,6 +144,10 @@ export function CourseCard(props: ICourseCardProps) {
             Edit course
           </Button>
         </Link>
+      )}
+
+      {props.removeable && (
+        <CourseToggleButton course={course} className="w-full mt-3" />
       )}
     </div>
   );

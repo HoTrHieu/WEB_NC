@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   Button,
+  Checkbox,
   Divider,
   Form,
   Input,
@@ -233,6 +234,9 @@ export function CourseEditForm(props: ICourseEditFormProps) {
         <label className="block mb-2">Description</label>
         <Form.Item name="description">
           <FdmEditor html={propsCourse?.description} editorRef={editorRef} />
+        </Form.Item>
+        <Form.Item name="complete" valuePropName="checked">
+          <Checkbox>Complete</Checkbox>
         </Form.Item>
       </Form>
       <div>

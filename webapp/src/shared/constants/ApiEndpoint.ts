@@ -10,6 +10,7 @@ export const ApiEndpoint = {
     changePassword: '/api/v1/auth/change-password'
   },
   user: {
+    all: '/api/v1/user/all',
     search: '/api/v1/user/search',
     add: '/api/v1/user/add',
     checkEmail: '/api/v1/user/check-email',
@@ -22,9 +23,13 @@ export const ApiEndpoint = {
   },
   category: {
     all: '/api/v1/category/all',
+    search: '/api/v1/category/search',
     topOfWeeks: '/api/v1/category/top-of-weeks',
     add: '/api/v1/category/add',
-    udpateStatus: (id: number) => `/api/v1/cateogry/update-status`
+    checkName: '/api/v1/category/check-name',
+    findOne: (id: number) => `/api/v1/category/${id}`,
+    update: (id: number) => `/api/v1/category/${id}`,
+    udpateStatus: (id: number) => `/api/v1/category/update-status/${id}`
   },
   course: {
     search: '/api/v1/course/search',
@@ -75,6 +80,7 @@ export const AuthedApiEndpoints = [
   ApiEndpoint.user.updateRole,
   ApiEndpoint.user.updateStatus,
   ApiEndpoint.category.add,
+  ApiEndpoint.category.update,
   ApiEndpoint.category.udpateStatus,
   ApiEndpoint.course.add,
   ApiEndpoint.course.update,
@@ -89,5 +95,5 @@ export const AuthedApiEndpoints = [
   ApiEndpoint.studyProcess.findOne,
   ApiEndpoint.studyProcess.findByCourseId,
   ApiEndpoint.studyProcess.update,
-  ApiEndpoint.watchList.updateStatus
+  ApiEndpoint.watchList.updateStatus,
 ];

@@ -6,6 +6,8 @@ import { IsNull, Repository } from 'typeorm';
 import * as moment from 'moment';
 import { TopCategoryOfWeek } from './dto/top-category-of-week.dto';
 import { v4 as uuidv4 } from 'uuid';
+import { SearchCategoryRequest } from './dto/search-category-request.dto';
+import { PagingUtil } from 'src/shared/utils/paging.util';
 
 @Injectable()
 export class CategoryService {
@@ -13,6 +15,16 @@ export class CategoryService {
     @InjectRepository(Category)
     private categoryRepository: Repository<Category>,
   ) {}
+
+  search(request: SearchCategoryRequest) {
+    const conditions: any = {};
+    if (!request.all) {
+      conditions.status = EntityStatus.ACTIVE;
+    }
+    return PagingUtil.paginate(this.categoryRepository, request, {
+      where: conditions
+    });
+  }
 
   findAll() {
     return this.categoryRepository.find({
@@ -23,6 +35,10 @@ export class CategoryService {
 
   findOne(categoryId: number) {
     return this.categoryRepository.findOne(categoryId);
+  }
+
+  async checkName(name: string) {
+    return !!(await this.categoryRepository.findOne({ name }));
   }
 
   async findParentId(categoryId: number) {
@@ -79,6 +95,16 @@ export class CategoryService {
   async updateStatus(id: number, status: EntityStatus) {
     const result = await this.categoryRepository.update(id, {
       status,
+    });
+    return result.affected > 0;
+  }
+
+  async update(id: number, category: Category) {
+    category.slug = uuidv4();
+    const result = await this.categoryRepository.update(id, {
+      slug: category.slug,
+      name: category.name,
+      parentId: category.parentId
     });
     return result.affected > 0;
   }

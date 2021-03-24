@@ -78,6 +78,12 @@ export class CourseSearchRequest extends SearchRequest {
   @IsOptional()
   creatorId: number;
 
+  @ApiPropertyOptional()
+  @IsBoolean()
+  @IsOptional()
+  @Type(() => Boolean)
+  all?: boolean;
+
   getIds() {
     return RequestUtil.parseArray(this.ids);
   }
@@ -128,6 +134,10 @@ export class CourseSearchRequest extends SearchRequest {
     return !!this.creatorId;
   }
 
+  get isAllExists() {
+    return !!this.all;
+  }
+
   get isSearching() {
     return (
       this.isCategoryIdsExists ||
@@ -138,7 +148,8 @@ export class CourseSearchRequest extends SearchRequest {
       this.isToStarExists ||
       this.isIdsExists ||
       this.isOnlyEnrollmentExists ||
-      this.isCreatorIdExists
+      this.isCreatorIdExists ||
+      this.isAllExists
     );
   }
 }

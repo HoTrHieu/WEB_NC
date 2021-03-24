@@ -1,79 +1,72 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import React, { useState } from "react";
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
   TeamOutlined,
   ReadFilled,
-  UserOutlined
-} from '@ant-design/icons';
-import { RouteComponentProps, useHistory } from 'react-router';
-import { useQuery } from "../../shared/hooks/useQuery.hook";
-import { Menu, Button } from 'antd';
-
-import { UserService } from '../user/UserService'
-import { IContentSearchRequest } from '../user/types/SearchUserRequest';
-import { UserRole } from '../../shared/enums/UserRole';
-import {UserManageComponent} from './UserManageComponent';
+  UserOutlined,
+  CompassOutlined,
+} from "@ant-design/icons";
+import { Route, RouteComponentProps, useHistory, Switch } from "react-router";
+import { Menu, Button } from "antd";
+import { CategoryManagePage } from "./CategoryManagePage";
+import { CourseManagePage } from "./CourseManagePage";
+import { ManageStudentPage } from "./ManageStudentPage";
+import { ManageTeacherPage } from "./ManageTeacherPage";
 
 const TYPE_LINK = {
-  TEACHERS: "/admin/teachers",
-  STUDENTS: "/admin/students",
-  ADMIN: "/admin/admin",
-  COURSES: "/admin/courses"
-}
+  TEACHER: "/admin/teacher",
+  STUDENT: "/admin/student",
+  CATEGORY: "/admin/category",
+  COURSE: "/admin/course",
+};
 
-const LINK = {
-  [TYPE_LINK.STUDENTS]: UserRole.NORMAL,
-  [TYPE_LINK.TEACHERS]: UserRole.TEACHER,
-  [TYPE_LINK.ADMIN]: UserRole.ADMIN,
-  [TYPE_LINK.COURSES]: 5,
-}
- 
 export function AdminPage(props: RouteComponentProps) {
   const history = useHistory();
   const [collapsed, setCollapsed] = useState(false);
 
-  const [req, setReq] = useState({
-    page: 1,
-    pageSize: 10,
-    role: history.location.pathname.includes('students') ? UserRole.NORMAL : (history.location.pathname.includes('teachers') ? UserRole.TEACHER : UserRole.ADMIN)
-  })
-
-  const userList = useQuery(
-    useCallback(()=> UserService.search(req), [req])
-  );
-  
-
   return (
     <div className="flex space-x-4">
-      <div className="">
-        <Button type="primary" onClick={()=>setCollapsed(!collapsed)} style={{ marginBottom: 16 }}>
-            {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined)}
-          </Button>
-          <Menu
-            defaultSelectedKeys={[props.location.pathname]}
-            defaultOpenKeys={['admin/students']}
-            mode="inline"
-            theme="dark"
-            onSelect={e => {history.push(e.key as any); setReq({...req, role: LINK[e.key]} )}}
-            inlineCollapsed={collapsed}
-          >
-            <Menu.Item key={TYPE_LINK.STUDENTS} icon={<TeamOutlined />}>
-              Quản lý học viên
-            </Menu.Item>
-            <Menu.Item key={TYPE_LINK.TEACHERS} icon={<UserOutlined />}>
-              Quản lý giảng viên
-            </Menu.Item>
-            <Menu.Item key={TYPE_LINK.COURSES} icon={<ReadFilled />}>
-              Quản lý khóa học
-            </Menu.Item>
-          </Menu>
-        </div>
-      <div className="w-11/12">
-        <UserManageComponent
-          userList={userList}
-        />
+      <div className="w-3/12">
+        <Button
+          type="primary"
+          className="mb-5"
+          onClick={() => setCollapsed(!collapsed)}
+        >
+          {React.createElement(
+            collapsed ? MenuUnfoldOutlined : MenuFoldOutlined
+          )}
+        </Button>
+        <Menu
+          defaultSelectedKeys={[props.location.pathname]}
+          defaultOpenKeys={["admin/students"]}
+          mode="inline"
+          theme="dark"
+          onSelect={(e) => history.push(e.key as any)}
+          inlineCollapsed={collapsed}
+        >
+          <Menu.Item key={TYPE_LINK.STUDENT} icon={<TeamOutlined />}>
+            Manage student
+          </Menu.Item>
+          <Menu.Item key={TYPE_LINK.TEACHER} icon={<UserOutlined />}>
+            Manage teacher
+          </Menu.Item>
+          <Menu.Item key={TYPE_LINK.CATEGORY} icon={<CompassOutlined />}>
+            Manage category
+          </Menu.Item>
+          <Menu.Item key={TYPE_LINK.COURSE} icon={<ReadFilled />}>
+            Manage course
+          </Menu.Item>
+        </Menu>
+      </div>
+      <div className="w-9/12">
+        <Switch>
+          <Route path="/admin/student" component={ManageStudentPage} />
+          <Route path="/admin/teacher" component={ManageTeacherPage} />
+          <Route path="/admin/category" component={CategoryManagePage} />
+          <Route path="/admin/course" component={CourseManagePage} />
+        </Switch>
       </div>
     </div>
-  )
+  );
 }

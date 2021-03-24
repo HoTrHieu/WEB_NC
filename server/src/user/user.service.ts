@@ -25,10 +25,20 @@ export class UserService {
     private otpService: OtpService,
   ) {}
 
+  findAll() {
+    return this.userRepository.find({
+      select: ['username', 'id', 'firstName', 'lastName']
+    })
+  }
+
   searchUser(request: SearchUserRequest) {
     const qb = this.userRepository
-      .createQueryBuilder()
-      .where('status = :status', { status: EntityStatus.ACTIVE });
+      .createQueryBuilder();
+    
+    if (!request.all) {
+      qb.where('status = :status', { status: EntityStatus.ACTIVE });
+    }
+    
     if (request.isSearchTermExists) {
       qb.andWhere('email LIKE :searchTerm')
         .andWhere('firstName LIKE :searchTerm or lastName LIKE :searchTerm')

@@ -14,7 +14,7 @@ export const RegisterFormRules: IRegisterFormRules = {
       async validator(_, email) {
         const exists = await UserService.checkEmail(email);
         if (exists) {
-          throw new Error('E-mail is existed, please use another');
+          throw new Error('E-mail is existed, please use another one');
         }
       },
       validateTrigger: 'submit'
@@ -26,7 +26,7 @@ export const RegisterFormRules: IRegisterFormRules = {
       async validator(_, username) {
         const exists = await UserService.checkUsername(username);
         if (exists) {
-          throw new Error('Username is existed, please use another')
+          throw new Error('Username is existed, please use another one')
         }
       },
       validateTrigger: 'submit'

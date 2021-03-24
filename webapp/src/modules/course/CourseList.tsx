@@ -8,8 +8,10 @@ import { ICourse } from "../../shared/entities/ICourse";
 import { OrderDirection } from "../../shared/enums/OrderDirection";
 import { useCompKey } from "../../shared/hooks/useCompKey";
 import { useQuery } from "../../shared/hooks/useQuery.hook";
+import { FdmUtils } from "../../shared/utils/FdmUtils";
 import { IPagingResponse } from "../../types/IPagingResponse";
 import { CategorySelect } from "../category/CategorySelect";
+import { UserSelect } from "../user/UserSelect";
 import { CourseCard } from "./CourseCard";
 import { CourseOrderBySelect } from "./CourseSortTypeSelect";
 import { CourseOrderBy } from "./enums/CourseOrderBy";
@@ -17,7 +19,9 @@ import { ICourseSearchRequest } from "./types/CourseSearchRequest";
 
 interface ICourseListProps {
   categoryId?: number;
+  creatorId?: number;
   searchTerm?: string;
+  removeable?: boolean;
   fetchSource: (
     request: ICourseSearchRequest
   ) => Promise<IPagingResponse<ICourse>>;
@@ -32,13 +36,8 @@ export function CourseList(props: ICourseListProps) {
     null
   );
   const [filters, setFilters] = useState<any>({
-    categoryIds: (() => {
-      return props.categoryId &&
-        !isNaN(props.categoryId) &&
-        props.categoryId > 0
-        ? [props.categoryId]
-        : [];
-    })(),
+    categoryIds: FdmUtils.isID(props.categoryId) ? [props.categoryId] : [],
+    creatorId: FdmUtils.isID(props.creatorId) ? props.creatorId : null,
   });
   const searchTermCompKey = useCompKey();
   const renewSearchTermCompKey = searchTermCompKey.renewCompKey;
@@ -123,7 +122,7 @@ export function CourseList(props: ICourseListProps) {
           <div className="flex flex-wrap">
             {pagingResponse.items.map((course: ICourse, idx: number) => (
               <div className="w-1/4 px-2 mb-4">
-                <CourseCard course={course} key={idx} />
+                <CourseCard course={course} key={idx} removeable={props.removeable} />
               </div>
             ))}
           </div>
@@ -151,6 +150,14 @@ export function CourseList(props: ICourseListProps) {
             defaultValue={filters.categoryIds}
             mode="multiple"
             onChange={(categoryIds) => updateFilters({ categoryIds })}
+          />
+          <Divider />
+          <label className="block mb-4">
+            <b>Creator</b>
+          </label>
+          <UserSelect
+            defaultValue={filters.creatorId}
+            onChange={(creatorId) => updateFilters({ creatorId })}
           />
           <Divider />
           <label className="block my-4">

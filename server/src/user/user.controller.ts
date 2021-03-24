@@ -19,6 +19,7 @@ import { PagingResponse } from 'src/shared/dtos/paging-response.dto';
 import { SearchRequest } from 'src/shared/dtos/search-request.dto';
 import { StdResponse } from 'src/shared/dtos/std-response.dto';
 import { UpdateStatusRequest } from 'src/shared/dtos/update-status-request.dto';
+import { User } from 'src/shared/entities/user.entity';
 import { StdResponseCode } from 'src/shared/enums/std-response-code';
 import { UserRole } from 'src/shared/enums/user-role';
 import { AddUserWithRoleRequest } from './dto/add-user-with-role-request.dto';
@@ -36,6 +37,17 @@ import { UserService } from './user.service';
 @Controller('/user')
 export class UserController {
   constructor(private userService: UserService) {}
+
+  @Get('/all')
+  @ApiResponse({
+    type: User,
+    isArray: true
+  })
+  @Public()
+  findAll() {
+    return this.userService.findAll();
+  }
+
 
   @UseInterceptors(ClassSerializerInterceptor)
   @Role(UserRole.ADMIN)

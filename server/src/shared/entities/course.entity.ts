@@ -98,6 +98,10 @@ export class Course {
   @Min(1)
   categoryId: number;
 
+  @ApiProperty()
+  @Column('boolean')
+  complete: boolean;
+
   @ApiResponseProperty()
   @Column({
     type: 'enum',

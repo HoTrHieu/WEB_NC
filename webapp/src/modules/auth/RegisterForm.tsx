@@ -29,6 +29,7 @@ export function RegisterForm() {
   );
 
   const register = useCallback(async () => {
+    setRegisterLoading(true);
     try {
       let request;
       try {
@@ -37,10 +38,8 @@ export function RegisterForm() {
         return;
       }
 
-      setRegisterLoading(true);
       await AuthService.register(request);
-      setRegisterLoading(false);
-
+      
       notification.success({
         message: "Success",
         description: "Register success, try to login your account",
@@ -50,6 +49,7 @@ export function RegisterForm() {
       console.error(err);
       NotificationUtils.error(err.message);
     }
+    setRegisterLoading(false);
   }, [history, form]);
 
   const { SendOtpButton } = otpSender;

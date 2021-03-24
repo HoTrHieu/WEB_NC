@@ -63,6 +63,14 @@ export class CourseEsService {
       ];
     }
 
+    if (!request.isAllExists) {
+      searchBody.query.bool.filter.push({
+        term: {
+          status: EntityStatus.ACTIVE,
+        },
+      });
+    }
+
     if (request.isSearching) {
       if (request.isSearchTermExists) {
         searchBody.query.bool.filter.push({

@@ -1,5 +1,6 @@
 import { ApiEndpoint } from "../../shared/constants/ApiEndpoint";
 import { IUser } from "../../shared/entities/IUser";
+import { EntityStatus } from "../../shared/enums/EntityStatus";
 import { CrudService } from "../../shared/services/CrudService";
 import { IAddUserRequest } from "./types/AddUserRequest";
 import { IPagingResponse } from "./types/IPagingResponse";
@@ -22,7 +23,7 @@ export class UserService {
     return res.exists;
   }
 
-  static search(request: IContentSearchRequest): Promise<IPagingResponse<IUser>> {
+  static search(request: any): Promise<IPagingResponse<IUser>> {
     return CrudService.get(ApiEndpoint.user.search, {
       params: request
     });
@@ -40,8 +41,12 @@ export class UserService {
     return CrudService.put(ApiEndpoint.user.updateTeacherProfile, payload);
   }
 
-  static async updateStatus(data: any) {
-    const res = await CrudService.put(ApiEndpoint.user.updateStatus(data.id), {status: data.newStatus});
+  static async updateStatus(id: number, status: EntityStatus) {
+    const res = await CrudService.put(ApiEndpoint.user.updateStatus(id), { status });
     return res;
+  }
+
+  static async all() {
+    return CrudService.get(ApiEndpoint.user.all);
   }
 }

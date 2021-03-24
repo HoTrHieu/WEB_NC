@@ -13,4 +13,5 @@ export interface ICourseSearchRequest extends ISearchRequest {
   onlyWatchList?: boolean;
   onlyEnrollment?: boolean;
   creatorId?: number;
+  all?: boolean;
 }

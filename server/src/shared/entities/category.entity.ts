@@ -29,10 +29,8 @@ export class Category {
   @Length(1, 255)
   name: string;
 
-  @ApiProperty()
+  @ApiResponseProperty()
   @Column('varchar', { length: 255, unique: true })
-  @IsString()
-  @Length(1, 255)
   slug: string;
 
   @ApiProperty()
