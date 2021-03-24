@@ -10,6 +10,7 @@ services:
       - fademy_net
     volumes:
       - "./server/:/app/"
+      - "./server/config.deploy.json:/app/config.docker.json"
       - "./server/ormconfig.docker.json:/app/ormconfig.json"
       - "/app/node_modules"
     labels:
