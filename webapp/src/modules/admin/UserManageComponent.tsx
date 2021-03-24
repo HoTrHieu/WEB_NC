@@ -4,12 +4,17 @@ import { UserService } from '../user/UserService'
 import { EntityStatus } from '../../shared/enums/EntityStatus';
 
 export function UserManageComponent(props: any) {
-  const {userList} = props || {};
+  const {userList, currentRole, handleChange} = props || {};
   const [form] = Form.useForm();
-  
+  const [pagination, setPagination] = useState({
+    pageSize: userList.data.pageSize,
+    page: userList.data.page,
+    total: userList.data.total,
+    current: userList.data.page
+  })
+
   const changeStatus = (value: any)=> {
     const {id, status} = value;
-    console.log(status)
     const newStatus = status === 1 ? EntityStatus.DISABLED : EntityStatus.ACTIVE;
     const res = UserService.updateStatus({id, newStatus})
   }
@@ -69,12 +74,22 @@ export function UserManageComponent(props: any) {
     };
   });
 
+  const handleTableChange = (newPagination: any, filters: any, sorter: any) => {
+    handleChange({
+      page: newPagination.current,
+      pageSize: 10,
+      role: currentRole.role
+    })
+  };
+
   return (
     <Form form={form} component={false}>
       <Table 
         columns={mergedColumns}
         loading={userList.loading || !!userList.error} 
         dataSource={userList.data?.items}
+        pagination={pagination}
+        onChange={handleTableChange}
       />      
     </Form>
 

@@ -43,7 +43,6 @@ export function AdminPage(props: RouteComponentProps) {
     useCallback(()=> UserService.search(req), [req])
   );
   
-
   return (
     <div className="flex space-x-4">
       <div className="">
@@ -70,9 +69,14 @@ export function AdminPage(props: RouteComponentProps) {
           </Menu>
         </div>
       <div className="w-11/12">
-        <UserManageComponent
-          userList={userList}
-        />
+        {
+          userList.data &&
+          <UserManageComponent
+            userList={userList}
+            currentRole={req}
+            handleChange={setReq}
+          />
+        }
       </div>
     </div>
   )
