@@ -59,6 +59,23 @@ sudo sysctl -w vm.max_map_count=262144
 ./3.run-migration.local.sh
 ```
 
+## Hướng dẫn sử dựng
+
+Tài khoản admin:
+
+* username: **admin**
+* password: **123456789**
+
+Tài khoản teacher:
+
+* username: **teacher1**
+* password: **123456789**
+
+Tài khoản student:
+
+* username: **student**
+* password: **123456789**
+
 ## Gỡ bỏ dự án
 
 * Tắt hết các terminal liên quan đến dự án
