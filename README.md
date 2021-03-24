@@ -73,7 +73,7 @@ Tài khoản teacher:
 
 Tài khoản student:
 
-* username: **student**
+* username: **student1**
 * password: **123456789**
 
 ## Gỡ bỏ dự án
