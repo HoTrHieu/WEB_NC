@@ -41,7 +41,8 @@ export class CourseService {
     'categoryId',
     'createdDate',
     'updatedDate',
-    'status'
+    'status',
+    'complete'
   ];
 
   constructor(
@@ -240,6 +241,7 @@ export class CourseService {
         avatarPath: course.avatarPath,
         coverPath: course.coverPath,
         categoryId: course.categoryId,
+        complete: course.complete
       };
       const success = await this.partialUpdate(courseId, change);
       if (!success) {

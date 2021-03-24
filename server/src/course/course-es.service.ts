@@ -74,8 +74,11 @@ export class CourseEsService {
     if (request.isSearching) {
       if (request.isSearchTermExists) {
         searchBody.query.bool.filter.push({
-          match_phrase: {
-            title: request.searchTerm,
+          match: {
+            title: {
+              query: request.searchTerm,
+              operator: "and"
+            }
           },
         });
       }
