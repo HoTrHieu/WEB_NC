@@ -1,0 +1,19 @@
+bootstrap.memory_lock: false
+cluster.name: fademy_elasticsearch
+node.name: fademy_master
+
+network.host: fademy_elasticsearch
+http.port: 9222
+transport.tcp.port: 9333
+
+node.data: true
+node.ingest: true
+node.master: true
+node.max_local_storage_nodes: 1
+discovery.type: single-node
+
+path.data: data
+path.logs: logs
+
+xpack.license.self_generated.type: basic
+xpack.security.enabled: false

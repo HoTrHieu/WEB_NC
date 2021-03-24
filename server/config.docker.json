@@ -1,0 +1,30 @@
+{
+  "settings": {
+    "es": {
+      "node": "http://fademy_elasticsearch:9222"
+    },
+    "mysql": {
+      "host": "fademy_mysql",
+      "port": 3306,
+      "username": "root",
+      "password": "123456789",
+      "dbname": "web_nc_fademy",
+      "sync": true
+    },
+    "mailer": {
+      "host": "smtp.office365.com",
+      "port": 587,
+      "from": "fademy.edu@outlook.com.vn",
+      "auth": {
+        "user": "fademy.edu@outlook.com.vn",
+        "pass": "F4d3my_2021"
+      }
+    },
+    "google": {
+      "clientId": "749715082106-b3ae5s2fc3j5s72fd58rtr4jhnqen9nf.apps.googleusercontent.com",
+      "clientSecret": "O2MUfctyfz6jEVMmFdN45vB_",
+      "callbackURL": "http://localhost:3115/api/v1/auth/redirect/google",
+      "feRedirectURL": "http://localhost:3115/"
+    }
+  }
+}
