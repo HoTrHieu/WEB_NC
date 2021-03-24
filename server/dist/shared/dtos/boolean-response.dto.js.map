@@ -1,0 +1,1 @@
+{"version":3,"file":"boolean-response.dto.js","sourceRoot":"","sources":["../../../src/shared/dtos/boolean-response.dto.ts"],"names":[],"mappings":";;;;;;;;;;;;AAAA,6CAA8C;AAE9C,MAAa,eAAe;IAI1B,MAAM,CAAC,EAAE,CAAC,OAAgB;QACxB,MAAM,GAAG,GAAG,IAAI,eAAe,EAAE,CAAC;QAClC,GAAG,CAAC,OAAO,GAAG,OAAO,CAAC;QACtB,OAAO,GAAG,CAAC;IACb,CAAC;CACF;AAPC;IADC,qBAAW,EAAE;;gDACG;AAFnB,0CASC"}

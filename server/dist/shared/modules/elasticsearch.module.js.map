@@ -1,0 +1,1 @@
+{"version":3,"file":"elasticsearch.module.js","sourceRoot":"","sources":["../../../src/shared/modules/elasticsearch.module.ts"],"names":[],"mappings":";;;AAAA,2CAA+C;AAC/C,yDAA4D;AAE/C,QAAA,QAAQ,GAAG,mCAAmB,CAAC,aAAa,CAAC;IACxD,UAAU,EAAE,CAAC,MAAqB,EAAE,EAAE,CAAC,CAAC;QACtC,IAAI,EAAE,MAAM,CAAC,GAAG,CAAC,kBAAkB,CAAC;KACrC,CAAC;IACF,MAAM,EAAE,CAAC,sBAAa,CAAC;CACxB,CAAC,CAAC"}

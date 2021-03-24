@@ -1,0 +1,1 @@
+{"version":3,"file":"mail-template.dto.js","sourceRoot":"","sources":["../../../src/mail-sender/dto/mail-template.dto.ts"],"names":[],"mappings":";;;AAAA,MAAa,YAAY;IAIvB,MAAM,CAAC,EAAE,CAAC,OAAe,EAAE,IAAY;QACrC,MAAM,QAAQ,GAAG,IAAI,YAAY,EAAE,CAAC;QACpC,QAAQ,CAAC,OAAO,GAAG,OAAO,CAAC;QAC3B,QAAQ,CAAC,IAAI,GAAG,IAAI,CAAC;QACrB,OAAO,QAAQ,CAAC;IAClB,CAAC;CACF;AAVD,oCAUC"}

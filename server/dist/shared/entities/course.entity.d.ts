@@ -1,0 +1,35 @@
+import { EntityStatus } from '../enums/entity-status';
+import { Category } from './category.entity';
+import { Content } from './content.entity';
+import { User } from './user.entity';
+import { WatchList } from './watch-list.entity';
+import { Enrollment } from './enrollment.entity';
+import { Review } from './review.entity';
+import { HighlightCourse } from './highlight-course.entity';
+export declare class Course {
+    id: number;
+    title: string;
+    slug: string;
+    subDescription: string;
+    description: string;
+    price: number;
+    discount: number;
+    avatarPath: string;
+    coverPath: string;
+    totalEnrollment: number;
+    avgStar: number;
+    totalReview: number;
+    totalView: number;
+    creatorId: number;
+    categoryId: number;
+    status: EntityStatus;
+    updatedDate: Date;
+    createdDate: Date;
+    category: Category;
+    creator: User;
+    contents: Content[];
+    watchLists: WatchList[];
+    enrollments: Enrollment[];
+    reviews: Review[];
+    highlights: HighlightCourse[];
+}
