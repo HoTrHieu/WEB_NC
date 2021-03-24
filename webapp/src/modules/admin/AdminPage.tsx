@@ -21,7 +21,6 @@ const TYPE_LINK = {
 
 export function AdminPage(props: RouteComponentProps) {
   const history = useHistory();
-
   return (
     <div className="flex space-x-4">
       <div className="w-2/12">
