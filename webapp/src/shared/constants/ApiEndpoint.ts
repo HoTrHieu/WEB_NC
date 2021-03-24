@@ -12,7 +12,7 @@ export const ApiEndpoint = {
   user: {
     all: '/api/v1/user/all',
     search: '/api/v1/user/search',
-    add: '/api/v1/user/add',
+    add: '/api/v1/user',
     checkEmail: '/api/v1/user/check-email',
     checkUsername: '/api/v1/user/check-username',
     updateEmail: '/api/v1/user/update-email',
