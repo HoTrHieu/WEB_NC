@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   Button,
   Checkbox,
@@ -151,25 +151,39 @@ export function CourseEditForm(props: ICourseEditFormProps) {
     [createCourse]
   );
 
-  const uploadedFiles = useMemo(() => {
-    if (!!propsCourse) {
-      return {
-        avatar: [
-          {
-            source: `${ASSETS_URL}/${propsCourse.avatarPath}`,
-            options: { type: "local" }   
-          }
-        ],
-        cover: [
-          {
-            source: `${ASSETS_URL}/${propsCourse.coverPath}`,
-            options: { type: "local" }
-          }
-        ]
-      }
+  const [avatar] = useState(() => {
+    if (!!propsCourse && propsCourse.avatarPath) {
+      return [
+        {
+          source: `${ASSETS_URL}/${propsCourse.avatarPath}`,
+          options: { type: "local" }   
+        }
+      ];
     }
-    return {};
-  }, [propsCourse]);
+  });
+
+  const [cover] = useState(() => {
+    if (!!propsCourse && propsCourse.coverPath) {
+      return [
+        {
+          source: `${ASSETS_URL}/${propsCourse.coverPath}`,
+          options: { type: "local" }
+        }
+      ]
+    }
+  });
+
+  let avatarProps: any = {};
+  let coverProps: any = {};
+  if (propsCourse) {
+    if (propsCourse.avatarPath) {
+      avatarProps.files = avatar;
+    }
+
+    if (propsCourse.coverPath) {
+      coverProps.files = cover;
+    }
+  }
 
   return (
     <>
@@ -244,22 +258,22 @@ export function CourseEditForm(props: ICourseEditFormProps) {
           Avatar <b className="text-red-400">*</b>
         </label>
         <Uploader
-          files={uploadedFiles.avatar}
           fileType={FileType.IMAGE}
           state="avatarPath"
           onUploadSuccess={onUpLoadSuccessHandler}
           pondRef={avatarRef}
+          {...avatarProps}
         />
       </div>
 
       <div>
         <label className="block mb-2">Cover</label>
         <Uploader
-          files={uploadedFiles.cover}
           fileType={FileType.IMAGE}
           state="coverPath"
           onUploadSuccess={onUpLoadSuccessHandler}
           pondRef={coverRef}
+          {...coverProps}
         />
       </div>
 

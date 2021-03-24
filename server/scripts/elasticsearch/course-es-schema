@@ -33,8 +33,7 @@ PUT web_nc_courses
       },
       "title": {
         "type": "text",
-        "analyzer": "autocomplete",
-        "search_analyzer": "autocomplete_search"
+        "analyzer": "autocomplete"
       },
       "price": {
         "type": "float"
