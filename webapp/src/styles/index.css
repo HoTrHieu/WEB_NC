@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.h-fulli {
+  height: 100% !important;
+}
+.w-fulli {
+  width: 100% !important;
+}
+.filepond--file-action-button.filepond--action-process-item,
+.filepond--file-action-button.filepond--action-revert-item-processing {
+  display: none !important;
+}

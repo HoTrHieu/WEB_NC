@@ -1,0 +1,20 @@
+{
+  "es": {
+    "index": {
+      "course": "web_nc_courses"
+    }
+  },
+  "jwt": {
+    "secret": "BCFat4MMv7h>*DQ",
+    "accessToken": {
+      "expiresIn": "1h"
+    },
+    "refreshToken": {
+      "ttl": 1.21e+9
+    }
+  },
+  "otp": {
+    "length": 6,
+    "ttl": 180
+  }
+}

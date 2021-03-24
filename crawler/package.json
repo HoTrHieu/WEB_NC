@@ -1,0 +1,12 @@
+{
+  "name": "crawler",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "download": "^8.0.0",
+    "puppeteer": "^8.0.0",
+    "puppeteer-cluster": "^0.22.0",
+    "slugify": "^1.4.7"
+  }
+}

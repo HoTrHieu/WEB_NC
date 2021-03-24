@@ -1,0 +1,4 @@
+yarn
+yarn build
+rm -rf ../server/webapp
+cp -r build ../server/webapp

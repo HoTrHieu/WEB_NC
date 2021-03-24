@@ -1,0 +1,80 @@
+PUT web_nc_courses
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "autocomplete": {
+          "tokenizer": "autocomplete",
+          "filter": [
+            "lowercase"
+          ]
+        },
+        "autocomplete_search": {
+          "tokenizer": "lowercase"
+        }
+      },
+      "tokenizer": {
+        "autocomplete": {
+          "type": "edge_ngram",
+          "min_gram": 2,
+          "max_gram": 10,
+          "token_chars": [
+            "letter",
+            "digit"
+          ]
+        }
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "id": { 
+        "type": "integer"
+      },
+      "title": {
+        "type": "text",
+        "analyzer": "autocomplete",
+        "search_analyzer": "autocomplete_search"
+      },
+      "price": {
+        "type": "float"
+      },
+      "originalPrice": {
+        "type": "float"
+      },
+      "discount": {
+        "type": "float"
+      },
+      "totalEnrollment": {
+        "type": "integer"
+      },
+      "avgStar": {
+        "type": "float"
+      },
+      "totalReview": {
+        "type": "integer"
+      },
+      "totalView": {
+        "type": "integer"
+      },
+      "creatorId": {
+        "type": "integer"
+      },
+      "categoryId": {
+        "type": "integer"
+      },
+      "createdDate": {
+        "type": "date"
+      },
+      "updatedDate": {
+        "type": "date"
+      },
+      "complete": {
+        "type": "boolean"
+      },
+      "status": {
+        "type": "integer"
+      }
+    }
+  }
+}

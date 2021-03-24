@@ -1,0 +1,34 @@
+version: '3'
+services:
+  fademy_mysql:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    container_name: fademy_mysql
+    ports:
+      - "3366:3306"
+    volumes:
+      - ./mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456789
+    networks:
+      - fademy_net
+  fademy_elasticsearch:
+    build:
+      context: docker/elasticsearch/
+    container_name: fademy_elasticsearch
+    ports:
+      - "9222:9222"
+      - "9333:9333"
+    restart: always
+    environment:
+      ES_JAVA_OPTS: "-Xmx256m -Xms256m -Des.transport.cname_in_publish_address=true"
+    volumes:
+      - ./docker/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+      - ./docker/elasticsearch/data:/usr/share/elasticsearch/data
+    networks:
+      - fademy_net
+
+networks:
+  fademy_net:
+    external: true
