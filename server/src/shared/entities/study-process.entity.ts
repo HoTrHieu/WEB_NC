@@ -47,7 +47,6 @@ export class StudyProcess {
 
   @ApiProperty()
   @UpdateDateColumn()
-  @Exclude()
   updatedDate: Date;
 
   @ApiProperty()

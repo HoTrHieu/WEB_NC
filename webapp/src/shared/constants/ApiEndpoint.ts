@@ -25,7 +25,7 @@ export const ApiEndpoint = {
     all: '/api/v1/category/all',
     search: '/api/v1/category/search',
     topOfWeeks: '/api/v1/category/top-of-weeks',
-    add: '/api/v1/category/add',
+    add: '/api/v1/category',
     checkName: '/api/v1/category/check-name',
     findOne: (id: number) => `/api/v1/category/${id}`,
     update: (id: number) => `/api/v1/category/${id}`,

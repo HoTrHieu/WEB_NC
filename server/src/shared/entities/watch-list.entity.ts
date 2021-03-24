@@ -47,7 +47,6 @@ export class WatchList {
 
   @ApiProperty()
   @UpdateDateColumn()
-  @Exclude()
   updatedDate: Date;
 
   @ApiProperty()

@@ -1,16 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import {
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
   TeamOutlined,
   ReadFilled,
   UserOutlined,
   CompassOutlined,
 } from "@ant-design/icons";
-import { Route, RouteComponentProps, useHistory, Switch } from "react-router";
-import { Menu, Button } from "antd";
-import { CategoryManagePage } from "./CategoryManagePage";
-import { CourseManagePage } from "./CourseManagePage";
+import { Route, RouteComponentProps, useHistory, Switch, Redirect } from "react-router";
+import { Menu } from "antd";
+import { ManageCategoryPage } from "./ManageCategoryPage";
+import { ManageCoursePage } from "./ManageCoursePage";
 import { ManageStudentPage } from "./ManageStudentPage";
 import { ManageTeacherPage } from "./ManageTeacherPage";
 
@@ -23,48 +21,38 @@ const TYPE_LINK = {
 
 export function AdminPage(props: RouteComponentProps) {
   const history = useHistory();
-  const [collapsed, setCollapsed] = useState(false);
 
   return (
     <div className="flex space-x-4">
-      <div className="w-3/12">
-        <Button
-          type="primary"
-          className="mb-5"
-          onClick={() => setCollapsed(!collapsed)}
-        >
-          {React.createElement(
-            collapsed ? MenuUnfoldOutlined : MenuFoldOutlined
-          )}
-        </Button>
+      <div className="w-2/12">
         <Menu
           defaultSelectedKeys={[props.location.pathname]}
           defaultOpenKeys={["admin/students"]}
-          mode="inline"
-          theme="dark"
+          mode="vertical-left"
+          theme="light"
           onSelect={(e) => history.push(e.key as any)}
-          inlineCollapsed={collapsed}
         >
           <Menu.Item key={TYPE_LINK.STUDENT} icon={<TeamOutlined />}>
-            Manage student
+            Manage Student
           </Menu.Item>
           <Menu.Item key={TYPE_LINK.TEACHER} icon={<UserOutlined />}>
-            Manage teacher
+            Manage Teacher
           </Menu.Item>
           <Menu.Item key={TYPE_LINK.CATEGORY} icon={<CompassOutlined />}>
-            Manage category
+            Manage Category
           </Menu.Item>
           <Menu.Item key={TYPE_LINK.COURSE} icon={<ReadFilled />}>
-            Manage course
+            Manage Course
           </Menu.Item>
         </Menu>
       </div>
-      <div className="w-9/12">
+      <div className="w-11/12">
         <Switch>
+          <Redirect exact from="/admin" to="/admin/student/list" />
           <Route path="/admin/student" component={ManageStudentPage} />
           <Route path="/admin/teacher" component={ManageTeacherPage} />
-          <Route path="/admin/category" component={CategoryManagePage} />
-          <Route path="/admin/course" component={CourseManagePage} />
+          <Route path="/admin/category" component={ManageCategoryPage} />
+          <Route path="/admin/course" component={ManageCoursePage} />
         </Switch>
       </div>
     </div>

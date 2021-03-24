@@ -29,7 +29,7 @@ export function CourseToggleButton(props: ICoureToggleButtonProps) {
       NotificationUtils.error(err.message);
     }
     setLoading(false);
-  }, [course]);
+  }, [course, status]);
 
   const isActive = status === EntityStatus.ACTIVE;
 

@@ -8,6 +8,8 @@ import { TopCategoryOfWeek } from './dto/top-category-of-week.dto';
 import { v4 as uuidv4 } from 'uuid';
 import { SearchCategoryRequest } from './dto/search-category-request.dto';
 import { PagingUtil } from 'src/shared/utils/paging.util';
+import { Course } from 'src/shared/entities/course.entity';
+import { CategoryResponse } from './dto/category-response.dto';
 
 @Injectable()
 export class CategoryService {
@@ -16,14 +18,37 @@ export class CategoryService {
     private categoryRepository: Repository<Category>,
   ) {}
 
-  search(request: SearchCategoryRequest) {
+  async search(request: SearchCategoryRequest) {
     const conditions: any = {};
     if (!request.all) {
       conditions.status = EntityStatus.ACTIVE;
     }
-    return PagingUtil.paginate(this.categoryRepository, request, {
-      where: conditions
+    const result = await PagingUtil.paginate(this.categoryRepository, request, {
+      where: conditions,
+      relations: ['parent'],
     });
+    return {
+      ...result,
+      items: await this.decor(result.items),
+    };
+  }
+
+  async decor(categories: Category[]): Promise<CategoryResponse[]> {
+    const categoryIds = categories.filter((c) => !!c.parent).map((c) => c.id);
+    const nonEmptyCategories = await this.categoryRepository.manager
+      .createQueryBuilder(Course, 'course')
+      .where('course.categoryId IN (:...categoryIds)', { categoryIds })
+      .select('categoryId')
+      .distinct()
+      .getRawMany();
+    const nonEmptyMap = nonEmptyCategories.reduce((map: any, rs) => {
+      map[rs.categoryId] = true;
+      return map;
+    }, {});
+    return categories.map((category) => ({
+      ...category,
+      isEmpty: !!category.parent && !nonEmptyMap[category.id],
+    }));
   }
 
   findAll() {
@@ -83,10 +108,13 @@ export class CategoryService {
     return this.categoryRepository.findOne({ name });
   }
 
-  async addCategory(name: string) {
-    let category = await this.findOneByName(name);
+  async addCategory(request: Category) {
+    let category = await this.findOneByName(request.name);
     if (!category) {
-      category = this.categoryRepository.create({ name, slug: uuidv4() });
+      category = this.categoryRepository.create({
+        ...request,
+        slug: uuidv4()
+      });
     }
     category.status = EntityStatus.ACTIVE;
     return this.categoryRepository.save(category);
@@ -104,7 +132,7 @@ export class CategoryService {
     const result = await this.categoryRepository.update(id, {
       slug: category.slug,
       name: category.name,
-      parentId: category.parentId
+      parentId: category.parentId,
     });
     return result.affected > 0;
   }

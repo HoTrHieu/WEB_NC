@@ -51,22 +51,36 @@ export class UserService {
   }
 
   async exists(id: number) {
-    return (await this.userRepository.count({ id })) > 0;
+    return !!(await this.findOneById(id))
   }
 
-  findOneById(id: number) {
-    return this.userRepository.findOne(id);
-  }
-
-  findOneByUsername(username: string) {
+  findOneById(id: number, strict: boolean = false) {
+    const conditions: any = { id };
+    if (!strict) {
+      conditions.status = EntityStatus.ACTIVE;
+    }
     return this.userRepository.findOne({
-      where: { username },
+      where: conditions
     });
   }
 
-  findOneByEmail(email: string) {
+  findOneByUsername(username: string, strict: boolean = false) {
+    const conditions: any = { username };
+    if (!strict) {
+      conditions.status = EntityStatus.ACTIVE;
+    }
     return this.userRepository.findOne({
-      where: { email },
+      where: conditions,
+    });
+  }
+
+  findOneByEmail(email: string, strict: boolean = false) {
+    const conditions: any = { email };
+    if (!strict) {
+      conditions.status = EntityStatus.ACTIVE;
+    }
+    return this.userRepository.findOne({
+      where: conditions,
     });
   }
 

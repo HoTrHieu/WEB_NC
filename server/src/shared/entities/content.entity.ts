@@ -68,7 +68,6 @@ export class Content {
 
   @ApiResponseProperty()
   @UpdateDateColumn()
-  @Exclude()
   updatedDate: Date;
 
   @ApiResponseProperty()

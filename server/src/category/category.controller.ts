@@ -92,8 +92,8 @@ export class CategoryController {
     type: StdResponse,
   })
   @ApiBearerAuth()
-  async addCategory(@Body() request: AddCategoryRequest) {
-    const category = await this.categoryService.addCategory(request.name);
+  async addCategory(@Body() request: Category) {
+    const category = await this.categoryService.addCategory(request);
     this.cacheManager.del('/all');
     return StdResponse.of(StdResponseCode.SUCCESS, category.id);
   }

@@ -1,4 +1,5 @@
 import { IUser } from "../../shared/entities/IUser";
+import { MomentUtils } from "../../shared/utils/MomentUtils";
 import { UserStatusSwitch } from "./UserStatusSwitch";
 
 export const UserTableColumns = [
@@ -25,9 +26,10 @@ export const UserTableColumns = [
   {
     title: "Created date",
     dataIndex: "createdDate",
+    render: MomentUtils.formatDateTime
   },
   {
-    title: "STATUS",
+    title: "Status",
     dataIndex: "status",
     editable: true,
     render: (_: any, record: IUser) => {

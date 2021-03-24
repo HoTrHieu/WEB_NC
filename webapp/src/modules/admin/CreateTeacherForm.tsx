@@ -26,7 +26,7 @@ export function CreateTeacherForm() {
       NotificationUtils.error(err.message);
     }
     setSubmitLoading(false);
-  }, []);
+  }, [form]);
 
   return (
     <Form form={form} onFinish={submit}>

@@ -63,7 +63,7 @@ export class CourseEsService {
       ];
     }
 
-    if (!request.isAllExists) {
+    if (!request.all) {
       searchBody.query.bool.filter.push({
         term: {
           status: EntityStatus.ACTIVE,

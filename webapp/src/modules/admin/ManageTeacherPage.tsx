@@ -1,15 +1,18 @@
-import { Tabs } from 'antd';
-import React from 'react';
-import { Redirect, Route, RouteComponentProps, Switch } from 'react-router';
-import { CreateTeacherPage } from './CreateTeacherPage';
-import { ManageTeacherListPage } from './ManageTeacherListPage';
+import { Tabs } from "antd";
+import React from "react";
+import { Redirect, Route, RouteComponentProps, Switch } from "react-router";
+import { CreateTeacherPage } from "./CreateTeacherPage";
+import { ManageTeacherListPage } from "./ManageTeacherListPage";
 
 export function ManageTeacherPage(props: RouteComponentProps) {
   const { location } = props;
   return (
     <div>
-      <Tabs defaultActiveKey={location.pathname}>
-        <Tabs.TabPane key="/admin/teacher/list" tab="User list" />
+      <Tabs
+        defaultActiveKey={location.pathname}
+        onChange={(pathname) => props.history.push(pathname)}
+      >
+        <Tabs.TabPane key="/admin/teacher/list" tab="Teacher list" />
         <Tabs.TabPane key="/admin/teacher/add" tab="Add teacher" />
       </Tabs>
       <Switch>
@@ -18,5 +21,5 @@ export function ManageTeacherPage(props: RouteComponentProps) {
         <Route path="/admin/teacher/add" component={CreateTeacherPage} />
       </Switch>
     </div>
-  )
+  );
 }

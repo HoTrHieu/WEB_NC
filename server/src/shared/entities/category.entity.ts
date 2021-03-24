@@ -49,7 +49,6 @@ export class Category {
 
   @ApiResponseProperty()
   @UpdateDateColumn()
-  @Exclude()
   updatedDate: Date;
 
   @ApiResponseProperty()

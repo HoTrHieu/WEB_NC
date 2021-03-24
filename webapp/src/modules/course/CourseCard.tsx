@@ -15,7 +15,6 @@ import { EntityStatus } from "../../shared/enums/EntityStatus";
 import { useAuthedUser } from "../../shared/hooks/useAuthedUser";
 import { AuthService } from "../auth/AuthService";
 import { WatchListService } from "../watch-list/WatchListService";
-import { CourseService } from "./CourseService";
 import { CourseToggleButton } from "./CourseToggleButton";
 
 interface ICourseCardProps {
@@ -44,11 +43,6 @@ export function CourseCard(props: ICourseCardProps) {
     },
     [course.id]
   );
-
-  const toggleCourse = useCallback(async (id: number) => {
-    try {
-    } catch {}
-  }, []);
 
   return (
     <div className="h-fulli block rounded-lg p-5 border shadow hover:shadow-lg h-auto">
@@ -130,7 +124,7 @@ export function CourseCard(props: ICourseCardProps) {
       </div>
 
       {!course.complete && (
-        <p className="text-yellow-400 my-0 text-xs">
+        <p className="text-yellow-400 mt-2 mb-0 text-xs">
           This course is not completed yet
         </p>
       )}

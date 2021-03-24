@@ -1,9 +1,9 @@
-import { notification, Switch } from 'antd';
+import { notification, Switch, SwitchProps } from 'antd';
 import React, { useCallback } from 'react';
 import { EntityStatus } from '../enums/EntityStatus';
 import { NotificationUtils } from '../utils/NotificationUtils';
 
-interface IFdmStatusSwitchProps {
+interface IFdmStatusSwitchProps extends SwitchProps {
   id: number;
   status: EntityStatus;
   onUpdateStatus: (id: number, status: EntityStatus) => any;
@@ -11,7 +11,7 @@ interface IFdmStatusSwitchProps {
 }
 
 export function FdmStatusSwitch(props: IFdmStatusSwitchProps) {
-  const { id, status, onUpdateStatus, succesMessage } = props;
+  const { id, status, onUpdateStatus, succesMessage, ...restProps } = props;
   const isActive = status === EntityStatus.ACTIVE;
   
   const switchStatus = useCallback(async (status: boolean) => {
@@ -25,9 +25,9 @@ export function FdmStatusSwitch(props: IFdmStatusSwitchProps) {
       console.error(err);
       NotificationUtils.error(err.message);
     }
-  }, [id]);
+  }, [id, onUpdateStatus, succesMessage]);
 
   return (
-    <Switch defaultChecked={isActive} onChange={switchStatus} />
+    <Switch defaultChecked={isActive} onChange={switchStatus} {...restProps} />
   )
 }

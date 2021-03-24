@@ -51,7 +51,6 @@ export class User {
   introduction?: string;
 
   @Column('varchar', { length: 255, nullable: true })
-  @Exclude()
   passwordHash: string;
 
   @ApiProperty()
@@ -72,7 +71,6 @@ export class User {
 
   @ApiProperty()
   @UpdateDateColumn()
-  @Exclude()
   updatedDate: Date;
 
   @ApiProperty()

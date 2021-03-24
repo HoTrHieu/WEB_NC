@@ -8,6 +8,7 @@ import { LoginResponse } from './dto/login-response.dto';
 import { RegisterRequest } from './dto/register-request.dto';
 import { TokenService } from './token/token.service';
 import { Profile  } from 'passport-google-oauth20';
+import { EntityStatus } from 'src/shared/enums/entity-status';
 
 @Injectable()
 export class AuthService {
@@ -18,7 +19,7 @@ export class AuthService {
   ) {}
 
   async validateLogin(username: string, password: string) {
-    const user = await this.userService.findOneByUsername(username);
+    const user = await this.userService.findOneByUsername(username, true);
     if (!user) {
       throw new UnauthorizedException();
     }
@@ -35,6 +36,9 @@ export class AuthService {
   async validateGoogleLogin(profile: Profile) {
     const email = profile.emails[0];
     let user = await this.userService.findOneByEmail(email.value);
+    if (user.status !== EntityStatus.ACTIVE) {
+      throw new UnauthorizedException();
+    }
     if (!user) {
       user = await this.userService.addUser(AddUserWithRoleRequest.ofGoogleProfile(profile), false);
     }

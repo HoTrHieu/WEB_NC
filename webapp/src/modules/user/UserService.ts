@@ -4,7 +4,6 @@ import { EntityStatus } from "../../shared/enums/EntityStatus";
 import { CrudService } from "../../shared/services/CrudService";
 import { IAddUserRequest } from "./types/AddUserRequest";
 import { IPagingResponse } from "./types/IPagingResponse";
-import { IContentSearchRequest } from "./types/SearchUserRequest";
 
 export class UserService {
   static add(request: IAddUserRequest) {

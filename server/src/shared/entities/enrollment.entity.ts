@@ -55,7 +55,6 @@ export class Enrollment {
 
   @ApiProperty()
   @UpdateDateColumn()
-  @Exclude()
   updatedDate: Date;
 
   @ApiProperty()

@@ -41,6 +41,7 @@ export class CourseService {
     'categoryId',
     'createdDate',
     'updatedDate',
+    'status'
   ];
 
   constructor(
@@ -81,7 +82,7 @@ export class CourseService {
     }));
   }
 
-  async all(user?: AuthUser) {
+  async all() {
     const courses = await this.courseRepository.find({
       where: {
         status: EntityStatus.ACTIVE,

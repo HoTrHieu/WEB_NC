@@ -7,6 +7,7 @@ export interface ICategory extends IEntity {
   name: string;
   slug: string;
   parentId: number;
+  isEmpty: boolean;
   children: ICategory[];
   categoryTotalEnrollments: ICategoryTotalEnrollment[];
   parent: ICategory;

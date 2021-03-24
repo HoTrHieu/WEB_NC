@@ -43,7 +43,6 @@ export class Review {
 
   @ApiProperty()
   @UpdateDateColumn()
-  @Exclude()
   updatedDate: Date;
 
   @ApiProperty()

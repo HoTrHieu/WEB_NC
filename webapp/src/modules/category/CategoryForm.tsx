@@ -16,6 +16,7 @@ export function CategoryForm(props: ICategoryFormProps) {
   const [submitLoading, setSubmitLoading] = useState(false);
   const submit = useCallback(
     async (category: ICategory) => {
+      console.log(category);
       setSubmitLoading(true);
       try {
         if (propsCategory) {
@@ -41,19 +42,19 @@ export function CategoryForm(props: ICategoryFormProps) {
   return (
     <Form form={form} onFinish={submit} initialValues={propsCategory}>
       <label className="block mb-2">
+        Name <b className="text-red-400">*</b>
+      </label>
+      <Form.Item name="name" rules={CategoryFormRules.name({ checkName: !propsCategory })}>
+        <Input placeholder="Name..." />
+      </Form.Item>
+      <label className="block mb-2">
         Parent category
       </label>
       <Form.Item name="parentId">
         <CategorySelect onlyParent={true} />
       </Form.Item>
-      <label className="block mb-2">
-        Name <b className="text-red-400">*</b>
-      </label>
-      <Form.Item name="name" rules={CategoryFormRules.name}>
-        <Input placeholder="Name..." />
-      </Form.Item>
       <Form.Item>
-        <Button type="primary" shape="round" loading={submitLoading}>
+        <Button type="primary" shape="round" loading={submitLoading} htmlType="submit">
           Submit
         </Button>
       </Form.Item>

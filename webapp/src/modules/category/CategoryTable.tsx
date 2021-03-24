@@ -1,4 +1,4 @@
-import { Pagination, Table } from 'antd';
+import { Table } from 'antd';
 import React, { useCallback, useState } from 'react';
 import { useQuery } from '../../shared/hooks/useQuery.hook';
 import { CategoryService } from './CategoryService';
@@ -7,7 +7,7 @@ import { CategoryTableColumns } from './CategoryTableColumns';
 export function CategoryTable() {
   const [page, setPage] = useState(1);
   const fetchCategories = useCallback(() => {
-    return CategoryService.search({ page, pageSize: 20 });
+    return CategoryService.search({ page, pageSize: 20, all: true });
   }, [page]);
 
   const categoriesResponse = useQuery(fetchCategories);
@@ -22,11 +22,14 @@ export function CategoryTable() {
         columns={CategoryTableColumns}
         loading={categoriesResponse.loading || !!categoriesResponse.error}
         dataSource={categoriesResponse.data?.items}
+        pagination={{
+          pageSize: 20,
+          total: categoriesResponse.data?.total || 0,
+          showSizeChanger: false,
+          current: page,
+          onChange: page => setPage(page)
+        }}
       />
-
-      <div className="flex justify-center mt-5">
-        <Pagination total={categoriesResponse.data?.total || 0} pageSize={50} current={page} onChange={(page) => setPage(page)} />
-      </div>
     </>
   );
 }
