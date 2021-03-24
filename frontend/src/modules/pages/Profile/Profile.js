@@ -38,11 +38,6 @@ const Profile = () => {
             </div>
             </div>
             <div className="form-group">
-            <div className="custom-control custom-checkbox">
-                <input type="checkbox" className="custom-control-input" defaultChecked id="customCheck2" />
-                <label className="custom-control-label" htmlFor="customCheck2">Allow everyone to see your profile</label>
-                <small className="form-text text-muted">If unchecked, your profile will be private and no one except you will be able to view it.</small>
-            </div>
             </div>
             <button type="submit" className="btn btn-primary">Save changes</button>
         </div>

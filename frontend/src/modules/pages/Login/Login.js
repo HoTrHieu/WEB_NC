@@ -26,8 +26,6 @@ const Login = (props) => {
             </div>
             <div className="bg-body pt-32pt pb-32pt pb-md-64pt text-center">
             <div className="container-fluid page__container">
-                <a href="boxed-index.html" className="btn btn-secondary btn-block-xs">Facebook</a>
-                <a href="boxed-index.html" className="btn btn-secondary btn-block-xs">Twitter</a>
                 <a href="boxed-index.html" className="btn btn-secondary btn-block-xs">Google+</a>
             </div>
             </div>
