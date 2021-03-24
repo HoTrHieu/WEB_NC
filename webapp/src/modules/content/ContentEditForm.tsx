@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Checkbox, Form, Input, InputNumber, notification } from "antd";
 import { IContent } from "../../shared/entities/IContent";
 import { Uploader } from "../uploader/Uploader";
@@ -78,8 +78,8 @@ export function ContentEditForm(props: IContentEditFormProps) {
     }
   }, [formRef, startProcess, validate, propsContent]);
 
-  const video = useMemo(() => {
-    if (propsContent) {
+  const [videos] = useState(() => {
+    if (propsContent && propsContent.videoPath) {
       return [
         {
           source: `${ASSETS_URL}/${propsContent.videoPath}`,
@@ -87,8 +87,14 @@ export function ContentEditForm(props: IContentEditFormProps) {
         },
       ];
     }
-    return [];
-  }, [propsContent]);
+    return null;
+  });
+
+
+  let uploaderProps: any = {};
+  if (propsContent && propsContent.videoPath) {
+    uploaderProps.files = videos;
+  }
 
   return (
     <>
@@ -121,11 +127,11 @@ export function ContentEditForm(props: IContentEditFormProps) {
         Video <b className="text-red-400">*</b>
       </label>
       <Uploader
-        files={video}
         fileType={FileType.VIDEO}
         state="videoPath"
         pondRef={videoRef}
         onUploadSuccess={onUpLoadSuccessHandler}
+        {...uploaderProps}
       />
     </>
   );

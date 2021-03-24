@@ -42,6 +42,16 @@ export function CourseList(props: ICourseListProps) {
   const searchTermCompKey = useCompKey();
   const renewSearchTermCompKey = searchTermCompKey.renewCompKey;
 
+  const { categoryId: propsCategoryId } = props;
+  useEffect(() => {
+    if (filters.categoryIds[0] !== propsCategoryId) {
+      setFilters({
+        ...filters,
+        categoryIds: FdmUtils.isID(propsCategoryId) ? [propsCategoryId] : [],
+      });
+    }
+  }, [propsCategoryId, filters]);
+
   const updateFilters = useCallback(
     (newFilters: any) => {
       setFilters({ ...filters, ...newFilters });
@@ -122,7 +132,11 @@ export function CourseList(props: ICourseListProps) {
           <div className="flex flex-wrap">
             {pagingResponse.items.map((course: ICourse, idx: number) => (
               <div className="w-1/4 px-2 mb-4">
-                <CourseCard course={course} key={idx} removeable={props.removeable} />
+                <CourseCard
+                  course={course}
+                  key={idx}
+                  removeable={props.removeable}
+                />
               </div>
             ))}
           </div>
