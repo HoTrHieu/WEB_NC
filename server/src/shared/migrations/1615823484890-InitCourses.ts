@@ -24,7 +24,7 @@ export class InitCourses1615823484890 implements MigrationInterface {
         const entities = [];
         const titleExists = {};
         const slugExists = {};
-        const crawlerRootPath = path.resolve(__dirname, '../../../..', 'crawler');
+        const crawlerRootPath = path.resolve(__dirname, '../../..', 'crawl-data');
         for (const filename of fs.readdirSync(path.join(crawlerRootPath, 'courses'))) {
             const [groupedCate] = filename.split('.')
             const [parentCate, childCate] = groupedCate.split("_");
@@ -37,8 +37,8 @@ export class InitCourses1615823484890 implements MigrationInterface {
                         slug: course.slug + (slugExists[course.slug] ? `-${slugExists[course.slug]}` : ''),
                         subDescription: faker.lorem.paragraph(3),
                         description: faker.lorem.paragraphs(5),
-                        avatarPath: `${groupedCate}/${course.slug}.jpg`,
-                        coverPath: `default-cover.jpg`,
+                        avatarPath: `images/${groupedCate}/${course.slug}.jpg`,
+                        coverPath: `images/default-cover.jpg`,
                         creatorId: teachers[faker.random.number(teachers.length - 1)].id,
                         categoryId: categories.find(c => c.slug === childCate).id,
                         price: faker.random.float({ min: 5, max: 20 }),

@@ -1,0 +1,10 @@
+docker exec fademy_app bash -c "yarn typeorm migration:revert"
+docker exec fademy_app bash -c "yarn typeorm migration:run"
+docker exec fademy_app bash -c "curl -XPOST http://fademy_app:3105/api/v1/course/sync-to-es"
+
+echo "\n\n"
+echo "██████   ██████  ███    ██ ███████"
+echo "██   ██ ██    ██ ████   ██ ██     "
+echo "██   ██ ██    ██ ██ ██  ██ █████  "
+echo "██   ██ ██    ██ ██  ██ ██ ██     "
+echo "██████   ██████  ██   ████ ███████"

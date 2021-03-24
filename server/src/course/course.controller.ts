@@ -135,12 +135,11 @@ export class CourseController {
     return BooleanResponse.of(isSuccess);
   }
 
+  @Public()
   @Post('/sync-to-es')
   @ApiResponse({
     type: BooleanResponse,
   })
-  @ApiBearerAuth()
-  @Role(UserRole.ADMIN)
   async syncToEs() {
     const courses = await this.courseService.all();
     const isSuccess = await this.courseEsService.syncToEs(courses);

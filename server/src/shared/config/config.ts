@@ -13,6 +13,5 @@ export function rootConfiguration() {
     ...readConfig(COMMON_CONFIG),
     ...readConfig(ENV_CONFIG),
   };
-
   return config;
 }
